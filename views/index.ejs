@@ -5,28 +5,32 @@
     <!--<link rel="stylesheet" type="text/css" href="/css/style.css">-->
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
     <style>
-    @import url('https://fonts.googleapis.com/css?family=Open+Sans:300');
+    /*@import url('https://fonts.googleapis.com/css?family=Open+Sans:300');*/
     html {
       scroll-behavior: smooth;
     }
 
     body {
-      overflow: hidden;
+      font-family: Tahoma;
     }
 
     .welcome-section {
-      position: relative;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      height: auto;
+      height: 100vh;
       width: 100%;
+      text-align: center;
+      background-color: #e0e0e0;
+      display: table;
+    }
+
+    .page-content {
+      display: table-cell;
+      vertical-align: middle;
     }
 
     #title {
       font-size: 6vw;
       font-weight: bold;
-      color: green;
+      color: #007bff;
     }
 
     #subtitle {
@@ -35,31 +39,32 @@
     }
 
     .header {
+      position: fixed;
       height: 10vh;
+      width: 100%;
+      display: none;
+      background-color: #007bff;
+      color: white;
     }
 
     .addgif-section {
+      min-height: 75vh;
       width: 100%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      display: table;
       padding: 1vw;
     }
 
     .addsound-section {
+      min-height: 75vh;
       width: 100%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      display: table;
       padding: 1vw;
     }
 
     .review-section {
-      height: 75vh;
+      min-height: 75vh;
       width: 100%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      display: table;
       padding: 1vw;
     }
 
@@ -67,15 +72,18 @@
       height: 15vh;
       width: 100%;
       position: fixed;
-      background-color: red;
       bottom: 0;
       font-size: 10vw;
+      display: none;
+      padding: 1vw;
     }
 
     .page-action {
+      float: right;
       display: inline-block;
       bottom: 0;
       right: 0;
+      padding: 1vw;
     }
 
     </style>
@@ -86,13 +94,16 @@
     <script type="text/javascript" src="/js/index.js"></script>
   </head>
   <body>
+    <div class="header" id="header">GIFovie</div>
     <div class="welcome-section">
       <!-- WELCOME SECTION. APP TITLE AND BUTTON TO GET STARTED. -->
-      <div id="title">GIFovie</div>
-      <div id="subtitle">Make Movies Out of GIFs</div>
-      <button class="btn btn-lg btn-primary" id="getStartedBtn" onclick="getStarted()">Get Started</button>
+      <div class="page-content">
+        <div id="title">GIFovie</div>
+        <div id="subtitle">Make Movies Out of GIFs</div><br/>
+        <button class="btn btn-lg btn-primary" id="getStartedBtn" onclick="getStarted()">Get Started</button>
+      </div>
     </div>
-    <div class="addgif-section">
+    <div class="addgif-section" id="addGifSection">
       <!-- ADD GIFS TO YOUR GIFOVIE -->
       <div class="page-action">
         <button class="btn btn-secondary" id="backToWelcomeBtn">Cancel</button>

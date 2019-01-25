@@ -1,6 +1,11 @@
 $(document).ready(function() {
   $('#getStartedBtn').click(function() {
-    alert("hi!");
-    $('.addgif-section').scrollIntoView();
-  })
+    /*$('body').animate({
+      'scrollTop': $('#addGifSection').position().top
+    });*/
+    $('#addGifSection')[0].scrollIntoView(true);
+    setTimeout(function() {
+      $('#header').css('display', 'block');
+    }, 600);
+  });
 });

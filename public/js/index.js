@@ -3,12 +3,16 @@ $(document).ready(function() {
 
   $('#getStartedBtn').click(function() {
     $('#addGifSection')[0].scrollIntoView(true);
+    setTimeout(function() {
+      $('#header').css('z-index', '1');
+    }, 600);
   });
 
   $('#goToAddSoundBtn').click(function() {
     $('#addSoundSection')[0].scrollIntoView(true);
   });
   $('#backToWelcomeBtn').click(function() {
+    $('#header').css('z-index', '-1');
     $('#welcomeSection')[0].scrollIntoView(true);
   });
 

@@ -20,6 +20,7 @@
       text-align: center;
       background-color: #e0e0e0;
       display: table;
+      z-index: 100;
     }
 
     .page-content {
@@ -30,7 +31,7 @@
     #title {
       font-size: 6vw;
       font-weight: bold;
-      color: #007bff;
+      color: #003366;
     }
 
     #subtitle {
@@ -42,40 +43,56 @@
       position: fixed;
       height: 10vh;
       width: 100%;
-      display: none;
-      background-color: #007bff;
+      background-color: #003366;
       color: white;
+      text-align: center;
+      vertical-align: middle;
+      z-index: -1;
+      font-size: 3vw;
+      font-weight: bold;
     }
 
     .addgif-section {
-      min-height: 75vh;
+      min-height: 85vh;
       width: 100%;
       display: table;
-      padding: 1vw;
+      padding-top: 11vh;
+      padding-left: 1vh;
+      padding-right: 1vh;
+      padding-bottom: 1vh;
+      border: solid green 2px;
     }
 
     .addsound-section {
-      min-height: 75vh;
+      min-height: 85vh;
       width: 100%;
       display: table;
-      padding: 1vw;
+      padding-top: 11vh;
+      padding-left: 1vh;
+      padding-right: 1vh;
+      padding-bottom: 1vh;
+      border: solid red 2px;
     }
 
     .review-section {
-      min-height: 75vh;
+      min-height: 100vh;
       width: 100%;
       display: table;
-      padding: 1vw;
+      padding-top: 11vh;
+      padding-left: 1vh;
+      padding-right: 1vh;
+      padding-bottom: 1vh;
+      border: solid blue 2px;
     }
 
     .progress {
-      height: 15vh;
+      min-height: 15vh;
       width: 100%;
       position: fixed;
       bottom: 0;
       font-size: 10vw;
-      display: none;
       padding: 1vw;
+      background-color: #e0e0e0;
     }
 
     .page-action {
@@ -95,8 +112,7 @@
   </head>
   <body>
     <div class="header" id="header">GIFovie</div>
-    <div class="welcome-section">
-      <!-- WELCOME SECTION. APP TITLE AND BUTTON TO GET STARTED. -->
+    <div class="welcome-section" id="welcomeSection">
       <div class="page-content">
         <div id="title">GIFovie</div>
         <div id="subtitle">Make Movies Out of GIFs</div><br/>
@@ -110,18 +126,18 @@
         <button class="btn btn-primary" id="goToAddSoundBtn">Next: Add Sound!</button>
       </div>
     </div>
-    <div class="addsound-section">
+    <div class="addsound-section" id="addSoundSection">
       <!-- ADD SOUNDS TO YOUR GIFOVIE -->
       <div class="page-action">
-        <button class="btn btn-secondary" id="backToWelcomeBtn">Back</button>
-        <button class="btn btn-primary" id="goToAddSoundBtn">Review Your GIFovie</button>
+        <button class="btn btn-secondary" id="backToAddGifBtn">Back</button>
+        <button class="btn btn-primary" id="goToReviewBtn">Review Your GIFovie</button>
       </div>
     </div>
-    <div class="review-section">
+    <div class="review-section" id="reviewSection">
       <!-- REVIEW AND SHARE YOUR GIFOVIE -->
       <div class="page-action">
-        <button class="btn btn-secondary" id="backToWelcomeBtn">Back</button>
-        <button class="btn btn-primary" id="goToAddSoundBtn">Share!</button>
+        <button class="btn btn-secondary" id="backToAddSoundBtn">Back</button>
+        <button class="btn btn-primary" id="shareBtn">Share!</button>
       </div>
     </div>
     <div class="progress">

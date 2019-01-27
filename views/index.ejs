@@ -8,6 +8,9 @@
     /*@import url('https://fonts.googleapis.com/css?family=Open+Sans:300');*/
     html {
       scroll-behavior: smooth;
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
     }
 
     body {
@@ -23,7 +26,7 @@
       z-index: 100;
     }
 
-    .page-content {
+    .welcome-page-content {
       display: table-cell;
       vertical-align: middle;
     }
@@ -47,13 +50,24 @@
       color: white;
       text-align: center;
       vertical-align: middle;
-      z-index: -1;
-      font-size: 3vw;
+      font-size: 4vh;
       font-weight: bold;
+      display: table;
+      z-index: -1;
+    }
+
+    .header-text {
+      height: 10vh;
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    .section-title {
+      text-align: center;
     }
 
     .addgif-section {
-      min-height: 85vh;
+      min-height: 80vh;
       width: 100%;
       display: table;
       padding-top: 11vh;
@@ -63,7 +77,7 @@
     }
 
     .addsound-section {
-      min-height: 85vh;
+      min-height: 80vh;
       width: 100%;
       display: table;
       padding-top: 11vh;
@@ -83,7 +97,7 @@
     }
 
     .progress {
-      min-height: 15vh;
+      min-height: 20vh;
       width: 100%;
       position: fixed;
       bottom: 0;
@@ -92,13 +106,36 @@
       background-color: #e0e0e0;
     }
 
-    .page-action {
-      float: right;
-      display: inline-block;
+    .page-content {
+      min-height: 55vh;
+      vertical-align: middle;
       bottom: 0;
       right: 0;
+      border: solid transparent 1px;
+      z-index: -1;
+    }
+
+    .search-result-section {
+      min-height: 20vh;
+      background-color: #e0e0e0;
+    }
+
+    .page-action {
+      float: right;
       padding: 1vw;
-      z-index: -999;
+      bottom: 0;
+      right: 0;
+      z-index: -1;
+      border: solid red 1px;
+    }
+
+    #downloadSuccessAlert {
+      display: none;
+    }
+
+    #gifSearch {
+      min-height: 5vh;
+      z-index: -1;
     }
 
     </style>
@@ -109,9 +146,11 @@
     <script type="text/javascript" src="/js/index.js"></script>
   </head>
   <body>
-    <div class="header" id="header">GIFovie</div>
+    <div class="header" id="header">
+      <p class="header-text">GIFovie</p>
+    </div>
     <div class="welcome-section" id="welcomeSection">
-      <div class="page-content">
+      <div class="welcome-page-content">
         <div id="title">GIFovie</div>
         <div id="subtitle">Make Movies Out of GIFs</div><br/>
         <button class="btn btn-lg btn-primary" id="getStartedBtn" onclick="getStarted()">Get Started</button>
@@ -119,6 +158,16 @@
     </div>
     <div class="addgif-section" id="addGifSection">
       <!-- ADD GIFS TO YOUR GIFOVIE -->
+      <h3 class="section-title">Add GIFs</h3>
+      <div class="page-content">
+        <div class="input-group mb-3" id="gifSearch">
+          <input type="text" class="form-control" id="gifSearchInput">
+          <div class="input-group-append">
+            <button class="btn btn-primary" id="gifSearchBtn">Search</button>
+    		  </div>
+        </div>
+
+      </div>
       <div class="page-action">
         <button class="btn btn-secondary" id="backToWelcomeBtn">Cancel</button>
         <button class="btn btn-primary" id="goToAddSoundBtn">Next: Add Sound!</button>
@@ -127,6 +176,10 @@
     <div class="dropdown-divider"></div>
     <div class="addsound-section" id="addSoundSection">
       <!-- ADD SOUNDS TO YOUR GIFOVIE -->
+      <h3 class="section-title">Add Sound</h3>
+      <div class="page-content">
+
+      </div>
       <div class="page-action">
         <button class="btn btn-secondary" id="backToAddGifBtn">Back</button>
         <button class="btn btn-primary" id="goToReviewBtn">Review Your GIFovie</button>
@@ -135,13 +188,27 @@
     <div class="dropdown-divider"></div>
     <div class="review-section" id="reviewSection">
       <!-- REVIEW AND SHARE YOUR GIFOVIE -->
+      <h3 class="section-title">Review Your GIFovie</h3>
+      <div class="page-content">
+      </div>
       <div class="page-action">
         <button class="btn btn-secondary" id="backToAddSoundBtn">Back</button>
-        <button class="btn btn-primary" id="shareBtn">Share!</button>
+        <button class="btn btn-primary" id="downloadBtn">Download Your GIFovie</button>
       </div>
     </div>
     <div class="progress">
       <!-- FIXED PROGRESS BAR GOES HERE -->
     </div>
+
+    <div class="modal fade" id="downloadSuccessModal" tabindex="-1" role="dialog" aria-labelledby="downloadSuccessLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="alert alert-success" role="alert" id="downloadSuccessAlert">Your GIFovie has been successfully downloaded!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </body>
 </html>

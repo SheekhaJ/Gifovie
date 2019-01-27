@@ -6,6 +6,7 @@ $(document).ready(function() {
     setTimeout(function() {
       $('#header').css('z-index', '1');
     }, 600);
+
   });
 
   $('#goToAddSoundBtn').click(function() {
@@ -23,8 +24,11 @@ $(document).ready(function() {
     $('#addGifSection')[0].scrollIntoView(true);
   });
 
-  $('#shareBtn').click(function() {
-    /* sharing code */
+  $('#downloadBtn').click(function() {
+    $('#downloadSuccessModal').modal('show');
+    setTimeout(function() {
+      $('#downloadSuccessModal').modal('hide');
+    }, 2000);
   });
   $('#backToAddSoundBtn').click(function() {
     $('#addSoundSection')[0].scrollIntoView(true);

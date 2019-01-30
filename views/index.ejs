@@ -173,6 +173,17 @@
       z-index: -1;
     }
 
+    #gifSearchResults {
+      min-width: 98vh;
+      display: flex;
+      flex-direction: row;
+    }
+
+    .gif-result {
+      min-width: 19.6vh;
+      padding: 0.5vw;
+    }
+
     #chosenGifsArea { display: inline-block; }
     #chosenSoundsArea { display: inline-block; }
 
@@ -182,6 +193,7 @@
     <script type="text/javascript" src="/js/bootstrap.js"></script>
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/index.js"></script>
+    <!--<script type="text/javascript" src="/js/tenor.js"></script>-->
   </head>
   <body>
     <div class="header" id="header">
@@ -191,7 +203,7 @@
       <div class="welcome-page-content">
         <div id="title">GIFovie</div>
         <div id="subtitle">Make Movies Out of GIFs</div><br/>
-        <button class="btn btn-lg btn-primary" id="getStartedBtn" onclick="getStarted()">Get Started</button>
+        <button class="btn btn-lg btn-primary" id="getStartedBtn">Get Started</button>
       </div>
     </div>
     <div class="addgif-section" id="addGifSection">
@@ -205,6 +217,31 @@
     		  </div>
         </div>
         <div class="search-results" id="gifSearchResults">
+          <img class="gif-result" id="gifSearchResult1"></img>
+          <img class="gif-result" id="gifSearchResult2"></img>
+          <img class="gif-result" id="gifSearchResult3"></img>
+          <img class="gif-result" id="gifSearchResult4"></img>
+          <img class="gif-result" id="gifSearchResult5"></img>
+          <img class="gif-result" id="gifSearchResult6"></img>
+          <img class="gif-result" id="gifSearchResult7"></img>
+        </div>
+        <div class="search-results" id="gifSearchResults">
+          <img class="gif-result" id="gifSearchResult8"></img>
+          <img class="gif-result" id="gifSearchResult9"></img>
+          <img class="gif-result" id="gifSearchResult10"></img>
+          <img class="gif-result" id="gifSearchResult11"></img>
+          <img class="gif-result" id="gifSearchResult12"></img>
+          <img class="gif-result" id="gifSearchResult13"></img>
+          <img class="gif-result" id="gifSearchResult14"></img>
+        </div>
+        <div class="search-results" id="gifSearchResults">
+          <img class="gif-result" id="gifSearchResult15"></img>
+          <img class="gif-result" id="gifSearchResult16"></img>
+          <img class="gif-result" id="gifSearchResult17"></img>
+          <img class="gif-result" id="gifSearchResult18"></img>
+          <img class="gif-result" id="gifSearchResult19"></img>
+          <img class="gif-result" id="gifSearchResult20"></img>
+          <img class="gif-result" id="gifSearchResult21"></img>
         </div>
       </div>
       <div class="page-action">

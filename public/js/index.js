@@ -23,7 +23,11 @@ $(document).ready(function () {
   });
 
   $('#gifSearch').click(function(){
-    queryType = "search";
+    gifQueryType = "search";
+
+    var url = tenorBaseUrl+"/anonid?key=" + key;
+
+    httpGetAsync(url,tenorCallback_anonid);
   });
 
   $('#goToAddSoundBtn').click(function () {
@@ -120,7 +124,7 @@ function tenorCallback_trending(responsetext)
     var top_21_gifs = response_objects["results"];
 
     // load the GIFs -- for our example we will load the first GIFs preview size (nanogif) and share size (tinygif)
-    console.log("response text: " + responsetext);
+    // console.log("response text: " + responsetext);
     for(i=1; i<=21; i++){
         //document.getElementById("gifSearchResult"+i).src = top_21_gifs[i-1]["media"][0]["nanogif"]["url"];
         document.getElementById("gifSearchResult"+i).src = top_21_gifs[i-1]["media"][0]["tinygif"]["url"];
@@ -129,6 +133,23 @@ function tenorCallback_trending(responsetext)
     //document.getElementById("share_gif").src = top_10_gifs[0]["media"][0]["tinygif"]["url"];
     return;
 
+}
+
+function tenorCallback_search(responseText){
+  console.log("In tenorcallback_search");
+  // parse the json response
+  var response_objects = JSON.parse(responseText);
+
+  var top_21_gifs = response_objects["results"];
+
+  // load the GIFs -- for our example we will load the first GIFs preview size (nanogif) and share size (tinygif)
+
+  for(i=1;i<=21;i++){
+    document.getElementById("gifSearchResult"+i).src = top_21_gifs[i-1]["media"][0]["tinygif"]["url"];
+  }
+  //document.getElementById("preview_gif").src = top_21_gifs[0]["media"][0]["nanogif"]["url"];
+
+  return;
 }
 
 function grab_data(anon_id)
@@ -148,6 +169,9 @@ function grab_data(anon_id)
       url = trendingUrl + "&limit=" + lmt + "&anon_id=" + anon_id;
       console.log('url: ' + url);
       httpGetAsync(url, tenorCallback_trending);
+    } else if (gifQueryType == "search"){
+      url = searchUrl + "&limit=" + lmt + "&anon_id=" + anon_id;
+      httpGetAsync(url, tenorCallback_search);
     }
 
     // data will be loaded by each call's callback

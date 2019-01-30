@@ -174,18 +174,40 @@
     }
 
     #gifSearchResults {
-      min-width: 98vh;
+      min-width: 98vw;
       display: flex;
       flex-direction: row;
     }
 
     .gif-result {
-      min-width: 19.6vh;
+      width: auto;
+      height: 20%;
+      overflow: hidden;
       padding: 0.5vw;
+      margin: 0 auto;
+      position: relative;
     }
 
-    #chosenGifsArea { display: inline-block; }
-    #chosenSoundsArea { display: inline-block; }
+    #chosenGifsArea {
+      display: flex;
+      flex-direction: row;
+    }
+    #chosenSoundsArea {
+      display: flex;
+      flex-direction: row;
+    }
+
+    #chosenGif1, #chosenGif2, #chosenGif3, #chosenGif4 {
+      padding: 0.5vw;
+      height: 90%;
+      width: 20%;
+      overflow: hidden;
+      padding: 0.5vw;
+      margin: 0 auto;
+      position: relative;
+      border: solid blue 1px;
+      vertical-align: middle;
+    }
 
     </style>
     <!--<link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>-->
@@ -217,31 +239,32 @@
     		  </div>
         </div>
         <div class="search-results" id="gifSearchResults">
-          <img class="gif-result" id="gifSearchResult1"></img>
-          <img class="gif-result" id="gifSearchResult2"></img>
-          <img class="gif-result" id="gifSearchResult3"></img>
-          <img class="gif-result" id="gifSearchResult4"></img>
-          <img class="gif-result" id="gifSearchResult5"></img>
-          <img class="gif-result" id="gifSearchResult6"></img>
-          <img class="gif-result" id="gifSearchResult7"></img>
+          <img class="gif-result" id="gifSearchResult1" draggable="true" ondragstart="drag(event)"></img>
+          <img class="gif-result" id="gifSearchResult2" draggable="true" ondragstart="drag(event)"></img>
+          <img class="gif-result" id="gifSearchResult3" draggable="true" ondragstart="drag(event)"></img>
+          <img class="gif-result" id="gifSearchResult4" draggable="true" ondragstart="drag(event)"></img>
+          <img class="gif-result" id="gifSearchResult5" draggable="true" ondragstart="drag(event)"></img>
         </div>
         <div class="search-results" id="gifSearchResults">
-          <img class="gif-result" id="gifSearchResult8"></img>
-          <img class="gif-result" id="gifSearchResult9"></img>
-          <img class="gif-result" id="gifSearchResult10"></img>
-          <img class="gif-result" id="gifSearchResult11"></img>
-          <img class="gif-result" id="gifSearchResult12"></img>
-          <img class="gif-result" id="gifSearchResult13"></img>
-          <img class="gif-result" id="gifSearchResult14"></img>
+          <img class="gif-result" id="gifSearchResult6" draggable="true" ondragstart="drag(event)"></img>
+          <img class="gif-result" id="gifSearchResult7" draggable="true" ondragstart="drag(event)"></img>
+          <img class="gif-result" id="gifSearchResult8" draggable="true" ondragstart="drag(event)"></img>
+          <img class="gif-result" id="gifSearchResult9" draggable="true" ondragstart="drag(event)"></img>
+          <img class="gif-result" id="gifSearchResult10" draggable="true" ondragstart="drag(event)"></img>
         </div>
         <div class="search-results" id="gifSearchResults">
-          <img class="gif-result" id="gifSearchResult15"></img>
-          <img class="gif-result" id="gifSearchResult16"></img>
-          <img class="gif-result" id="gifSearchResult17"></img>
-          <img class="gif-result" id="gifSearchResult18"></img>
-          <img class="gif-result" id="gifSearchResult19"></img>
-          <img class="gif-result" id="gifSearchResult20"></img>
-          <img class="gif-result" id="gifSearchResult21"></img>
+          <img class="gif-result" id="gifSearchResult11" draggable="true" ondragstart="drag(event)"></img>
+          <img class="gif-result" id="gifSearchResult12" draggable="true" ondragstart="drag(event)"></img>
+          <img class="gif-result" id="gifSearchResult13" draggable="true" ondragstart="drag(event)"></img>
+          <img class="gif-result" id="gifSearchResult14" draggable="true" ondragstart="drag(event)"></img>
+          <img class="gif-result" id="gifSearchResult15" draggable="true" ondragstart="drag(event)"></img>
+        </div>
+        <div class="search-results" id="gifSearchResults">
+          <img class="gif-result" id="gifSearchResult16" draggable="true" ondragstart="drag(event)"></img>
+          <img class="gif-result" id="gifSearchResult17" draggable="true" ondragstart="drag(event)"></img>
+          <img class="gif-result" id="gifSearchResult18" draggable="true" ondragstart="drag(event)"></img>
+          <img class="gif-result" id="gifSearchResult19" draggable="true" ondragstart="drag(event)"></img>
+          <img class="gif-result" id="gifSearchResult20" draggable="true" ondragstart="drag(event)"></img>
         </div>
       </div>
       <div class="page-action">
@@ -282,8 +305,20 @@
     <div class="progress" id="progressBar">
       <!-- FIXED PROGRESS BAR GOES HERE -->
       <div class="chosen-gifs" id="chosenGifs">
-        <span id="chosenGifsTitle"></span>
-        <div id="chosenGifArea"></div>
+        <div id="chosenGifsArea">
+          <div id="chosenGif1" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <span id="chosenGifsTitle1"></span>
+          </div>
+          <div id="chosenGif2" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <span id="chosenGifsTitle2"></span>
+          </div>
+          <div id="chosenGif3" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <span id="chosenGifsTitle3"></span>
+          </div>
+          <div id="chosenGif4" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <span id="chosenGifsTitle4"></span>
+          </div>
+        </div>
       </div>
       <div class="chosen-sounds" id="chosenSounds">
         <span id="chosenSoundsTitle"></span>

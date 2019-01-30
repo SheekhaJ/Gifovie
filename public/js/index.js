@@ -121,13 +121,13 @@ function tenorCallback_trending(responsetext)
     // parse the json response
     var response_objects = JSON.parse(responsetext);
 
-    var top_21_gifs = response_objects["results"];
+    var top_20_gifs = response_objects["results"];
 
     // load the GIFs -- for our example we will load the first GIFs preview size (nanogif) and share size (tinygif)
     // console.log("response text: " + responsetext);
-    for(i=1; i<=21; i++){
+    for(i=1; i<=20; i++){
         //document.getElementById("gifSearchResult"+i).src = top_21_gifs[i-1]["media"][0]["nanogif"]["url"];
-        document.getElementById("gifSearchResult"+i).src = top_21_gifs[i-1]["media"][0]["tinygif"]["url"];
+        document.getElementById("gifSearchResult"+i).src = top_20_gifs[i-1]["media"][0]["tinygif"]["url"];
     }
 
     //document.getElementById("share_gif").src = top_10_gifs[0]["media"][0]["tinygif"]["url"];
@@ -154,7 +154,7 @@ function tenorCallback_search(responseText){
 
 function grab_data(anon_id)
 {
-  
+
     var searchUrl = tenorBaseUrl + "/search?key=" + key;
     var trendingUrl = tenorBaseUrl + "/trending?key=" + key;
     var searchSuggestionsUrl = tenorBaseUrl + "/search_suggestions?key=" + key;
@@ -188,4 +188,18 @@ function tenorCallback_anonid(responsetext)
     anon_id = response_objects["anon_id"];
     // pass on to grab_data
     grab_data(anon_id);
+}
+
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data));
 }

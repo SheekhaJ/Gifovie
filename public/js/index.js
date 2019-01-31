@@ -1,6 +1,7 @@
 var gifQueryType = "";
 var key = "LHS9L8D4KLDF";
 var tenorBaseUrl = "https://api.tenor.com/v1";
+var searchTerm = "";
 
 $(document).ready(function () {
   document.body.scrollTop = 0;
@@ -12,7 +13,6 @@ $(document).ready(function () {
 
     var url = tenorBaseUrl+"/anonid?key=" + key;
 
-    // httpGetAsync(trendingUrl, tenorCallback_trending);
     httpGetAsync(url,tenorCallback_anonid);
 
     setTimeout(function () {
@@ -26,7 +26,8 @@ $(document).ready(function () {
     gifQueryType = "search";
 
     var url = tenorBaseUrl+"/anonid?key=" + key;
-
+    searchTerm = document.getElementById('gifSearchInput').value;
+    
     httpGetAsync(url,tenorCallback_anonid);
   });
 
@@ -137,37 +138,30 @@ function httpGetAsync(theUrl, callback) {
 // callback for trending top 10 GIFs
 function tenorCallback_trending(responsetext)
 {
-    console.log("In tenorcallback_trending");
     // parse the json response
     var response_objects = JSON.parse(responsetext);
 
     var top_20_gifs = response_objects["results"];
 
     // load the GIFs -- for our example we will load the first GIFs preview size (nanogif) and share size (tinygif)
-    // console.log("response text: " + responsetext);
     for(i=1; i<=20; i++){
-        //document.getElementById("gifSearchResult"+i).src = top_21_gifs[i-1]["media"][0]["nanogif"]["url"];
-        document.getElementById("gifSearchResult"+i).src = top_20_gifs[i-1]["media"][0]["tinygif"]["url"];
+        document.getElementById("gifSearchResult"+i).src = top_20_gifs[i-1]["media"][0]["nanogif"]["url"];
     }
 
-    //document.getElementById("share_gif").src = top_10_gifs[0]["media"][0]["tinygif"]["url"];
     return;
 
 }
 
 function tenorCallback_search(responseText){
-  console.log("In tenorcallback_search");
   // parse the json response
   var response_objects = JSON.parse(responseText);
 
-  var top_21_gifs = response_objects["results"];
+  var top_20_gifs = response_objects["results"];
 
   // load the GIFs -- for our example we will load the first GIFs preview size (nanogif) and share size (tinygif)
-
-  for(i=1;i<=21;i++){
-    document.getElementById("gifSearchResult"+i).src = top_21_gifs[i-1]["media"][0]["tinygif"]["url"];
+  for(i=1;i<=20;i++){
+    document.getElementById("gifSearchResult"+i).src = top_20_gifs[i-1]["media"][0]["nanogif"]["url"];
   }
-  //document.getElementById("preview_gif").src = top_21_gifs[0]["media"][0]["nanogif"]["url"];
 
   return;
 }
@@ -187,13 +181,13 @@ function grab_data(anon_id)
     var url = "";
     if (gifQueryType == "trending") {
       url = trendingUrl + "&limit=" + lmt + "&anon_id=" + anon_id;
-      console.log('url: ' + url);
       httpGetAsync(url, tenorCallback_trending);
     } else if (gifQueryType == "search"){
-      url = searchUrl + "&limit=" + lmt + "&anon_id=" + anon_id;
+      url = searchUrl + "&limit=" + lmt + "&anon_id=" + anon_id + "&tag=" + searchTerm;
       httpGetAsync(url, tenorCallback_search);
     }
 
+    console.log(gifQueryType+' url: '+url);
     // data will be loaded by each call's callback
     return;
 }

@@ -32,16 +32,28 @@ $(document).ready(function () {
 
   $('#goToAddSoundBtn').click(function () {
     if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
-    $('#addSoundSection')[0].scrollIntoView(true);
+    //$('#addSoundSection')[0].scrollIntoView(true);
     $('#gifSearch, #gifSearchResults').css('z-index', '-1');
-    setTimeout(function () {
+    /*setTimeout(function () {
       $('#chosenGifs').css('border-bottom', 'solid #707070 1px');
       $('#soundSearch, #soundSearchResults').css('z-index', '1');
       $('#chosenSoundsTitle').html('Sounds Go Here');
     }, 600);
     $('#progressBar').stop(true, false).animate({
       'margin-bottom': '0vh'
-    }, 600);
+    }, 600);*/
+    console.log('about to go to review section');
+    if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
+    $('#soundSearch, #soundSearchResults').css('z-index', '-1');
+    console.log($('#chosenGifs').html());
+    $('#reviewGif').html($('#chosenGifs').html());
+    $('#reviewSection')[0].scrollIntoView(true);
+    $('#progressBar').stop(true, false).animate({
+      'opacity': '0'
+    }, 200);
+    setTimeout(function () {
+      $('#progressBar').css('display', 'none');
+    }, 200);
   });
   $('#backToWelcomeBtn').click(function () {
     if ($('#header').css('z-index') != '-1') $('#header').css('z-index', '-1');
@@ -82,9 +94,17 @@ $(document).ready(function () {
     $('#downloadBtn').attr('disabled', 'disabled');
   });
   $('#backToAddSoundBtn').click(function () {
-    if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
+    /*if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
     $('#soundSearch, #soundSearchResults').css('z-index', '-1');
     $('#addSoundSection')[0].scrollIntoView(true);
+    $('#progressBar').css('display', 'block');
+
+    $('#progressBar').stop(true, false).animate({
+      'opacity': '1'
+    }, 200);*/
+    if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
+    $('#soundSearch, #soundSearchResults').css('z-index', '-1');
+    $('#addGifSection')[0].scrollIntoView(true);
     $('#progressBar').css('display', 'block');
 
     $('#progressBar').stop(true, false).animate({
@@ -198,8 +218,12 @@ function drag(ev) {
   ev.dataTransfer.setData("text", ev.target.id);
 }
 
-function drop(ev) {
+function dropGif(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
+  console.log(document.getElementById(data));
   ev.target.appendChild(document.getElementById(data));
+  /*if (('#chosenGif1').html() != '') {
+
+  }*/
 }

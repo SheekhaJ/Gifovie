@@ -34,7 +34,7 @@
     #title {
       font-size: 6vw;
       font-weight: bold;
-      color: #003366;
+      color: #0069d9;
     }
 
     #subtitle {
@@ -46,7 +46,7 @@
       position: fixed;
       height: 10vh;
       width: 100%;
-      background-color: #003366;
+      background-color: #0069d9;
       color: white;
       text-align: center;
       vertical-align: middle;
@@ -137,11 +137,13 @@
     }
 
     .page-content.review {
-      min-height: 73vh;
+      height: 100%;
+      width: 100vh;
+      margin: 0 auto;
+      position: relative;
       vertical-align: middle;
       bottom: 0;
       right: 0;
-      border: solid transparent 1px;
       z-index: -1;
     }
 
@@ -181,7 +183,7 @@
 
     .gif-result {
       width: auto;
-      height: 20%;
+      height: 6vw;
       overflow: hidden;
       padding: 0.5vw;
       margin: 0 auto;
@@ -205,7 +207,13 @@
       padding: 0.5vw;
       margin: 0 auto;
       position: relative;
-      border: solid blue 1px;
+      vertical-align: middle;
+    }
+
+    #reviewGif {
+      top: 0;
+      left: 50%;
+      text-align: center;
       vertical-align: middle;
     }
 
@@ -238,28 +246,28 @@
             <button class="btn btn-primary" id="gifSearchBtn">Search</button>
     		  </div>
         </div>
-        <div class="search-results" id="gifSearchResults">
+        <div class="search-results" id="gifSearchResults" ondrop="dropGif(event)" ondragover="allowDrop(event)">
           <img class="gif-result" id="gifSearchResult1" draggable="true" ondragstart="drag(event)"></img>
           <img class="gif-result" id="gifSearchResult2" draggable="true" ondragstart="drag(event)"></img>
           <img class="gif-result" id="gifSearchResult3" draggable="true" ondragstart="drag(event)"></img>
           <img class="gif-result" id="gifSearchResult4" draggable="true" ondragstart="drag(event)"></img>
           <img class="gif-result" id="gifSearchResult5" draggable="true" ondragstart="drag(event)"></img>
         </div>
-        <div class="search-results" id="gifSearchResults">
+        <div class="search-results" id="gifSearchResults" ondrop="dropGif(event)" ondragover="allowDrop(event)">
           <img class="gif-result" id="gifSearchResult6" draggable="true" ondragstart="drag(event)"></img>
           <img class="gif-result" id="gifSearchResult7" draggable="true" ondragstart="drag(event)"></img>
           <img class="gif-result" id="gifSearchResult8" draggable="true" ondragstart="drag(event)"></img>
           <img class="gif-result" id="gifSearchResult9" draggable="true" ondragstart="drag(event)"></img>
           <img class="gif-result" id="gifSearchResult10" draggable="true" ondragstart="drag(event)"></img>
         </div>
-        <div class="search-results" id="gifSearchResults">
+        <div class="search-results" id="gifSearchResults" ondrop="dropGif(event)" ondragover="allowDrop(event)">
           <img class="gif-result" id="gifSearchResult11" draggable="true" ondragstart="drag(event)"></img>
           <img class="gif-result" id="gifSearchResult12" draggable="true" ondragstart="drag(event)"></img>
           <img class="gif-result" id="gifSearchResult13" draggable="true" ondragstart="drag(event)"></img>
           <img class="gif-result" id="gifSearchResult14" draggable="true" ondragstart="drag(event)"></img>
           <img class="gif-result" id="gifSearchResult15" draggable="true" ondragstart="drag(event)"></img>
         </div>
-        <div class="search-results" id="gifSearchResults">
+        <div class="search-results" id="gifSearchResults" ondrop="dropGif(event)" ondragover="allowDrop(event)">
           <img class="gif-result" id="gifSearchResult16" draggable="true" ondragstart="drag(event)"></img>
           <img class="gif-result" id="gifSearchResult17" draggable="true" ondragstart="drag(event)"></img>
           <img class="gif-result" id="gifSearchResult18" draggable="true" ondragstart="drag(event)"></img>
@@ -269,12 +277,12 @@
       </div>
       <div class="page-action">
         <button class="btn btn-secondary" id="backToWelcomeBtn">Cancel</button>
-        <button class="btn btn-primary" id="goToAddSoundBtn">Next: Add Sound!</button>
+        <!--<button class="btn btn-primary" id="goToAddSoundBtn">Next: Add Sound!</button>-->
+        <button class="btn btn-primary" id="goToAddSoundBtn">Review Your GIFovie</button>
       </div>
     </div>
     <div class="dropdown-divider"></div>
-    <div class="addsound-section" id="addSoundSection">
-      <!-- ADD SOUNDS TO YOUR GIFOVIE -->
+    <!-- <div class="addsound-section" id="addSoundSection">
       <h3 class="section-title">Add Sound</h3>
       <div class="page-content">
         <div class="input-group mb-3" id="soundSearch">
@@ -291,11 +299,12 @@
         <button class="btn btn-primary" id="goToReviewBtn">Review Your GIFovie</button>
       </div>
     </div>
-    <div class="dropdown-divider"></div>
+    <div class="dropdown-divider"></div> -->
     <div class="review-section" id="reviewSection">
       <!-- REVIEW AND SHARE YOUR GIFOVIE -->
       <h3 class="section-title">Review Your GIFovie</h3>
       <div class="page-content review">
+        <div id="reviewGif"></div>
       </div>
       <div class="page-action">
         <button class="btn btn-lg btn-secondary" id="backToAddSoundBtn">Back</button>
@@ -304,21 +313,8 @@
     </div>
     <div class="progress" id="progressBar">
       <!-- FIXED PROGRESS BAR GOES HERE -->
-      <div class="chosen-gifs" id="chosenGifs">
-        <div id="chosenGifsArea">
-          <div id="chosenGif1" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <span id="chosenGifsTitle1"></span>
-          </div>
-          <div id="chosenGif2" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <span id="chosenGifsTitle2"></span>
-          </div>
-          <div id="chosenGif3" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <span id="chosenGifsTitle3"></span>
-          </div>
-          <div id="chosenGif4" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <span id="chosenGifsTitle4"></span>
-          </div>
-        </div>
+      <div class="chosen-gifs" id="chosenGifs" ondrop="dropGif(event)" ondragover="allowDrop(event)">
+        <div id="chosenGifsArea"></div>
       </div>
       <div class="chosen-sounds" id="chosenSounds">
         <span id="chosenSoundsTitle"></span>

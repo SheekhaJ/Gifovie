@@ -22,6 +22,9 @@ $(document).ready(function () {
     }, 600);
   });
 
+  $('#header').click(function(){
+    $('#welcomeSection')[0].scrollIntoView(true);
+  })
   $('#gifSearch').click(function(){
     gifQueryType = "search";
 
@@ -145,7 +148,8 @@ function tenorCallback_trending(responsetext)
 
     // load the GIFs -- for our example we will load the first GIFs preview size (nanogif) and share size (tinygif)
     for(i=1; i<=20; i++){
-        document.getElementById("gifSearchResult"+i).src = top_20_gifs[i-1]["media"][0]["nanogif"]["url"];
+        //document.getElementById("gifSearchResult"+i).src = top_20_gifs[i-1]["media"][0]["nanogif"]["url"];
+        document.getElementById("gifSearchResult"+i).src = top_20_gifs[i-1]["media"][0]["gif"]["url"];
     }
 
     return;
@@ -160,7 +164,8 @@ function tenorCallback_search(responseText){
 
   // load the GIFs -- for our example we will load the first GIFs preview size (nanogif) and share size (tinygif)
   for(i=1;i<=20;i++){
-    document.getElementById("gifSearchResult"+i).src = top_20_gifs[i-1]["media"][0]["nanogif"]["url"];
+    //document.getElementById("gifSearchResult"+i).src = top_20_gifs[i-1]["media"][0]["nanogif"]["url"];
+    document.getElementById("gifSearchResult"+i).src = top_20_gifs[i-1]["media"][0]["gif"]["url"];
   }
 
   return;
@@ -183,7 +188,7 @@ function grab_data(anon_id)
       url = trendingUrl + "&limit=" + lmt + "&anon_id=" + anon_id;
       httpGetAsync(url, tenorCallback_trending);
     } else if (gifQueryType == "search"){
-      url = searchUrl + "&limit=" + lmt + "&anon_id=" + anon_id + "&tag=" + searchTerm;
+      url = searchUrl + "&limit=" + lmt + "&anon_id=" + anon_id + "&tag=" + searchTerm + "&media_filter=basic";
       httpGetAsync(url, tenorCallback_search);
     }
 
@@ -220,4 +225,9 @@ function dropGif(ev) {
   /*if (('#chosenGif1').html() != '') {
 
   }*/
+} 
+
+function submitGifovieForm(){
+  console.log("Submitted GIFovie form!");
+  return false;
 }

@@ -240,97 +240,98 @@
       <!-- ADD GIFS TO YOUR GIFOVIE -->
       <h3 class="section-title">Add GIFs</h3>
       <div class="page-content">
-        <div class="input-group mb-3" id="gifSearch">
-          <input type="text" class="form-control" id="gifSearchInput" placeholder="Search GIFs...">
-          <div class="input-group-append">
-            <button class="btn btn-primary" id="gifSearchBtn">Search</button>
-    		  </div>
-        </div>
-        <div class="search-results" id="gifSearchResults" ondrop="dropGif(event)" ondragover="allowDrop(event)">
-          <img class="gif-result" id="gifSearchResult1" draggable="true" ondragstart="drag(event)"></img>
-          <img class="gif-result" id="gifSearchResult2" draggable="true" ondragstart="drag(event)"></img>
-          <img class="gif-result" id="gifSearchResult3" draggable="true" ondragstart="drag(event)"></img>
-          <img class="gif-result" id="gifSearchResult4" draggable="true" ondragstart="drag(event)"></img>
-          <img class="gif-result" id="gifSearchResult5" draggable="true" ondragstart="drag(event)"></img>
-        </div>
-        <div class="search-results" id="gifSearchResults" ondrop="dropGif(event)" ondragover="allowDrop(event)">
-          <img class="gif-result" id="gifSearchResult6" draggable="true" ondragstart="drag(event)"></img>
-          <img class="gif-result" id="gifSearchResult7" draggable="true" ondragstart="drag(event)"></img>
-          <img class="gif-result" id="gifSearchResult8" draggable="true" ondragstart="drag(event)"></img>
-          <img class="gif-result" id="gifSearchResult9" draggable="true" ondragstart="drag(event)"></img>
-          <img class="gif-result" id="gifSearchResult10" draggable="true" ondragstart="drag(event)"></img>
-        </div>
-        <div class="search-results" id="gifSearchResults" ondrop="dropGif(event)" ondragover="allowDrop(event)">
-          <img class="gif-result" id="gifSearchResult11" draggable="true" ondragstart="drag(event)"></img>
-          <img class="gif-result" id="gifSearchResult12" draggable="true" ondragstart="drag(event)"></img>
-          <img class="gif-result" id="gifSearchResult13" draggable="true" ondragstart="drag(event)"></img>
-          <img class="gif-result" id="gifSearchResult14" draggable="true" ondragstart="drag(event)"></img>
-          <img class="gif-result" id="gifSearchResult15" draggable="true" ondragstart="drag(event)"></img>
-        </div>
-        <div class="search-results" id="gifSearchResults" ondrop="dropGif(event)" ondragover="allowDrop(event)">
-          <img class="gif-result" id="gifSearchResult16" draggable="true" ondragstart="drag(event)"></img>
-          <img class="gif-result" id="gifSearchResult17" draggable="true" ondragstart="drag(event)"></img>
-          <img class="gif-result" id="gifSearchResult18" draggable="true" ondragstart="drag(event)"></img>
-          <img class="gif-result" id="gifSearchResult19" draggable="true" ondragstart="drag(event)"></img>
-          <img class="gif-result" id="gifSearchResult20" draggable="true" ondragstart="drag(event)"></img>
-        </div>
-      </div>
-      <div class="page-action">
-        <button class="btn btn-secondary" id="backToWelcomeBtn">Cancel</button>
-        <!--<button class="btn btn-primary" id="goToAddSoundBtn">Next: Add Sound!</button>-->
-        <button class="btn btn-primary" id="goToAddSoundBtn">Review Your GIFovie</button>
-      </div>
-    </div>
-    <div class="dropdown-divider"></div>
-    <!-- <div class="addsound-section" id="addSoundSection">
-      <h3 class="section-title">Add Sound</h3>
-      <div class="page-content">
-        <div class="input-group mb-3" id="soundSearch">
-          <input type="text" class="form-control" id="soundSearchInput" placeholder="Search Sounds...">
-          <div class="input-group-append">
-            <button class="btn btn-primary" id="soundSearchBtn">Search</button>
-    		  </div>
-        </div>
-        <div class="search-results" id="soundSearchResults">
-        </div>
-      </div>
-      <div class="page-action">
-        <button class="btn btn-secondary" id="backToAddGifBtn">Back</button>
-        <button class="btn btn-primary" id="goToReviewBtn">Review Your GIFovie</button>
-      </div>
-    </div>
-    <div class="dropdown-divider"></div> -->
-    <div class="review-section" id="reviewSection">
-      <!-- REVIEW AND SHARE YOUR GIFOVIE -->
-      <h3 class="section-title">Review Your GIFovie</h3>
-      <div class="page-content review">
-        <div id="reviewGif"></div>
-      </div>
-      <div class="page-action">
-        <button class="btn btn-lg btn-secondary" id="backToAddSoundBtn">Back</button>
-        <button class="btn btn-lg btn-primary" id="downloadBtn">Download Your GIFovie</button>
-      </div>
-    </div>
-    <div class="progress" id="progressBar">
-      <!-- FIXED PROGRESS BAR GOES HERE -->
-      <div class="chosen-gifs" id="chosenGifs" ondrop="dropGif(event)" ondragover="allowDrop(event)">
-        <div id="chosenGifsArea"></div>
-      </div>
-      <div class="chosen-sounds" id="chosenSounds">
-        <span id="chosenSoundsTitle"></span>
-        <div id="chosenSoundsArea"></div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="downloadSuccessModal" tabindex="-1" role="dialog" aria-labelledby="downloadSuccessLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-body">
-            <div class="alert alert-success" role="alert" id="downloadSuccessAlert">Your GIFovie has been successfully downloaded!</div>
+        <form id="gifovie-form" onsubmit="return submitGifovieForm();">
+            <div class="input-group mb-3" id="gifSearch">
+                <input type="text" class="form-control" id="gifSearchInput" placeholder="Search GIFs...">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" id="gifSearchBtn">Search</button>
+                </div>
+              </div>
+              <div class="search-results" id="gifSearchResults" ondrop="dropGif(event)" ondragover="allowDrop(event)">
+                <img class="gif-result" id="gifSearchResult1" draggable="true" ondragstart="drag(event)"></img>
+                <img class="gif-result" id="gifSearchResult2" draggable="true" ondragstart="drag(event)"></img>
+                <img class="gif-result" id="gifSearchResult3" draggable="true" ondragstart="drag(event)"></img>
+                <img class="gif-result" id="gifSearchResult4" draggable="true" ondragstart="drag(event)"></img>
+                <img class="gif-result" id="gifSearchResult5" draggable="true" ondragstart="drag(event)"></img>
+              </div>
+              <div class="search-results" id="gifSearchResults" ondrop="dropGif(event)" ondragover="allowDrop(event)">
+                <img class="gif-result" id="gifSearchResult6" draggable="true" ondragstart="drag(event)"></img>
+                <img class="gif-result" id="gifSearchResult7" draggable="true" ondragstart="drag(event)"></img>
+                <img class="gif-result" id="gifSearchResult8" draggable="true" ondragstart="drag(event)"></img>
+                <img class="gif-result" id="gifSearchResult9" draggable="true" ondragstart="drag(event)"></img>
+                <img class="gif-result" id="gifSearchResult10" draggable="true" ondragstart="drag(event)"></img>
+              </div>
+              <div class="search-results" id="gifSearchResults" ondrop="dropGif(event)" ondragover="allowDrop(event)">
+                <img class="gif-result" id="gifSearchResult11" draggable="true" ondragstart="drag(event)"></img>
+                <img class="gif-result" id="gifSearchResult12" draggable="true" ondragstart="drag(event)"></img>
+                <img class="gif-result" id="gifSearchResult13" draggable="true" ondragstart="drag(event)"></img>
+                <img class="gif-result" id="gifSearchResult14" draggable="true" ondragstart="drag(event)"></img>
+                <img class="gif-result" id="gifSearchResult15" draggable="true" ondragstart="drag(event)"></img>
+              </div>
+              <div class="search-results" id="gifSearchResults" ondrop="dropGif(event)" ondragover="allowDrop(event)">
+                <img class="gif-result" id="gifSearchResult16" draggable="true" ondragstart="drag(event)"></img>
+                <img class="gif-result" id="gifSearchResult17" draggable="true" ondragstart="drag(event)"></img>
+                <img class="gif-result" id="gifSearchResult18" draggable="true" ondragstart="drag(event)"></img>
+                <img class="gif-result" id="gifSearchResult19" draggable="true" ondragstart="drag(event)"></img>
+                <img class="gif-result" id="gifSearchResult20" draggable="true" ondragstart="drag(event)"></img>
+              </div>
+            </div>
+            <div class="page-action">
+              <button class="btn btn-secondary" id="backToWelcomeBtn">Cancel</button>
+              <!--<button class="btn btn-primary" id="goToAddSoundBtn">Next: Add Sound!</button>-->
+              <button class="btn btn-primary" id="goToAddSoundBtn">Review Your GIFovie</button>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-
+          <div class="dropdown-divider"></div>
+          <!-- <div class="addsound-section" id="addSoundSection">
+            <h3 class="section-title">Add Sound</h3>
+            <div class="page-content">
+              <div class="input-group mb-3" id="soundSearch">
+                <input type="text" class="form-control" id="soundSearchInput" placeholder="Search Sounds...">
+                <div class="input-group-append">
+                  <button class="btn btn-primary" id="soundSearchBtn">Search</button>
+                </div>
+              </div>
+              <div class="search-results" id="soundSearchResults">
+              </div>
+            </div>
+            <div class="page-action">
+              <button class="btn btn-secondary" id="backToAddGifBtn">Back</button>
+              <button class="btn btn-primary" id="goToReviewBtn">Review Your GIFovie</button>
+            </div>
+          </div>
+          <div class="dropdown-divider"></div> -->
+          <div class="review-section" id="reviewSection">
+            <!-- REVIEW AND SHARE YOUR GIFOVIE -->
+            <h3 class="section-title">Review Your GIFovie</h3>
+            <div class="page-content review">
+              <div id="reviewGif"></div>
+            </div>
+            <div class="page-action">
+              <button class="btn btn-lg btn-secondary" id="backToAddSoundBtn">Back</button>
+              <button class="btn btn-lg btn-primary" id="downloadBtn">Download Your GIFovie</button>
+            </div>
+          </div>
+          <div class="progress" id="progressBar">
+            <!-- FIXED PROGRESS BAR GOES HERE -->
+            <div class="chosen-gifs" id="chosenGifs" ondrop="dropGif(event)" ondragover="allowDrop(event)">
+              <div id="chosenGifsArea"></div>
+            </div>
+            <div class="chosen-sounds" id="chosenSounds">
+              <span id="chosenSoundsTitle"></span>
+              <div id="chosenSoundsArea"></div>
+            </div>
+          </div>
+      
+          <div class="modal fade" id="downloadSuccessModal" tabindex="-1" role="dialog" aria-labelledby="downloadSuccessLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <div class="alert alert-success" role="alert" id="downloadSuccessAlert">Your GIFovie has been successfully downloaded!</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
   </body>
 </html>

@@ -17,8 +17,13 @@ $(document).ready(function () {
 
     setTimeout(function () {
       $('#header').css('z-index', '1');
-      $('#chosenGifsTitle').html('GIFs Go Here');
       $('#gifSearch, #gifSearchResults').css('z-index', '1');
+    }, 600);
+    $('#chosenGifsTitle').stop(true, false).animate({
+      'opacity': '1'
+    });
+    $('.selected-gif').stop(true, false).animate({
+      'opacity': '1'
     }, 600);
   });
 
@@ -32,6 +37,19 @@ $(document).ready(function () {
     searchTerm = document.getElementById('gifSearchInput').value;
 
     httpGetAsync(url,tenorCallback_anonid);
+  });
+
+  $('#clearSelectedGifsBtn').click(function() {
+    console.log('clearing gifs');
+    $('#selectedGif1').removeAttr('src');
+    $('#selectedGif2').removeAttr('src');
+    $('#selectedGif3').removeAttr('src');
+    $('#selectedGif4').removeAttr('src');
+    $('#selectedGif1').css('width', "15vw");
+    $('#selectedGif2').css('width', "15vw");
+    $('#selectedGif3').css('width', "15vw");
+    $('#selectedGif4').css('width', "15vw");
+    console.log($('#selectedGif1').attr('src'));
   });
 
   $('#goToAddSoundBtn').click(function () {
@@ -49,8 +67,20 @@ $(document).ready(function () {
     console.log('about to go to review section');
     if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
     $('#soundSearch, #soundSearchResults').css('z-index', '-1');
-    console.log($('#chosenGifs').html());
-    $('#reviewGif').html($('#chosenGifs').html());
+    console.log($('#chosenGifsArea').html());
+    //$('#reviewGif').html($('#chosenGifs').html());
+    $('#finalGif1').css('display', 'block');
+    $('#finalGif2').css('display', 'block');
+    $('#finalGif3').css('display', 'block');
+    $('#finalGif4').css('display', 'block');
+    $('#finalGif1').attr('src', $('#selectedGif1').attr('src'));
+    $('#finalGif2').attr('src', $('#selectedGif2').attr('src'));
+    $('#finalGif3').attr('src', $('#selectedGif3').attr('src'));
+    $('#finalGif4').attr('src', $('#selectedGif4').attr('src'));
+    if (typeof $('#finalGif1').attr('src') === typeof undefined || $('#finalGif1').attr('src') === false) $('#finalGif1').css('display', 'none');
+    if (typeof $('#finalGif2').attr('src') === typeof undefined || $('#finalGif2').attr('src') === false) $('#finalGif2').css('display', 'none');
+    if (typeof $('#finalGif3').attr('src') === typeof undefined || $('#finalGif3').attr('src') === false) $('#finalGif3').css('display', 'none');
+    if (typeof $('#finalGif4').attr('src') === typeof undefined || $('#finalGif4').attr('src') === false) $('#finalGif4').css('display', 'none');
     $('#reviewSection')[0].scrollIntoView(true);
     $('#progressBar').stop(true, false).animate({
       'opacity': '0'
@@ -63,7 +93,22 @@ $(document).ready(function () {
     if ($('#header').css('z-index') != '-1') $('#header').css('z-index', '-1');
     $('#gifSearch, #gifSearchResults').css('z-index', '-1');
     $('#welcomeSection')[0].scrollIntoView(true);
-    $('#chosenGifsTitle').html('');
+    $('#chosenGifsTitle').stop(true, false).animate({
+      'opacity': '0'
+    }, 600);
+    $('.selected-gif').stop(true, false).animate({
+      'opacity': '0'
+    }, 600);
+    setTimeout(function() {
+      $('#selectedGif1').removeAttr('src');
+      $('#selectedGif2').removeAttr('src');
+      $('#selectedGif3').removeAttr('src');
+      $('#selectedGif4').removeAttr('src');
+      $('#selectedGif1').css('width', "15vw");
+      $('#selectedGif2').css('width', "15vw");
+      $('#selectedGif3').css('width', "15vw");
+      $('#selectedGif4').css('width', "15vw");
+    }, 600);
   });
 
   $('#goToReviewBtn').click(function () {
@@ -220,8 +265,10 @@ function drag(ev) {
 function dropGif(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
-  console.log(document.getElementById(data));
-  ev.target.appendChild(document.getElementById(data));
+  console.log(document.getElementById(data).src);
+  console.log(ev.target);
+  ev.target.src = document.getElementById(data).src;
+  ev.target.style.width = 'auto';
   /*if (('#chosenGif1').html() != '') {
 
   }*/

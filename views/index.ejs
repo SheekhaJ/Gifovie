@@ -149,7 +149,6 @@
 
     .page-content.review {
       height: 100%;
-      width: 100vh;
       margin: 0 auto;
       position: relative;
       vertical-align: middle;
@@ -201,6 +200,26 @@
       position: relative;
     }
 
+    .selected-gif {
+      height: 10vw;
+      width: 15vw;
+      overflow: hidden;
+      padding: 0.5vw;
+      margin: 0 auto;
+      position: relative;
+      opacity: 0;
+      border: solid grey 1px;
+    }
+
+    .final-gif {
+      height: 10vw;
+      width: auto;
+      overflow: hidden;
+      padding: 0.5vw;
+      margin: 0 auto;
+      position: relative;
+    }
+
     #chosenGifsArea {
       display: flex;
       flex-direction: row;
@@ -208,6 +227,10 @@
     #chosenSoundsArea {
       display: flex;
       flex-direction: row;
+    }
+    #chosenGifsTitle {
+      color: white;
+      opacity: 0;
     }
 
     #chosenGif1, #chosenGif2, #chosenGif3, #chosenGif4 {
@@ -289,6 +312,7 @@
             </div>
             <div class="page-action">
               <button class="btn btn-secondary" id="backToWelcomeBtn">Cancel</button>
+              <button class="btn btn-info" id="clearSelectedGifsBtn">Clear Selected</button>
               <!--<button class="btn btn-primary" id="goToAddSoundBtn">Next: Add Sound!</button>-->
               <button class="btn btn-primary" id="goToAddSoundBtn">Review Your GIFovie</button>
             </div>
@@ -316,7 +340,12 @@
             <!-- REVIEW AND SHARE YOUR GIFOVIE -->
             <h3 class="section-title">Review Your GIFovie</h3>
             <div class="page-content review">
-              <div id="reviewGif"></div>
+              <div id="chosenGifsArea">
+                <img class="final-gif" id="finalGif1"></img>
+                <img class="final-gif" id="finalGif2"></img>
+                <img class="final-gif" id="finalGif3"></img>
+                <img class="final-gif" id="finalGif4"></img>
+              </div>
             </div>
             <div class="page-action">
               <button class="btn btn-lg btn-secondary" id="backToAddSoundBtn">Back</button>
@@ -325,8 +354,14 @@
           </div>
           <div class="progress" id="progressBar">
             <!-- FIXED PROGRESS BAR GOES HERE -->
-            <div class="chosen-gifs" id="chosenGifs" ondrop="dropGif(event)" ondragover="allowDrop(event)">
-              <div id="chosenGifsArea"></div>
+            <div class="chosen-gifs" id="chosenGifs">
+              <p id="chosenGifsTitle">Drop GIFs here</p>
+              <div id="chosenGifsArea">
+                <img class="selected-gif" id="selectedGif1" ondrop="dropGif(event)" ondragover="allowDrop(event)"></img>
+                <img class="selected-gif" id="selectedGif2" ondrop="dropGif(event)" ondragover="allowDrop(event)"></img>
+                <img class="selected-gif" id="selectedGif3" ondrop="dropGif(event)" ondragover="allowDrop(event)"></img>
+                <img class="selected-gif" id="selectedGif4" ondrop="dropGif(event)" ondragover="allowDrop(event)"></img>
+              </div>
             </div>
             <div class="chosen-sounds" id="chosenSounds">
               <span id="chosenSoundsTitle"></span>

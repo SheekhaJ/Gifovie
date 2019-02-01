@@ -14,7 +14,16 @@
     }
 
     body {
-      font-family: Tahoma;
+      font-family: "Comic Sans MS";
+      background-image: linear-gradient(to right, #ffad89, white);
+    }
+
+    .backImg {
+      background-image: linear-gradient(to right, #d73f09, yellow);
+      opacity: 0.2;
+      z-index: -1;
+      width: 100%;
+      height: 100vh;
     }
 
     .welcome-section {
@@ -46,7 +55,8 @@
       position: fixed;
       height: 10vh;
       width: 100%;
-      background-color: #0069d9;
+      background-color: red;
+      background-image: linear-gradient(to right, blue, purple);
       color: white;
       text-align: center;
       vertical-align: middle;
@@ -60,6 +70,7 @@
       height: 10vh;
       display: table-cell;
       vertical-align: middle;
+      cursor: pointer;
     }
 
     .section-title {
@@ -227,7 +238,7 @@
   </head>
   <body>
     <div class="header" id="header">
-      <p class="header-text">GIFovie</p>
+      <p class="header-text" id="headerText">GIFovie</p>
     </div>
     <div class="welcome-section" id="welcomeSection">
       <div class="welcome-page-content">
@@ -322,7 +333,7 @@
               <div id="chosenSoundsArea"></div>
             </div>
           </div>
-      
+
           <div class="modal fade" id="downloadSuccessModal" tabindex="-1" role="dialog" aria-labelledby="downloadSuccessLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">

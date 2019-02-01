@@ -2339,6 +2339,7 @@ fieldset:disabled a.btn {
   color: #fff;
   background-color: #0069d9;
   border-color: #0069d9;
+  background-image: linear-gradient(to right, blue, purple);
 }
 
 .btn-primary:hover {
@@ -2407,6 +2408,7 @@ fieldset:disabled a.btn {
   color: #fff;
   background-color: #28a745;
   border-color: #28a745;
+  background-image: linear-gradient(to right, #28a745, blue);
 }
 
 .btn-success:hover {

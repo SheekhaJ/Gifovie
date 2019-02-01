@@ -30,7 +30,7 @@ $(document).ready(function () {
 
     var url = tenorBaseUrl+"/anonid?key=" + key;
     searchTerm = document.getElementById('gifSearchInput').value;
-    
+
     httpGetAsync(url,tenorCallback_anonid);
   });
 
@@ -225,7 +225,7 @@ function dropGif(ev) {
   /*if (('#chosenGif1').html() != '') {
 
   }*/
-} 
+}
 
 function submitGifovieForm(){
   console.log("Submitted GIFovie form!");

@@ -3,7 +3,7 @@ var key = "LHS9L8D4KLDF";
 var tenorBaseUrl = "https://api.tenor.com/v1";
 var searchTerm = "";
 
-        
+
 var fields = 'id,name,url';
 
 $(document).ready(function () {
@@ -32,7 +32,14 @@ $(document).ready(function () {
 
   $('#header').click(function(){
     $('#welcomeSection')[0].scrollIntoView(true);
-  })
+    $('#header').css('z-index', '-1');
+    $('#chosenGifsTitle').stop(true, false).animate({
+      'opacity': '0'
+    }, 600);
+    $('.selected-gif').stop(true, false).animate({
+      'opacity': '0'
+    }, 600);
+  });
   $('#gifSearch').click(function(){
     gifQueryType = "search";
 
@@ -40,7 +47,7 @@ $(document).ready(function () {
     searchTerm = document.getElementById('gifSearchInput').value;
 
     httpGetAsync(url,tenorCallback_anonid);
-    
+
   });
 
   $('#clearSelectedGifsBtn').click(function() {
@@ -59,15 +66,6 @@ $(document).ready(function () {
   $('#goToAddSoundBtn').click(function () {
     if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
     $('#addSoundSection')[0].scrollIntoView(true);
-    $('#gifSearch, #gifSearchResults').css('z-index', '-1');
-    setTimeout(function () {
-      $('#chosenGifs').css('border-bottom', 'solid #707070 1px');
-      $('#soundSearch, #soundSearchResults').css('z-index', '1');
-      $('#chosenSoundsTitle').html('Sounds Go Here');
-    }, 600);
-    $('#progressBar').stop(true, false).animate({
-      'margin-bottom': '0vh'
-    }, 600);
     //console.log('about to go to review section');
     //if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
     //$('#soundSearch, #soundSearchResults').css('z-index', '-1');
@@ -134,9 +132,6 @@ $(document).ready(function () {
     if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
     $('#soundSearch, #soundSearchResults').css('z-index', '-1');
     $('#addGifSection')[0].scrollIntoView(true);
-    $('#progressBar').stop(true, false).animate({
-      'margin-bottom': '-5vh'
-    }, 600);
     setTimeout(function () {
       $('#chosenSoundsTitle').html('');
       $('#chosenGifs').css('border-bottom', 'solid transparent 1px');
@@ -151,22 +146,22 @@ $(document).ready(function () {
     $('#downloadBtn').attr('disabled', 'disabled');
   });
   $('#backToAddSoundBtn').click(function () {
-    /*if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
+    if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
     $('#soundSearch, #soundSearchResults').css('z-index', '-1');
     $('#addSoundSection')[0].scrollIntoView(true);
     $('#progressBar').css('display', 'block');
 
     $('#progressBar').stop(true, false).animate({
       'opacity': '1'
-    }, 200);*/
-    if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
+    }, 200);
+    /*if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
     $('#soundSearch, #soundSearchResults').css('z-index', '-1');
     $('#addGifSection')[0].scrollIntoView(true);
     $('#progressBar').css('display', 'block');
 
     $('#progressBar').stop(true, false).animate({
       'opacity': '1'
-    }, 200);
+    }, 200);*/
   });
 
 });
@@ -326,7 +321,7 @@ function searchForSounds(query) {
       }
       msg += "</ul>"
       //displayMessage(msg, "soundSearchResults")
-      // displayMessage(msg, "soundResult6")      
+      // displayMessage(msg, "soundResult6")
     }, function () { displayError("Error while searching...") }
   );
 }

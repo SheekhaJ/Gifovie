@@ -3,6 +3,9 @@ var key = "LHS9L8D4KLDF";
 var tenorBaseUrl = "https://api.tenor.com/v1";
 var searchTerm = "";
 
+        
+var fields = 'id,name,url';
+
 $(document).ready(function () {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
@@ -37,6 +40,7 @@ $(document).ready(function () {
     searchTerm = document.getElementById('gifSearchInput').value;
 
     httpGetAsync(url,tenorCallback_anonid);
+    
   });
 
   $('#clearSelectedGifsBtn').click(function() {
@@ -54,19 +58,19 @@ $(document).ready(function () {
 
   $('#goToAddSoundBtn').click(function () {
     if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
-    //$('#addSoundSection')[0].scrollIntoView(true);
+    $('#addSoundSection')[0].scrollIntoView(true);
     $('#gifSearch, #gifSearchResults').css('z-index', '-1');
-    /*setTimeout(function () {
+    setTimeout(function () {
       $('#chosenGifs').css('border-bottom', 'solid #707070 1px');
       $('#soundSearch, #soundSearchResults').css('z-index', '1');
       $('#chosenSoundsTitle').html('Sounds Go Here');
     }, 600);
     $('#progressBar').stop(true, false).animate({
       'margin-bottom': '0vh'
-    }, 600);*/
-    console.log('about to go to review section');
-    if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
-    $('#soundSearch, #soundSearchResults').css('z-index', '-1');
+    }, 600);
+    //console.log('about to go to review section');
+    //if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
+    //$('#soundSearch, #soundSearchResults').css('z-index', '-1');
     console.log($('#chosenGifsArea').html());
     //$('#reviewGif').html($('#chosenGifs').html());
     $('#finalGif1').css('display', 'block');
@@ -81,13 +85,13 @@ $(document).ready(function () {
     if (typeof $('#finalGif2').attr('src') === typeof undefined || $('#finalGif2').attr('src') === false) $('#finalGif2').css('display', 'none');
     if (typeof $('#finalGif3').attr('src') === typeof undefined || $('#finalGif3').attr('src') === false) $('#finalGif3').css('display', 'none');
     if (typeof $('#finalGif4').attr('src') === typeof undefined || $('#finalGif4').attr('src') === false) $('#finalGif4').css('display', 'none');
-    $('#reviewSection')[0].scrollIntoView(true);
-    $('#progressBar').stop(true, false).animate({
+    //$('#reviewSection')[0].scrollIntoView(true);
+    /*$('#progressBar').stop(true, false).animate({
       'opacity': '0'
     }, 200);
     setTimeout(function () {
       $('#progressBar').css('display', 'none');
-    }, 200);
+    }, 200);*/
   });
   $('#backToWelcomeBtn').click(function () {
     if ($('#header').css('z-index') != '-1') $('#header').css('z-index', '-1');
@@ -109,6 +113,10 @@ $(document).ready(function () {
       $('#selectedGif3').css('width', "15vw");
       $('#selectedGif4').css('width', "15vw");
     }, 600);
+  });
+
+  $('#soundSearchBtn').click(function() {
+    searchForSounds($('#soundSearchInput').val());
   });
 
   $('#goToReviewBtn').click(function () {
@@ -201,7 +209,7 @@ function tenorCallback_trending(responsetext)
 
 }
 
-function tenorCallback_search(responseText){
+function tenorCallback_search(responseText, callback){
   // parse the json response
   var response_objects = JSON.parse(responseText);
 
@@ -213,7 +221,14 @@ function tenorCallback_search(responseText){
     document.getElementById("gifSearchResult"+i).src = top_20_gifs[i-1]["media"][0]["gif"]["url"];
   }
 
+  callback(searchTerm);
+
   return;
+}
+
+function setSearchDivText(){
+  console.log('In setSearchDivText!')
+  $('#search-term').html(['Search term: '+searchTerm]);
 }
 
 function grab_data(anon_id)
@@ -277,4 +292,41 @@ function dropGif(ev) {
 function submitGifovieForm(){
   console.log("Submitted GIFovie form!");
   return false;
+}
+
+function displayMessage(text,place){
+  document.getElementById(place).innerHTML=text;
+}
+
+function displaySoundElement(soundObject){
+  console.log('First child of soundResult1 is '+document.getElementById("soundResult1").firstElementChild);
+  console.log("sound name: "+soundObject.name);
+  console.log("sound url: "+soundObject.url);
+  document.getElementById("soundResult1").src = soundObject.url+"download/"+soundObject.name+".wav";
+}
+
+function searchForSounds(query) {
+  var page = 1;
+  var filter = "duration:[1.0 TO 5.0] type:wav";
+  var sort = "rating_desc";
+  freesound.textSearch(query, { page: page, filter: filter, sort: sort, fields: fields },
+    function (sounds) {
+      var msg = ""
+      console.log('query: '+query);
+      console.log('filter: '+filter);
+      console.log('sort: '+sort);
+      console.log('sounds: '+sounds);
+      msg = "<h3>Searching for: " + query + "</h3>"
+      msg += "With filter: " + filter + " and sorting: " + sort + "<br>"
+      msg += "Num results: " + sounds.count + "<br><ul>"
+      for (i = 0; i <= 10; i++) {
+        var snd = sounds.getSound(i);
+        msg += "<li>" + snd.name + " by " + snd.download + "</li>"
+        displaySoundElement(snd);
+      }
+      msg += "</ul>"
+      //displayMessage(msg, "soundSearchResults")
+      // displayMessage(msg, "soundResult6")      
+    }, function () { displayError("Error while searching...") }
+  );
 }

@@ -257,6 +257,10 @@
     <script type="text/javascript" src="/js/bootstrap.js"></script>
     <script type="text/javascript" src="/js/jquery.min.js"></script>
     <script type="text/javascript" src="/js/index.js"></script>
+    <script type="text/javascript" src="/js/freesound.js"></script>
+    <script type="text/javascript">
+    freesound.setToken("hNPvV1w5NETnh45zEYJe4gq4QvPzg6D6xEskdZqY");
+    </script>
     <!--<script type="text/javascript" src="/js/tenor.js"></script>-->
   </head>
   <body>
@@ -280,6 +284,8 @@
                 <div class="input-group-append">
                   <button class="btn btn-primary" id="gifSearchBtn">Search</button>
                 </div>
+              </div>
+              <div id='search-term'>
               </div>
               <div class="search-results" id="gifSearchResults" ondrop="dropGif(event)" ondragover="allowDrop(event)">
                 <img class="gif-result" id="gifSearchResult1" draggable="true" ondragstart="drag(event)"></img>
@@ -313,12 +319,12 @@
             <div class="page-action">
               <button class="btn btn-secondary" id="backToWelcomeBtn">Cancel</button>
               <button class="btn btn-info" id="clearSelectedGifsBtn">Clear Selected</button>
-              <!--<button class="btn btn-primary" id="goToAddSoundBtn">Next: Add Sound!</button>-->
-              <button class="btn btn-primary" id="goToAddSoundBtn">Review Your GIFovie</button>
+              <button class="btn btn-primary" id="goToAddSoundBtn">Next: Add Sound!</button>
+              <!-- <button class="btn btn-primary" id="goToAddSoundBtn">Review Your GIFovie</button> -->
             </div>
           </div>
           <div class="dropdown-divider"></div>
-          <!-- <div class="addsound-section" id="addSoundSection">
+          <div class="addsound-section" id="addSoundSection">
             <h3 class="section-title">Add Sound</h3>
             <div class="page-content">
               <div class="input-group mb-3" id="soundSearch">
@@ -328,6 +334,18 @@
                 </div>
               </div>
               <div class="search-results" id="soundSearchResults">
+                <audio id="soundResult1" controls>
+                  <source>
+                </audio>
+                <audio id="soundResult2"></audio>
+                <audio id="soundResult3"></audio>
+                <audio id="soundResult4"></audio>
+                <div id="soundResult5"></div>
+                <div id="soundResult6"></div>
+                <div id="soundResult7"></div>
+                <div id="soundResult8"></div>
+                <div id="soundResult9"></div>
+                <div id="soundResult10"></div>
               </div>
             </div>
             <div class="page-action">
@@ -335,7 +353,7 @@
               <button class="btn btn-primary" id="goToReviewBtn">Review Your GIFovie</button>
             </div>
           </div>
-          <div class="dropdown-divider"></div> -->
+          <div class="dropdown-divider"></div>
           <div class="review-section" id="reviewSection">
             <!-- REVIEW AND SHARE YOUR GIFOVIE -->
             <h3 class="section-title">Review Your GIFovie</h3>

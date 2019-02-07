@@ -39,6 +39,19 @@ $(document).ready(function () {
     $('.selected-gif').stop(true, false).animate({
       'opacity': '0'
     }, 600);
+    $('#header').stop(true, false).animate({
+      'opacity': '0'
+    }, 600);
+    setTimeout(function() {
+      $('#selectedGif1').removeAttr('src');
+      $('#selectedGif2').removeAttr('src');
+      $('#selectedGif3').removeAttr('src');
+      $('#selectedGif4').removeAttr('src');
+      $('#selectedGif1').css('width', "15vw");
+      $('#selectedGif2').css('width', "15vw");
+      $('#selectedGif3').css('width', "15vw");
+      $('#selectedGif4').css('width', "15vw");
+    }, 600);
   });
   $('#gifSearch').click(function(){
     gifQueryType = "search";

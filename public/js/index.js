@@ -298,7 +298,6 @@ function dropGif(ev) {
 }
 
 function submitGifovieForm(){
-  console.log("Submitted GIFovie form!");
   return false;
 }
 
@@ -307,32 +306,27 @@ function displayMessage(text,place){
 }
 
 function displaySoundElement(soundObject){
-  console.log('First child of soundResult1 is '+document.getElementById("soundResult1").firstElementChild);
-  console.log("sound name: "+soundObject.name);
-  console.log("sound url: "+soundObject.url);
+  // console.log('First child of soundResult1 is '+document.getElementById("soundResult1").nextElementSibling);
+  // console.log("sound name: "+soundObject.name);
+  // console.log("sound url: "+soundObject.url);
   document.getElementById("soundResult1").src = soundObject.url+"download/"+soundObject.name+".wav";
+  document.getElementById("soundResult1").nextElementSibling.innerHTML = soundObject.name;
 }
 
 function searchForSounds(query) {
   var page = 1;
-  var filter = "duration:[1.0 TO 5.0] type:wav";
+  var filter = "duration:[2.0 TO 5.0] type:wav";
   var sort = "rating_desc";
   freesound.textSearch(query, { page: page, filter: filter, sort: sort, fields: fields },
     function (sounds) {
-      var msg = ""
-      console.log('query: '+query);
-      console.log('filter: '+filter);
-      console.log('sort: '+sort);
-      console.log('sounds: '+sounds);
-      msg = "<h3>Searching for: " + query + "</h3>"
-      msg += "With filter: " + filter + " and sorting: " + sort + "<br>"
-      msg += "Num results: " + sounds.count + "<br><ul>"
+      // console.log('query: '+query);
+      // console.log('filter: '+filter);
+      // console.log('sort: '+sort);
+      // console.log('sounds: '+sounds);
       for (i = 0; i <= 10; i++) {
         var snd = sounds.getSound(i);
-        msg += "<li>" + snd.name + " by " + snd.download + "</li>"
         displaySoundElement(snd);
       }
-      msg += "</ul>"
       //displayMessage(msg, "soundSearchResults")
       // displayMessage(msg, "soundResult6")
     }, function () { displayError("Error while searching...") }

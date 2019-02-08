@@ -98,12 +98,13 @@
                     }
                 };
                 console.log("method: " + method);
-                console.log("uri: " + uri);
                 xhr.open(method, uri);
                 xhr.setRequestHeader('Authorization',authHeader);
+                // xhr.setRequestHeader('Access-Control-Allow-Origin','http://127.0.0.1:3000');
+                // xhr.setRequestHeader('Content-Type', 'text/html');
+                console.log('content_type: '+content_type);
                 if(content_type!==undefined)
                     xhr.setRequestHeader('Content-Type',content_type);
-                console.log("data before sending: " + data);
                 xhr.send(data);
             }
     };

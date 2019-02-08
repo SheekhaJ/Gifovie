@@ -3,7 +3,7 @@ var key = "LHS9L8D4KLDF";
 var tenorBaseUrl = "https://api.tenor.com/v1";
 var searchTerm = "";
 
-        
+
 var fields = 'id,name,url';
 
 $(document).ready(function () {
@@ -40,7 +40,7 @@ $(document).ready(function () {
     searchTerm = document.getElementById('gifSearchInput').value;
 
     httpGetAsync(url,tenorCallback_anonid);
-    
+
   });
 
   $('#clearSelectedGifsBtn').click(function() {
@@ -61,12 +61,8 @@ $(document).ready(function () {
     $('#addSoundSection')[0].scrollIntoView(true);
     $('#gifSearch, #gifSearchResults').css('z-index', '-1');
     setTimeout(function () {
-      $('#chosenGifs').css('border-bottom', 'solid #707070 1px');
       $('#soundSearch, #soundSearchResults').css('z-index', '1');
       $('#chosenSoundsTitle').html('Sounds Go Here');
-    }, 600);
-    $('#progressBar').stop(true, false).animate({
-      'margin-bottom': '0vh'
     }, 600);
     //console.log('about to go to review section');
     //if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
@@ -321,7 +317,7 @@ function searchForSounds(query) {
         // document.createElement()
       }
       //displayMessage(msg, "soundSearchResults")
-      // displayMessage(msg, "soundResult6")      
+      // displayMessage(msg, "soundResult6")
     }, function () { displayError("Error while searching...") }
   );
 }

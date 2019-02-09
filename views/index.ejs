@@ -211,13 +211,31 @@
       border: solid grey 1px;
     }
 
-    .selected-sounds {
-      min-width: 100%;
+    .selected-sound {
+      height: 5vw;
+      width: 16vw;
+      text-overflow: ellipsis;
+      color: white;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 0.5vw;
+      margin: 0 auto;
+      position: relative;
+      opacity: 0;
+      border: solid grey 1px;
     }
 
     .final-gif {
       height: 10vw;
       width: auto;
+      overflow: hidden;
+      padding: 0.5vw;
+      margin: 0 auto;
+      position: relative;
+    }
+    .final-sound {
+      height: 10vw;
+      width: 15vw;
       overflow: hidden;
       padding: 0.5vw;
       margin: 0 auto;
@@ -248,11 +266,27 @@
       vertical-align: middle;
     }
 
+    #chosenSound1, #chosenSound2, #chosenSound3, #chosenSound4 {
+      padding: 0.5vw;
+      height: 90%;
+      width: 20%;
+      overflow: hidden;
+      padding: 0.5vw;
+      margin: 0 auto;
+      position: relative;
+      vertical-align: middle;
+    }
+
     #reviewGif {
       top: 0;
       left: 50%;
       text-align: center;
       vertical-align: middle;
+    }
+
+    .sound-name {
+      width: 25vw;
+      text-overflow: ellipsis;
     }
 
     </style>
@@ -322,7 +356,7 @@
             </div>
             <div class="page-action">
               <button class="btn btn-secondary" id="backToWelcomeBtn">Cancel</button>
-              <button class="btn btn-info" id="clearSelectedGifsBtn">Clear Selected</button>
+              <button class="btn btn-info" id="clearSelectedGifsBtn">Clear Selected GIFs</button>
               <button class="btn btn-primary" id="goToAddSoundBtn">Next: Add Sound!</button>
               <!-- <button class="btn btn-primary" id="goToAddSoundBtn">Review Your GIFovie</button> -->
             </div>
@@ -337,24 +371,36 @@
                   <button class="btn btn-primary" id="soundSearchBtn">Search</button>
                 </div>
               </div>
-              <div class="search-results" id="soundSearchResults">
-                <div>
-                    <audio id="soundResult1" controls></audio>
-                    <p></p>
+              <center><div class="search-results" id="soundSearchResults">
+                <div style="display: inline-block">
+                  <audio id="soundResult1" type="audio/wav" controls cors='use-credentials' draggable="true" ondragstart="drag(event)"></audio>
+                  <p class="sound-name"></p>
+                  <audio id="soundResult2" type="audio/wav" controls draggable="true" ondragstart="drag(event)"></audio>
+                  <p class="sound-name"></p>
+                  <audio id="soundResult3" type="audio/wav" controls draggable="true" ondragstart="drag(event)"></audio>
+                  <p class="sound-name"></p>
                 </div>
-                <audio id="soundResult2"></audio>
-                <audio id="soundResult3"></audio>
-                <audio id="soundResult4"></audio>
-                <audio id="soundResult5"></audio>
-                <audio id="soundResult6"></audio>
-                <audio id="soundResult7"></audio>
-                <audio id="soundResult8"></audio>
-                <audio id="soundResult9"></audio>
-                <audio id="soundResult10"></audio>
-              </div>
+                <div style="display: inline-block">
+                  <audio id="soundResult4" type="audio/wav" controls draggable="true" ondragstart="drag(event)"></audio>
+                  <p class="sound-name"></p>
+                  <audio id="soundResult5" type="audio/wav" controls draggable="true" ondragstart="drag(event)"></audio>
+                  <p class="sound-name"></p>
+                  <audio id="soundResult6" type="audio/wav" controls draggable="true" ondragstart="drag(event)"></audio>
+                  <p class="sound-name"></p>
+                </div>
+                <div style="display: inline-block">
+                  <audio id="soundResult7" type="audio/wav" controls draggable="true" ondragstart="drag(event)"></audio>
+                  <p class="sound-name"></p>
+                  <audio id="soundResult8" type="audio/wav" controls draggable="true" ondragstart="drag(event)"></audio>
+                  <p class="sound-name"></p>
+                  <audio id="soundResult9" type="audio/wav" controls draggable="true" ondragstart="drag(event)"></audio>
+                  <p class="sound-name"></p>
+                </div>
+              </div></center>
             </div>
             <div class="page-action">
               <button class="btn btn-secondary" id="backToAddGifBtn">Back</button>
+              <button class="btn btn-info" id="clearSelectedSoundsBtn">Clear Selected Sounds</button>
               <button class="btn btn-primary" id="goToReviewBtn">Review Your GIFovie</button>
             </div>
           </div>
@@ -363,12 +409,19 @@
             <!-- REVIEW AND SHARE YOUR GIFOVIE -->
             <h3 class="section-title">Review Your GIFovie</h3>
             <div class="page-content review">
-              <div id="chosenGifsArea">
+              <center><div id="chosenGifsArea">
                 <img class="final-gif" id="finalGif1"></img>
                 <img class="final-gif" id="finalGif2"></img>
                 <img class="final-gif" id="finalGif3"></img>
                 <img class="final-gif" id="finalGif4"></img>
               </div>
+              <div id="chosenSoundsArea">
+                Sounds:<br/>
+                <span>For GIF 1: <p class="final-sound" id="finalSound1"></p></span>
+                <span>For GIF 2: <p class="final-sound" id="finalSound2"></p></span>
+                <span>For GIF 3: <p class="final-sound" id="finalSound3"></p></span>
+                <span>For GIF 4: <p class="final-sound" id="finalSound4"></p></span>
+              </div></center>
             </div>
             <div class="page-action">
               <button class="btn btn-lg btn-secondary" id="backToAddSoundBtn">Back</button>
@@ -378,19 +431,19 @@
           <div class="progress" id="progressBar">
             <!-- FIXED PROGRESS BAR GOES HERE -->
             <div class="chosen-gifs" id="chosenGifs">
-              <p id="chosenGifsTitle">Drop GIFs and Sounds Here</p>
+              <p id="chosenGifsTitle">Drop GIFs in the top row and sounds in the bottom row.</p>
               <div id="chosenGifsArea">
-                <img class="selected-gif" id="selectedGif1" ondrop="dropGif(event)" ondragover="allowDrop(event)"></img>
-                <img class="selected-gif" id="selectedGif2" ondrop="dropGif(event)" ondragover="allowDrop(event)"></img>
-                <img class="selected-gif" id="selectedGif3" ondrop="dropGif(event)" ondragover="allowDrop(event)"></img>
-                <img class="selected-gif" id="selectedGif4" ondrop="dropGif(event)" ondragover="allowDrop(event)"></img>
+                <img class="selected-gif" id="selectedGif1" ondrop="drop(event)" ondragover="allowDrop(event)"></img>
+                <img class="selected-gif" id="selectedGif2" ondrop="drop(event)" ondragover="allowDrop(event)"></img>
+                <img class="selected-gif" id="selectedGif3" ondrop="drop(event)" ondragover="allowDrop(event)"></img>
+                <img class="selected-gif" id="selectedGif4" ondrop="drop(event)" ondragover="allowDrop(event)"></img>
               </div>
-            </div>
-            <div class="chosen-sounds" id="chosenSounds">
-              <p class="selected-sound" id="selectedSound1"></p>
-              <p class="selected-sound" id="selectedSound2"></p>
-              <p class="selected-sound" id="selectedSound3"></p>
-              <p class="selected-sound" id="selectedSound4"></p>
+              <div id="chosenSoundsArea">
+                <small class="selected-sound" id="selectedSound1" ondrop="drop(event)" ondragover="allowDrop(event)"></small>
+                <small class="selected-sound" id="selectedSound2" ondrop="drop(event)" ondragover="allowDrop(event)"></small>
+                <small class="selected-sound" id="selectedSound3" ondrop="drop(event)" ondragover="allowDrop(event)"></small>
+                <small class="selected-sound" id="selectedSound4" ondrop="drop(event)" ondragover="allowDrop(event)"></small>
+              </div>
             </div>
             <!--<div class="chosen-sounds" id="chosenSounds">
               <span id="chosenSoundsTitle"></span>

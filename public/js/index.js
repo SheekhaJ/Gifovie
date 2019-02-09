@@ -5,6 +5,7 @@ var searchTerm = "";
 
 
 var fields = 'id,name,url';
+var soundNames = [];
 
 $(document).ready(function () {
   document.body.scrollTop = 0;
@@ -25,13 +26,37 @@ $(document).ready(function () {
     $('#chosenGifsTitle').stop(true, false).animate({
       'opacity': '1'
     });
-    $('.selected-gif').stop(true, false).animate({
+    $('.selected-gif, .selected-sound').stop(true, false).animate({
       'opacity': '1'
     }, 600);
   });
 
   $('#header').click(function(){
     $('#welcomeSection')[0].scrollIntoView(true);
+    setTimeout(function() {
+      $('#selectedGif1').removeAttr('src');
+      $('#selectedGif2').removeAttr('src');
+      $('#selectedGif3').removeAttr('src');
+      $('#selectedGif4').removeAttr('src');
+      $('#selectedGif1').css('width', "9vw");
+      $('#selectedGif2').css('width', "9vw");
+      $('#selectedGif3').css('width', "9vw");
+      $('#selectedGif4').css('width', "9vw");
+      $('#selectedSound1').html('');
+      $('#selectedSound2').html('');
+      $('#selectedSound3').html('');
+      $('#selectedSound4').html('');
+      $('#selectedSound1').css('width', "16vw");
+      $('#selectedSound2').css('width', "16vw");
+      $('#selectedSound3').css('width', "16vw");
+      $('#selectedSound4').css('width', "16vw");
+    }, 600);
+    $('#chosenGifsTitle').stop(true, false).animate({
+      'opacity': '0'
+    }, 600);
+    $('.selected-gif, .selected-sound').stop(true, false).animate({
+      'opacity': '0'
+    }, 600);
   })
   $('#gifSearch').click(function(){
     gifQueryType = "search";
@@ -96,7 +121,7 @@ $(document).ready(function () {
     $('#chosenGifsTitle').stop(true, false).animate({
       'opacity': '0'
     }, 600);
-    $('.selected-gif').stop(true, false).animate({
+    $('.selected-gif, .selected-sound').stop(true, false).animate({
       'opacity': '0'
     }, 600);
     setTimeout(function() {
@@ -104,10 +129,18 @@ $(document).ready(function () {
       $('#selectedGif2').removeAttr('src');
       $('#selectedGif3').removeAttr('src');
       $('#selectedGif4').removeAttr('src');
-      $('#selectedGif1').css('width', "15vw");
-      $('#selectedGif2').css('width', "15vw");
-      $('#selectedGif3').css('width', "15vw");
-      $('#selectedGif4').css('width', "15vw");
+      $('#selectedGif1').css('width', "9vw");
+      $('#selectedGif2').css('width', "9vw");
+      $('#selectedGif3').css('width', "9vw");
+      $('#selectedGif4').css('width', "9vw");
+      $('#selectedSound1').html('');
+      $('#selectedSound2').html('');
+      $('#selectedSound3').html('');
+      $('#selectedSound4').html('');
+      $('#selectedSound1').css('width', "16vw");
+      $('#selectedSound2').css('width', "16vw");
+      $('#selectedSound3').css('width', "16vw");
+      $('#selectedSound4').css('width', "16vw");
     }, 600);
   });
 
@@ -115,7 +148,26 @@ $(document).ready(function () {
     searchForSounds($('#soundSearchInput').val());
   });
 
+  $('#clearSelectedSoundsBtn').click(function() {
+    console.log('clearing sounds');
+    $('#selectedSound1').html('');
+    $('#selectedSound2').html('');
+    $('#selectedSound3').html('');
+    $('#selectedSound4').html('');
+    $('#selectedSound1').css('width', "16vw");
+    $('#selectedSound2').css('width', "16vw");
+    $('#selectedSound3').css('width', "16vw");
+    $('#selectedSound4').css('width', "16vw");
+  });
   $('#goToReviewBtn').click(function () {
+    $('#finalSound1').css('display', 'block');
+    $('#finalSound2').css('display', 'block');
+    $('#finalSound3').css('display', 'block');
+    $('#finalSound4').css('display', 'block');
+    $('#finalSound1').html($('#selectedSound1').html());
+    $('#finalSound2').html($('#selectedSound2').html());
+    $('#finalSound3').html($('#selectedSound3').html());
+    $('#finalSound4').html($('#selectedSound4').html());
     if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
     $('#soundSearch, #soundSearchResults').css('z-index', '-1');
     $('#reviewSection')[0].scrollIntoView(true);
@@ -273,13 +325,20 @@ function drag(ev) {
   ev.dataTransfer.setData("text", ev.target.id);
 }
 
-function dropGif(ev) {
+function drop(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
   console.log(document.getElementById(data).src);
   console.log(ev.target);
-  ev.target.src = document.getElementById(data).src;
-  ev.target.style.width = 'auto';
+  if (document.getElementById(data).src.includes('.gif') && ev.target.id.includes('Gif')) {
+    ev.target.src = document.getElementById(data).src;
+    ev.target.style.width = 'auto';
+  }
+  else if (document.getElementById(data).src.includes('.wav') && ev.target.id.includes('Sound')) {
+    urlPieces = document.getElementById(data).src.split('/download/');
+    console.log(urlPieces);
+    ev.target.innerHTML = document.getElementById(data).nextElementSibling.innerHTML;
+  }
   /*if (('#chosenGif1').html() != '') {
 
   }*/
@@ -293,12 +352,13 @@ function displayMessage(text,place){
   document.getElementById(place).innerHTML=text;
 }
 
-function displaySoundElement(soundObject){
+function displaySoundElement(soundObject, i){
   // console.log('First child of soundResult1 is '+document.getElementById("soundResult1").nextElementSibling);
   // console.log("sound name: "+soundObject.name);
   // console.log("sound url: "+soundObject.url);
-  document.getElementById("soundResult1").src = soundObject.url+"download/"+soundObject.name+".wav";
-  document.getElementById("soundResult1").nextElementSibling.innerHTML = soundObject.name;
+  soundNames.push(soundObject.url+"download/"+soundObject.name+".wav");
+  document.getElementById("soundResult"+i).src = soundObject.url+"download/"+soundObject.name+".wav";
+  document.getElementById("soundResult"+i).nextElementSibling.innerHTML = soundObject.name;
 }
 
 function searchForSounds(query) {
@@ -311,9 +371,10 @@ function searchForSounds(query) {
       // console.log('filter: '+filter);
       // console.log('sort: '+sort);
       // console.log('sounds: '+sounds);
-      for (i = 0; i <= 10; i++) {
+      for (i = 0; i < 9; i++) {
         var snd = sounds.getSound(i);
-        displaySoundElement(snd);
+        console.log(snd);
+        displaySoundElement(snd, i+1);
         // document.createElement()
       }
       //displayMessage(msg, "soundSearchResults")

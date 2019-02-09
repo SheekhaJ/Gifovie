@@ -1,6 +1,6 @@
 (function () {
 
-    var freesound = function () {        
+    var freesound = function () {
         var authHeader = '';
         var clientId = '';
         var clientSecret = '';
@@ -33,9 +33,9 @@
             userBookmarkCategorySounds : '/users/<username>/bookmark_categories/<category_id>/sounds/',
             pack : '/packs/<pack_id>/',
             packSounds : '/packs/<pack_id>/sounds/',
-            packDownload : '/packs/<pack_id>/download/'            
+            packDownload : '/packs/<pack_id>/download/'
         };
-        
+
         var makeUri = function (uri, args){
             for (var a in args) {uri = uri.replace(/<[\w_]+>/, args[a]);}
             return uris.base+uri;
@@ -50,13 +50,13 @@
             var parse_response = function (response){
                 var data = eval("(" + response + ")");
                 success(wrapper?wrapper(data):data);
-            };                      
+            };
             var paramStr = "";
             for(var p in params){paramStr = paramStr+"&"+p+"="+params[p];}
             if (paramStr){
                 uri = uri +"?"+ paramStr;
             }
-            
+
             if (typeof module !== 'undefined'){ // node.js
                 var http = require("http");
                 var options = {
@@ -68,17 +68,17 @@
                 };
                 var req = http.request(options,function(res){
                 	var result = '';
-                    res.setEncoding('utf8');            
-                    res.on('data', function (data){ 
+                    res.setEncoding('utf8');
+                    res.on('data', function (data){
                         result += data;
                     });
                     res.on('end', function() {
                     	if([200,201,202].indexOf(res.statusCode)>=0)
                             success(wrapper?wrapper(data):data);
-                        else   
+                        else
                             error(data);
                     });
-                });                
+                });
                 req.on('error', error).end();
             }
             else{ // browser
@@ -104,6 +104,7 @@
                 // xhr.setRequestHeader('Content-Type', 'text/html');
                 console.log('content_type: '+content_type);
                 if(content_type!==undefined)
+                    console.log('content type: ' + content_type)
                     xhr.setRequestHeader('Content-Type',content_type);
                 xhr.send(data);
             }
@@ -112,30 +113,30 @@
         if(authHeader.indexOf("Bearer")==-1)
             throw("Oauth authentication required");
     };
-        
+
     var makeFD = function(obj,fd){
         if(!fd)
-            fd = new FormData(); 
+            fd = new FormData();
         for (var prop in obj){
             fd.append(prop,obj[prop])
         }
         return fd;
     };
-    
-    var search = function(options, uri, success, error,wrapper){ 
-        console.log("options.analysis_file: " + options.analysis_file); 
-        if(options.analysis_file){ 
+
+    var search = function(options, uri, success, error,wrapper){
+        console.log("options.analysis_file: " + options.analysis_file);
+        if(options.analysis_file){
                 makeRequest(makeUri(uri), success,error,null, wrapper, 'POST',makeFD(options));
         }
         else{
                 makeRequest(makeUri(uri), success,error,options, wrapper);
-        }    
+        }
     };
-        
+
     var Collection = function (jsonObject){
         var nextOrPrev = function (which,success,error){
             makeRequest(which,success,error,{}, Collection);
-        };        
+        };
         jsonObject.nextPage = function (success,error){
             nextOrPrev(jsonObject.next,success,error);
         };
@@ -145,10 +146,10 @@
         jsonObject.getItem = function (idx){
             return jsonObject.results[idx];
         }
-        
+
         return jsonObject;
-    };  
-        
+    };
+
     var SoundCollection = function(jsonObject){
         var collection = Collection(jsonObject);
         collection.getSound = function (idx){
@@ -156,16 +157,16 @@
         };
         return collection;
     };
-    
+
     var PackCollection = function(jsonObject){
         var collection = Collection(jsonObject);
         collection.getPack = function (idx){
             return new PackObject(collection.results[idx]);
-        };   
+        };
         return collection;
     };
-        
-    var SoundObject = function (jsonObject){ 
+
+    var SoundObject = function (jsonObject){
         jsonObject.getAnalysis = function(filter, success, error, showAll){
             var params = {all: showAll?1:0};
             makeRequest(makeUri(uris.soundAnalysis,[jsonObject.id,filter?filter:""]),success,error);
@@ -174,7 +175,7 @@
         jsonObject.getSimilar = function (success, error, params){
             makeRequest(makeUri(uris.similarSounds,[jsonObject.id]),success,error, params,SoundCollection);
         };
- 
+
        jsonObject.getComments = function (success, error){
             makeRequest(makeUri(uris.comments,[jsonObject.id]),success,error,{},Collection);
        };
@@ -184,7 +185,7 @@
             var uri = makeUri(uris.download,[jsonObject.id]);
             targetWindow.location = uri;
        };
-       
+
 	jsonObject.comment = function (commentStr, success, error){
             checkOauth();
             var data = new FormData();
@@ -207,57 +208,57 @@
             data.append('name', name);
             if(category)
                 data.append("category",category);
-            var uri = makeUri(uris.bookmark,[jsonObject.id]);            
+            var uri = makeUri(uris.bookmark,[jsonObject.id]);
             makeRequest(uri, success, error, {}, null, 'POST', data);
         };
-        
+
         jsonObject.edit = function (description,success, error){
             checkOauth();
             var data = makeFD(description);
             var uri = makeUri(uris.edit,[jsonObject.id]);
             makeRequest(uri, success, error, {}, null, 'POST', data);
-        };        
+        };
 
         return jsonObject;
     };
     var UserObject = function(jsonObject){
         jsonObject.sounds = function (success, error, params){
             var uri = makeUri(uris.userSounds,[jsonObject.username]);
-            makeRequest(uri, success, error,params,SoundCollection);            
+            makeRequest(uri, success, error,params,SoundCollection);
         };
 
         jsonObject.packs = function (success, error){
             var uri = makeUri(uris.userPacks,[jsonObject.username]);
-            makeRequest(uri, success, error,{},PackCollection);                    
+            makeRequest(uri, success, error,{},PackCollection);
         };
 
         jsonObject.bookmarkCategories = function (success, error){
             var uri = makeUri(uris.userBookmarkCategories,[jsonObject.username]);
-            makeRequest(uri, success, error);                    
+            makeRequest(uri, success, error);
         };
 
         jsonObject.bookmarkCategorySounds = function (success, error,params){
             var uri = makeUri(uris.userBookmarkCategorySounds,[jsonObject.username]);
-            makeRequest(uri, success, error,params);                    
+            makeRequest(uri, success, error,params);
         };
 
         return jsonObject;
     };
-        
+
     var PackObject = function(jsonObject){
         jsonObject.sounds = function (success, error){
             var uri = makeUri(uris.packSounds,[jsonObject.id]);
-            makeRequest(uri, success, error,{},SoundCollection);            
+            makeRequest(uri, success, error,{},SoundCollection);
         };
-        
+
         jsonObject.download = function (targetWindow){// can be current or new window, or iframe
             checkOauth();
             var uri = makeUri(uris.packDownload,[jsonObject.id]);
             targetWindow.location = uri;
-        };                
+        };
         return jsonObject;
     };
-                
+
     return {
             // authentication
             setToken: function (token, type) {
@@ -275,19 +276,19 @@
                 data.append('client_secret',clientSecret);
                 data.append('code',code);
                 data.append('grant_type','authorization_code');
-                                
+
                 if (!success){
                     success = function(result){
-                        setToken(result.access_token,'oauth');                        
+                        setToken(result.access_token,'oauth');
                     }
                 }
                 makeRequest(post_url, success, error, {}, null, 'POST', data);
             },
-            textSearch: function(query, options, success, error){                
+            textSearch: function(query, options, success, error){
                 options = options || {};
                 options.query = query ? query : " ";
                 search(options,uris.textSearch,success,error,SoundCollection);
-            },                    
+            },
             contentSearch: function(options, success, error){
                 if(!(options.target || options.analysis_file))
                    throw("Missing target or analysis_file");
@@ -305,14 +306,14 @@
             upload: function(audiofile,filename, description, success,error){
                 checkOauth();
                 var fd = new FormData();
-                fd.append('audiofile', audiofile,filename);                    
-                if(description){                    
+                fd.append('audiofile', audiofile,filename);
+                if(description){
                     fd = makeFD(description,fd);
                 }
                 makeRequest(makeUri(uris.upload), success, error, {}, null, 'POST', fd);
             },
             describe: function(upload_filename , description, license, tags, success,error){
-                checkOauth();                
+                checkOauth();
                 var fd = makeFD(description);
                 makeRequest(makeUri(uris.upload), success, error, {}, null, 'POST', fd);
             },
@@ -337,21 +338,21 @@
             getLogoutURL: function(){
                 var logout_url = makeUri(uris.logoutAuthorize);
                 logout_url += "?client_id="+clientId+"&response_type=code";
-                
+
                 return logout_url;
             },
 
             getUser: function(username, success,error){
                 makeRequest(makeUri(uris.user, [username]), success,error,{}, UserObject);
             },
-        
-            getPack: function(packId,success,error){                
-                makeRequest(makeUri(uris.pack, [packId]), success,error,{}, PackObject);            
-            }        
-        }    
+
+            getPack: function(packId,success,error){
+                makeRequest(makeUri(uris.pack, [packId]), success,error,{}, PackObject);
+            }
+        }
     };
 
-    // compatible with CommonJS (node), AMD (requireJS) failing back to browser global 
+    // compatible with CommonJS (node), AMD (requireJS) failing back to browser global
     // working with node requires web-audio-api module
     if (typeof module !== 'undefined') {module.exports = freesound(); }
     else if (typeof define === 'function' && typeof define.amd === 'object') { define("freesound", [], freesound); }

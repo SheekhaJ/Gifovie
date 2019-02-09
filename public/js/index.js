@@ -199,22 +199,22 @@ $(document).ready(function () {
     $('#downloadBtn').attr('disabled', 'disabled');
   });
   $('#backToAddSoundBtn').click(function () {
-    /*if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
+    if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
     $('#soundSearch, #soundSearchResults').css('z-index', '-1');
     $('#addSoundSection')[0].scrollIntoView(true);
     $('#progressBar').css('display', 'block');
 
     $('#progressBar').stop(true, false).animate({
       'opacity': '1'
-    }, 200);*/
-    if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
+    }, 200);
+    /*if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
     $('#soundSearch, #soundSearchResults').css('z-index', '-1');
     $('#addGifSection')[0].scrollIntoView(true);
     $('#progressBar').css('display', 'block');
 
     $('#progressBar').stop(true, false).animate({
       'opacity': '1'
-    }, 200);
+    }, 200);*/
   });
 
 });

@@ -113,7 +113,7 @@
       position: fixed;
       bottom: 0;
       font-size: 10vw;
-      padding: 1vw;
+      padding: 0.5vw;
       background-image: linear-gradient(to right, purple, blue);
       display: flex;
       flex-direction: column;
@@ -201,7 +201,7 @@
     }
 
     .selected-gif {
-      height: 6vw;
+      height: 5vw;
       width: 9vw;
       overflow: hidden;
       padding: 0.5vw;
@@ -212,7 +212,7 @@
     }
 
     .selected-sound {
-      height: 5vw;
+      height: 4vw;
       width: 16vw;
       text-overflow: ellipsis;
       color: white;
@@ -431,7 +431,7 @@
           <div class="progress" id="progressBar">
             <!-- FIXED PROGRESS BAR GOES HERE -->
             <div class="chosen-gifs" id="chosenGifs">
-              <p id="chosenGifsTitle">Drop GIFs in the top row and sounds in the bottom row.</p>
+              <small id="chosenGifsTitle">Drop GIFs in the top row and sounds in the bottom row.</small><br/>
               <div id="chosenGifsArea">
                 <img class="selected-gif" id="selectedGif1" ondrop="drop(event)" ondragover="allowDrop(event)"></img>
                 <img class="selected-gif" id="selectedGif2" ondrop="drop(event)" ondragover="allowDrop(event)"></img>

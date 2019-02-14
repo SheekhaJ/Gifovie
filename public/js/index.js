@@ -87,7 +87,15 @@ $(document).ready(function () {
     $('#gifSearch, #gifSearchResults').css('z-index', '-1');
     setTimeout(function () {
       $('#soundSearch, #soundSearchResults').css('z-index', '1');
-      $('#chosenSoundsTitle').html('Sounds Go Here');
+      $('.selected-sound').css('border', 'solid grey 1px');
+    }, 600);
+    $('#chosenSoundsTitle').stop(true, false).animate({
+      'opacity': '1'
+    });
+
+
+    $('#progressBar').stop(true, false).animate({
+      'margin-bottom': '0vh'
     }, 600);
     //console.log('about to go to review section');
     //if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
@@ -182,13 +190,15 @@ $(document).ready(function () {
     if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
     $('#soundSearch, #soundSearchResults').css('z-index', '-1');
     $('#addGifSection')[0].scrollIntoView(true);
-    $('#progressBar').stop(true, false).animate({
-      'margin-bottom': '-5vh'
-    }, 600);
-    setTimeout(function () {
-      $('#chosenSoundsTitle').html('');
-      $('#chosenGifs').css('border-bottom', 'solid transparent 1px');
-    }, 600);
+    if ($('#selectedSound1').html() == '' && $('#selectedSound2').html() == '' && $('#selectedSound3').html() == '' && $('#selectedSound4').html() == '') {
+      $('.selected-sound').css('border', 'none');
+      $('#progressBar').stop(true, false).animate({
+        'margin-bottom': '-5vh'
+      }, 600);
+      $('#chosenSoundsTitle').stop(true, false).animate({
+        'opacity': '0'
+      });
+    }
   });
 
   $('#downloadBtn').click(function () {

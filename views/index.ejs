@@ -5,7 +5,7 @@
     <!--<link rel="stylesheet" type="text/css" href="/css/style.css">-->
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
     <style>
-    /*@import url('https://fonts.googleapis.com/css?family=Open+Sans:300');*/
+    @import url('https://fonts.googleapis.com/css?family=Abel');
     html {
       scroll-behavior: smooth;
       margin: 0;
@@ -14,7 +14,7 @@
     }
 
     body {
-      font-family: "Comic Sans MS";
+      font-family: 'Abel', sans-serif;
       /*background-image: linear-gradient(to right, #ffad89, white);*/
     }
 
@@ -117,6 +117,7 @@
       background-image: linear-gradient(to right, purple, blue);
       display: flex;
       flex-direction: column;
+      margin-bottom: -5vh;
     }
 
     .chosen-gifs {
@@ -212,7 +213,7 @@
     }
 
     .selected-sound {
-      height: 4vw;
+      height: 2vw;
       width: 16vw;
       text-overflow: ellipsis;
       color: white;
@@ -221,8 +222,6 @@
       padding: 0.5vw;
       margin: 0 auto;
       position: relative;
-      opacity: 0;
-      border: solid grey 1px;
     }
 
     .final-gif {
@@ -251,6 +250,10 @@
       flex-direction: row;
     }
     #chosenGifsTitle {
+      color: white;
+      opacity: 0;
+    }
+    #chosenSoundsTitle {
       color: white;
       opacity: 0;
     }
@@ -308,7 +311,7 @@
     <div class="welcome-section" id="welcomeSection">
       <div class="welcome-page-content">
         <div id="title">GIFovie</div>
-        <div id="subtitle">Make Movies Out of GIFs</div><br/>
+        <div id="subtitle">Turn GIFs into Movies</div><br/>
         <button class="btn btn-lg btn-primary" id="getStartedBtn">--> Get Started <--</button>
       </div>
     </div>
@@ -431,7 +434,7 @@
           <div class="progress" id="progressBar">
             <!-- FIXED PROGRESS BAR GOES HERE -->
             <div class="chosen-gifs" id="chosenGifs">
-              <small id="chosenGifsTitle">Drop GIFs in the top row and sounds in the bottom row.</small><br/>
+              <small id="chosenGifsTitle">Drag and drop GIFs here.</small><br/>
               <div id="chosenGifsArea">
                 <img class="selected-gif" id="selectedGif1" ondrop="drop(event)" ondragover="allowDrop(event)"></img>
                 <img class="selected-gif" id="selectedGif2" ondrop="drop(event)" ondragover="allowDrop(event)"></img>
@@ -444,6 +447,7 @@
                 <small class="selected-sound" id="selectedSound3" ondrop="drop(event)" ondragover="allowDrop(event)"></small>
                 <small class="selected-sound" id="selectedSound4" ondrop="drop(event)" ondragover="allowDrop(event)"></small>
               </div>
+              <small id="chosenSoundsTitle">Drag and drop sounds here.</small>
             </div>
             <!--<div class="chosen-sounds" id="chosenSounds">
               <span id="chosenSoundsTitle"></span>

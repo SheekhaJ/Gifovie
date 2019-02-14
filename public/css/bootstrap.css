@@ -2340,7 +2340,6 @@ fieldset:disabled a.btn {
   background-color: #0069d9;
   border-color: #0069d9;
   background-image: linear-gradient(to right, blue, red);
-  font-weight: bold;
 }
 
 .btn-primary:hover {
@@ -2348,7 +2347,6 @@ fieldset:disabled a.btn {
   background-color: #0069d9;
   border-color: #0062cc;
   background-image: linear-gradient(to right, blue, red);
-  font-weight: bold;
 }
 
 .btn-primary:focus, .btn-primary.focus {

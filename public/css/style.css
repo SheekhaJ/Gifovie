@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Abel');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400i|Bangers');
 html {
   scroll-behavior: smooth;
   margin: 0;
@@ -7,7 +7,7 @@ html {
 }
 
 body {
-  font-family: 'Abel', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   /*background-image: linear-gradient(to right, #ffad89, white);*/
 }
 
@@ -35,13 +35,14 @@ body {
 
 #title {
   font-size: 6vw;
-  font-weight: bold;
   color: white;
+  font-family: 'Bangers', cursive;
 }
 
 #subtitle {
   font-size: 3vw;
   color: yellow;
+  font-family: 'Bangers', cursive;
 }
 
 .header {
@@ -54,9 +55,9 @@ body {
   text-align: center;
   vertical-align: middle;
   font-size: 3vw;
-  font-weight: bold;
   display: table;
   z-index: -1;
+  font-family: 'Bangers', cursive;
 }
 
 .header-text {

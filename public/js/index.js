@@ -59,6 +59,9 @@ $(document).ready(function () {
     }, 600);
   })
   $('#gifSearch').click(function(){
+    for (i = 1; i <= 21; i++) {
+      $('#gifSearchResult'+i).removeAttr('src');
+    }
     gifQueryType = "search";
 
     var url = tenorBaseUrl+"/anonid?key=" + key;
@@ -95,7 +98,7 @@ $(document).ready(function () {
 
 
     $('#progressBar').stop(true, false).animate({
-      'margin-bottom': '0vh'
+      'margin-bottom': '0'
     }, 600);
     //console.log('about to go to review section');
     //if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
@@ -153,6 +156,10 @@ $(document).ready(function () {
   });
 
   $('#soundSearchBtn').click(function() {
+    for (i = 1; i <= 9; i++) {
+      $('#soundResult'+i).removeAttr('src');
+    }
+    $('.sound-name').html('');
     searchForSounds($('#soundSearchInput').val());
   });
 
@@ -193,7 +200,7 @@ $(document).ready(function () {
     if ($('#selectedSound1').html() == '' && $('#selectedSound2').html() == '' && $('#selectedSound3').html() == '' && $('#selectedSound4').html() == '') {
       $('.selected-sound').css('border', 'none');
       $('#progressBar').stop(true, false).animate({
-        'margin-bottom': '-5vh'
+        'margin-bottom': '-2vw'
       }, 600);
       $('#chosenSoundsTitle').stop(true, false).animate({
         'opacity': '0'

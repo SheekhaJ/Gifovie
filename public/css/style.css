@@ -1,70 +1,283 @@
+@import url('https://fonts.googleapis.com/css?family=Abel');
 html {
   scroll-behavior: smooth;
-}
-
-body {
+  margin: 0;
+  height: 100%;
   overflow: hidden;
 }
 
+body {
+  font-family: 'Abel', sans-serif;
+  /*background-image: linear-gradient(to right, #ffad89, white);*/
+}
+
+.backImg {
+  background-image: linear-gradient(to right, #d73f09, yellow);
+  opacity: 0.2;
+  z-index: -1;
+  width: 100%;
+  height: 100vw;
+}
+
 .welcome-section {
-  position: relative;
-  top: 30vh;
-  height: 85vh;
+  height: 100%;
   width: 100%;
   text-align: center;
+  display: table;
+  z-index: 100;
+  background-image: linear-gradient(to right, purple, blue);
+}
+
+.welcome-page-content {
+  display: table-cell;
+  vertical-align: middle;
 }
 
 #title {
   font-size: 6vw;
   font-weight: bold;
-  color: green;
+  color: white;
 }
 
 #subtitle {
   font-size: 3vw;
-  color: black;
+  color: yellow;
 }
 
 .header {
-  height: 10vh;
+  position: fixed;
+  height: 5vw;
+  width: 100%;
+  background-color: red;
+  background-image: linear-gradient(to right, purple, blue);
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 3vw;
+  font-weight: bold;
+  display: table;
+  z-index: -1;
+}
+
+.header-text {
+  display: table-cell;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.section-title {
+  text-align: center;
 }
 
 .addgif-section {
+  min-height: 85vw;
   width: 100%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 1vw;
+  display: table;
+  padding-top: 6vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  padding-bottom: 1vw;
 }
 
 .addsound-section {
+  min-height: 85vw;
   width: 100%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 1vw;
+  display: table;
+  padding-top: 6vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  padding-bottom: 1vw;
 }
 
 .review-section {
-  height: 75vh;
+  min-height: 100%;
   width: 100%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 1vw;
+  display: table;
+  padding-top: 6vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  padding-bottom: 1vw;
 }
 
 .progress {
-  height: 15vh;
+  min-height: 12vw;
   width: 100%;
   position: fixed;
-  background-color: red;
   bottom: 0;
   font-size: 10vw;
+  padding: 0.5vw;
+  background-image: linear-gradient(to right, purple, blue);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: -2vw;
+}
+
+.chosen-gifs {
+  height: 11.5vh;
+  width: 100%;
+  margin-bottom: 0.5vw;
+  font-size: 1.5vw;
+  color: #707070;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.chosen-sounds {
+  height: 4vw;
+  width: 100%;
+  font-size: 1.5vw;
+  color: #707070;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.page-content {
+  max-height: 55vw;
+  vertical-align: middle;
+  bottom: 0;
+  right: 0;
+  border: solid transparent 1px;
+  z-index: -1;
+}
+
+.page-content.review {
+  height: 100%;
+  margin: 0 auto;
+  position: relative;
+  vertical-align: middle;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+}
+
+.search-result-section {
+  min-height: 20vw;
+  background-color: #e0e0e0;
 }
 
 .page-action {
-  display: inline-block;
+  float: right;
+  padding: 1vw;
   bottom: 0;
   right: 0;
+  z-index: -1;
+  border: solid transparent 1px;
+}
+
+#downloadSuccessAlert {
+  display: none;
+}
+
+#gifSearch {
+  z-index: -1;
+}
+
+#soundSearch {
+  z-index: -1;
+}
+
+#gifSearchResults {
+  min-width: 98vw;
+  display: flex;
+  flex-direction: row;
+}
+
+.gif-result {
+  width: auto;
+  height: 6vw;
+  overflow: hidden;
+  padding: 0.5vw;
+  margin: 0 auto;
+  position: relative;
+}
+
+.selected-gif {
+  height: 5vw;
+  width: 9vw;
+  overflow: hidden;
+  padding: 0.5vw;
+  margin: 0 auto;
+  position: relative;
+  opacity: 0;
+  border: solid grey 1px;
+}
+
+.selected-sound {
+  height: 2vw;
+  width: 16vw;
+  text-overflow: ellipsis;
+  color: white;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0.5vw;
+  margin: 0 auto;
+  position: relative;
+}
+
+.final-gif {
+  height: 10vw;
+  width: auto;
+  overflow: hidden;
+  padding: 0.5vw;
+  margin: 0 auto;
+  position: relative;
+}
+.final-sound {
+  height: 10vw;
+  width: 15vw;
+  overflow: hidden;
+  padding: 0.5vw;
+  margin: 0 auto;
+  position: relative;
+}
+
+#chosenGifsArea {
+  display: flex;
+  flex-direction: row;
+}
+#chosenSoundsArea {
+  display: flex;
+  flex-direction: row;
+}
+#chosenGifsTitle {
+  color: white;
+  opacity: 0;
+}
+#chosenSoundsTitle {
+  color: white;
+  opacity: 0;
+}
+
+#chosenGif1, #chosenGif2, #chosenGif3, #chosenGif4 {
+  padding: 0.5vw;
+  height: 90%;
+  width: 20%;
+  overflow: hidden;
+  padding: 0.5vw;
+  margin: 0 auto;
+  position: relative;
+  vertical-align: middle;
+}
+
+#chosenSound1, #chosenSound2, #chosenSound3, #chosenSound4 {
+  padding: 0.5vw;
+  height: 90%;
+  width: 20%;
+  overflow: hidden;
+  padding: 0.5vw;
+  margin: 0 auto;
+  position: relative;
+  vertical-align: middle;
+}
+
+#reviewGif {
+  top: 0;
+  left: 50%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.sound-name {
+  width: 25vw;
+  text-overflow: ellipsis;
 }

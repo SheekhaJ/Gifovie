@@ -140,6 +140,10 @@ body {
   z-index: -1;
 }
 
+.page-content.sounds {
+  min-height: 26vw;
+}
+
 .page-content.review {
   height: 100%;
   margin: 0 auto;

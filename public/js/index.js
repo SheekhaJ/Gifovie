@@ -32,6 +32,7 @@ $(document).ready(function () {
   });
 
   $('#header').click(function(){
+    if ($('#header').css('z-index') != '-1') $('#header').css('z-index', '-1');
     $('#welcomeSection')[0].scrollIntoView(true);
     setTimeout(function() {
       $('#selectedGif1').removeAttr('src');

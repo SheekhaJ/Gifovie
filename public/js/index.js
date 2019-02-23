@@ -11,10 +11,14 @@ $(document).ready(function () {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
 
+  // console.log('sounds is '+<%= sounds %>);
+  // document.getElementById('soundResult1').src = "<% sounds %>"
+  // document.getElementById('soundResult1').src = "<%= sounds.sounds %>";
+
   $('#getStartedBtn').click(function () {
     gifQueryType = "trending";
     $('#addGifSection')[0].scrollIntoView(true);
-
+    
     var url = tenorBaseUrl+"/anonid?key=" + key;
 
     httpGetAsync(url,tenorCallback_anonid);
@@ -156,13 +160,13 @@ $(document).ready(function () {
     }, 600);
   });
 
-  $('#soundSearchBtn').click(function() {
-    for (i = 1; i <= 9; i++) {
-      $('#soundResult'+i).removeAttr('src');
-    }
-    $('.sound-name').html('');
-    searchForSounds($('#soundSearchInput').val());
-  });
+  // $('#soundSearchBtn').click(function() {
+  //   for (i = 1; i <= 9; i++) {
+  //     $('#soundResult'+i).removeAttr('src');
+  //   }
+  //   $('.sound-name').html('');
+  //   searchForSounds($('#soundSearchInput').val());
+  // });
 
   $('#clearSelectedSoundsBtn').click(function() {
     console.log('clearing sounds');
@@ -236,6 +240,18 @@ $(document).ready(function () {
   });
 
 });
+
+  function getSounds(category){
+    console.log('category is '+category);
+    var xmlHttp = new XMLHttpRequest();
+    url = "http://localhost:3000?category="+category;
+    xmlHttp.open('GET', url, true);
+    xmlHttp.send(null);
+    // var s = <%= sounds %>;
+    // document.getElementById('soundResult1').src = "<%= sounds.sounds[0] %>";
+
+    return;
+  }
 
 function httpGetAsync(theUrl, callback) {
   // create the request object
@@ -366,37 +382,63 @@ function submitGifovieForm(){
   return false;
 }
 
-function displayMessage(text,place){
-  document.getElementById(place).innerHTML=text;
-}
+// function displaySoundCategories(){
+//   var xmlHttp = new XMLHttpRequest();
 
-function displaySoundElement(soundObject, i){
-  // console.log('First child of soundResult1 is '+document.getElementById("soundResult1").nextElementSibling);
-  // console.log("sound name: "+soundObject.name);
-  // console.log("sound url: "+soundObject.url);
-  soundNames.push(soundObject.url+"download/"+soundObject.name+".wav");
-  document.getElementById("soundResult"+i).src = soundObject.url+"download/"+soundObject.name+".wav";
-  document.getElementById("soundResult"+i).nextElementSibling.innerHTML = soundObject.name;
-}
+//   xmlHttp.onreadystatechange = function () {
+//     if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+//       callback(xmlHttp.responseText);
+//     }
+//   }
 
-function searchForSounds(query) {
-  var page = 1;
-  var filter = "duration:[2.0 TO 5.0] type:wav";
-  var sort = "rating_desc";
-  freesound.textSearch(query, { page: page, filter: filter, sort: sort, fields: fields },
-    function (sounds) {
-      // console.log('query: '+query);
-      // console.log('filter: '+filter);
-      // console.log('sort: '+sort);
-      // console.log('sounds: '+sounds);
-      for (i = 0; i < 9; i++) {
-        var snd = sounds.getSound(i);
-        console.log(snd);
-        displaySoundElement(snd, i+1);
-        // document.createElement()
-      }
-      //displayMessage(msg, "soundSearchResults")
-      // displayMessage(msg, "soundResult6")
-    }, function () { displayError("Error while searching...") }
-  );
-}
+//   // open as a GET call, pass in the url and set async = True
+//   xmlHttp.open("POST", 'http://ec2-3-86-146-50.compute-1.amazonaws.com', true);
+
+//   // call send with no params as they were passed in on the url string
+//   xmlHttp.send(null);
+// }
+
+// function displayMessage(text,place){
+//   document.getElementById(place).innerHTML=text;
+// }
+
+// function displaySoundElement(soundObject, i){
+//   // console.log('First child of soundResult1 is '+document.getElementById("soundResult1").nextElementSibling);
+//   // console.log("sound name: "+soundObject.name);
+//   // console.log("sound url: "+soundObject.url);
+//   soundNames.push(soundObject.url+"download/"+soundObject.name+".wav");
+  
+//   var loginURL = freesound.getLoginURL();
+//   console.log('loginURL: '+loginURL);
+
+//   // console.log('Download URL: '+soundObject.download(document.getElementById("soundResultiFrame"+i)));
+//   // document.getElementById("soundResultiFrame"+i).setAttribute('hidden', 'false');
+//   // document.getElementById("soundResult"+i).src = soundObject.download(document.getElementById("soundResultiFrame"+i));
+//   snd = new Audio(soundObject);
+//   console.log('snd: '+snd)
+
+//   // document.getElementById("soundResult"+i).src = soundObject.url+"download/"+soundObject.name+".wav";
+//   document.getElementById("soundResult"+i).nextElementSibling.innerHTML = soundObject.name;
+// }
+
+// function searchForSounds(query) {
+//   var page = 1;
+//   var filter = "duration:[2.0 TO 5.0] type:wav";
+//   var sort = "rating_desc";
+//   freesound.textSearch(query, { page: page, filter: filter, sort: sort, fields: fields },
+//     function (sounds) {
+//       // console.log('query: '+query);
+//       // console.log('filter: '+filter);
+//       // console.log('sort: '+sort);
+//       // console.log('sounds: '+sounds);
+//       for (i = 0; i < 9; i++) {
+//         var snd = sounds.getSound(i);
+//         console.log(snd);
+//         displaySoundElement(snd.previews['preview-hq-mp3'], i+1);
+//         // document.createElement()
+//       }
+//       //displayMessage(msg, "soundSearchResults")
+//       // displayMessage(msg, "soundResult6")
+//     }, function () { displayError("Error while searching...") }
+//   );
+// }

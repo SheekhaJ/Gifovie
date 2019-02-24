@@ -10,7 +10,7 @@
   <script type="text/javascript" src="/js/jquery.min.js"></script>
   <script type="text/javascript" src="/js/index.js"></script>
   <script type="text/javascript" src="/js/freesound.js"></script>
-  <script type="text/javascript" src="/js/ejs.min.js"></script>
+  <!-- <script type="text/javascript" src="/js/ejs.min.js"></script> -->
   <script type="text/javascript">
     freesound.setToken("hNPvV1w5NETnh45zEYJe4gq4QvPzg6D6xEskdZqY");
   </script>
@@ -90,28 +90,36 @@
               onclick="getSounds('birds')">Birds</button>
             <button class="btn btn-info" style="margin: 1vw" id="scifiCategoryBtn"
               onclick="getSounds('scifi')">Sci-Fi</button>
-            <button class="btn btn-info" style="margin: 1vw" id="spookyCategoryBtn" id='category'
+            <button class="btn btn-info" style="margin: 1vw" id="spookyCategoryBtn"
               onclick="getSounds('spooky')">Spooky</button>
-            <button class="btn btn-info" style="margin: 1vw" id="funnyCategoryBtn" id='category'
+            <button class="btn btn-info" style="margin: 1vw" id="funnyCategoryBtn"
               onclick="getSounds('funny')">Funny</button>
-            <button class="btn btn-info" style="margin: 1vw" id="danceCategoryBtn" id='category'
+            <button class="btn btn-info" style="margin: 1vw" id="danceCategoryBtn"
               onclick="getSounds('dance')">Dance</button>
-            <button class="btn btn-info" style="margin: 1vw" id="electronicCategoryBtn" id='category'
+            <button class="btn btn-info" style="margin: 1vw" id="electronicCategoryBtn"
               onclick="getSounds('electronic')">Electronic</button>
-            <button class="btn btn-info" style="margin: 1vw" id="randomCategoryBtn" id='category'
+            <button class="btn btn-info" style="margin: 1vw" id="randomCategoryBtn"
               onclick="getSounds('random')">Random</button>
           </div>
         </center>
         <center>
           <div class="search-results" id="soundSearchResults">
-            <div style="display: inline-block">
-              <!-- <audio id="soundResult1" type="audio/wav" controls cors='use-credentials' draggable="true"
-                ondragstart="drag(event)"></audio>
-              <p class="sound-name"></p> -->
-              <audio id="soundResult1" type="audio/wav" controls cors='use-credentials' draggable="true"  src = "<%= sounds[0] %>"
-                ondragstart="drag(event)"></audio>
+              <div style="display: inline-block">
+              <div>
+                  <% sounds.forEach(function(el){ %>
+                  <audio id="soundResult15" type="audio/wav" controls draggable="true" ondragstart="drag(event)"
+                    src=<%= el.url %>></audio>
+                  <p><%= el.name %></p>
+                  <% }); %>
+                </div>
+              </div>
+            <!-- <div style="display: inline-block">
+              <p><%= sounds[1].name %></p>  
+              <audio id="soundResult1" controls type="audio/wav" draggable="true" ondragstart="drag(event)">
+              </audio>
               <p class="sound-name"></p>
-              <audio id="soundResult2" type="audio/wav" controls draggable="true" ondragstart="drag(event)" src = "<%= sounds[1] %>"></audio>
+              <audio id="soundResult2" type="audio/wav" controls draggable="true" ondragstart="drag(event)">
+              </audio>
               <p class="sound-name"></p>
               <audio id="soundResult3" type="audio/wav" controls draggable="true" ondragstart="drag(event)"></audio>
               <p class="sound-name"></p>
@@ -133,8 +141,9 @@
               <p class="sound-name"></p>
               <audio id="soundResult9" type="audio/wav" controls draggable="true" ondragstart="drag(event)"></audio>
               <p class="sound-name"></p>
-            </div>
+            </div> -->
           </div>
+          <!-- <h2> <%= sounds[1].url %> </h2> -->
         </center>
       </div>
       <div class="page-action">
@@ -211,6 +220,7 @@
     </div>
   </div>
   </form>
+
 </body>
 
 </html>

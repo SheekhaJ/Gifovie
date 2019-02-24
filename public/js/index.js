@@ -3,17 +3,14 @@ var key = "LHS9L8D4KLDF";
 var tenorBaseUrl = "https://api.tenor.com/v1";
 var searchTerm = "";
 
-
+var selectedGIFURLs = [];
+var selectedSoundURLs = [];
 var fields = 'id,name,url';
 var soundNames = [];
 
 $(document).ready(function () {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
-
-  // console.log('sounds is '+<%= sounds %>);
-  // document.getElementById('soundResult1').src = "<% sounds %>"
-  // document.getElementById('soundResult1').src = "<%= sounds.sounds %>";
 
   $('#getStartedBtn').click(function () {
     gifQueryType = "trending";
@@ -194,6 +191,7 @@ $(document).ready(function () {
     $('#progressBar').stop(true, false).animate({
       'opacity': '0'
     }, 200);
+    sendSelectedItemUrls();
     setTimeout(function () {
       $('#progressBar').css('display', 'none');
     }, 200);
@@ -243,10 +241,13 @@ $(document).ready(function () {
 
   function getSounds(category){
     console.log('category is '+category);
-    var xmlHttp = new XMLHttpRequest();
-    url = "http://localhost:3000?category="+category;
-    xmlHttp.open('GET', url, true);
-    xmlHttp.send(null);
+    // var xmlHttp = new XMLHttpRequest();
+    // url = "http://localhost:3000?category="+category;
+    // xmlHttp.open('GET', url, true);
+    // xmlHttp.send(null);
+
+    location = "/?category="+category;
+
     // var s = <%= sounds %>;
     // document.getElementById('soundResult1').src = "<%= sounds.sounds[0] %>";
 
@@ -380,6 +381,21 @@ function drop(ev) {
 
 function submitGifovieForm(){
   return false;
+}
+
+function sendSelectedItemUrls(){
+  for(var i=0; i<4; i++){
+    selectedGIFURLs.push(document.getElementById('selectedGif'+(i+1)).src);
+    selectedSoundURLs.push('../hahaha.wav');
+  }
+  var data = [selectedGIFURLs, selectedSoundURLs];
+
+  url = "http://localhost:3000?data="+data;
+
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.open('POST',url);
+  xmlHttp.send(data);
+  return;
 }
 
 // function displaySoundCategories(){

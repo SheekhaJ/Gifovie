@@ -50,18 +50,18 @@ app.get('/', function (req, res) {
                             Bucket: data.Name,
                             Key: name
                         });
-                        soundsArray.push({ 'name': name, 'url': url });
+                        soundsArray.push({ 'name': name.replace('sounds/'+category+'/', '').replace('.wav',''), 'url': url });
                     }
                 }
             }
-            console.log('\n sounds are '+soundsArray);
-            res.render('index', { sounds: soundsArray });
+            console.log('\n sounds are '+JSON.stringify(soundsArray));
+            res.render('index', { sounds: soundsArray, category:category });
         });
     // }
 
-    if(req.query.data) {
-        console.log('in backend data is ' + data);
-    }
+    // if(req.query.data) {
+    //     console.log('in backend data is ' + data);
+    // }
 });
 
 

@@ -13,6 +13,7 @@ $(document).ready(function () {
   document.documentElement.scrollTop = 0;
 
   $('#getStartedBtn').click(function () {
+    location = '/addGIFs';
     gifQueryType = "trending";
     $('#addGifSection')[0].scrollIntoView(true);
     
@@ -87,6 +88,7 @@ $(document).ready(function () {
   });
 
   $('#goToAddSoundBtn').click(function () {
+    location = '/addSounds';
     if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
     $('#addSoundSection')[0].scrollIntoView(true);
     $('#gifSearch, #gifSearchResults').css('z-index', '-1');
@@ -246,7 +248,7 @@ $(document).ready(function () {
     // xmlHttp.open('GET', url, true);
     // xmlHttp.send(null);
 
-    location = "/?category="+category;
+    location = "/addSounds?category="+category;
 
     // var s = <%= sounds %>;
     // document.getElementById('soundResult1').src = "<%= sounds.sounds[0] %>";

@@ -5,11 +5,9 @@
   <div class="addsound-section" id="addSoundSection">
     <h3 class="section-title">Add Sound</h3>
     <div class="page-content sounds">
-      <center>
-        <h6>Select a Category</h6>
-      </center>
-      <center>
-        <div class="input-group mb-3" id="soundSearch">
+      <center><h6>Select a Category</h6></center>
+      <div class="input-group mb-3" id="soundSearch" style="display: inline-block">
+        <center>
           <button class="btn btn-info" style="margin: 1vw" id="pplCategory" onclick="getSounds('people')">People</button>
           <button class="btn btn-info" style="margin: 1vw" id='animalCategory' onclick="getSounds('animals')">Animals</button>
           <button class="btn btn-info" style="margin: 1vw" id="birdsCategoryBtn" onclick="getSounds('birds')">Birds</button>
@@ -19,39 +17,35 @@
           <button class="btn btn-info" style="margin: 1vw" id="danceCategoryBtn" onclick="getSounds('dance')">Dance</button>
           <button class="btn btn-info" style="margin: 1vw" id="electronicCategoryBtn" onclick="getSounds('electronic')">Electronic</button>
           <button class="btn btn-info" style="margin: 1vw" id="randomCategoryBtn" onclick="getSounds('random')">Random</button>
-        </div>
-      </center>
+        </center>
+      </div>
       <div class="search-results" id="soundSearchResults">
         <!-- <h2> <%= sounds[0].url %> </h2> -->
         <!-- <div style="display: inline-block"> -->
             <div>
-                <h1><%= category%></h1>
-                <% for(var i=0; i<9; i++){ %>
-                <% if((i+1) % 3 == 0 || i==0){ %>
+                <center><h4><strong>Category: <%= category%></strong></h4><br/>
                 <div style="display: inline-block">
-                  <% } %>
-                  <audio id="soundResult<%= i %>" type="audio/wav" controls draggable="true" ondragstart="drag(event)"
-                    src=<%= sounds[i].url %>></audio>
-                  <p><%= sounds[i].name %></p>
-                  <% if((i+1) % 3 == 0 || i==0){ %>
-                </div>
+                <% for (var i = 0; i < 8; i++) { %>
+                  <div style="display: inline-block">
+                    <audio id="soundResult<%= i+1 %>" type="audio/wav" controls draggable="true" ondragstart="drag(event)" src=<%= sounds[i].url %>></audio>
+                    <p><%= sounds[i].name %></p>
+                  </div>
                 <% } %>
-                <% } %>
+              </div></center>
                 <!-- <% sounds.forEach(function(el, index){ %>
                         <audio id="soundResult<%= index %>" type="audio/wav" controls draggable="true" ondragstart="drag(event)"
                           src=<%= el.url %>></audio>
                         <p><%= el.name %></p>
                         <% }); %> -->
-              </div>
+            </div>
       </div>
     </div>
     <div class="page-action">
       <button class="btn btn-secondary" id="backToAddGifBtn">Back</button>
-      <button class="btn btn-info" id="clearSelectedSoundsBtn">Clear Selected Sounds</button>
+      <button class="btn btn-info" id="refreshSoundsBtn">Refresh Sounds</button>
       <button class="btn btn-primary" id="goToReviewBtn">Create GIFovie</button>
     </div>
   </div>
-  <center><button class="btn btn-info">Refresh Search</button></center>
   <% include ../partials/footer %>
 </body>
 

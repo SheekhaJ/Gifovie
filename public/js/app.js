@@ -9,58 +9,50 @@ var fields = 'id,name,url';
 var soundNames = [];
 
 $(document).ready(function () {
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
+  //document.body.scrollTop = 0;
+  //document.documentElement.scrollTop = 0;
+  console.log(location.pathname);
+  if (location.pathname == '/addGIFs') {
+    gifQueryType = "trending";
+    var url = tenorBaseUrl+"/anonid?key=" + key;
+    httpGetAsync(url,tenorCallback_anonid);
+  }
+  else if (location.pathname == '/addSounds') {
+
+  }
+  if (sessionStorage.getItem('sound1') != null) {
+    var url = sessionStorage.getItem('sound1');
+    var urlPieces = url.split('/');
+    var soundNameToShow = urlPieces[urlPieces.length-2] + '/' + urlPieces[urlPieces.length-1].split('?')[0];
+    $('#selectedSound1').html((soundNameToShow.length > 20) ? soundNameToShow.substring(0,17)+'...' : soundNameToShow);
+  }
+  if (sessionStorage.getItem('sound2') != null) {
+    var url = sessionStorage.getItem('sound2');
+    var urlPieces = url.split('/');
+    var soundNameToShow = urlPieces[urlPieces.length-2] + '/' + urlPieces[urlPieces.length-1].split('?')[0];
+    $('#selectedSound2').html((soundNameToShow.length > 20) ? soundNameToShow.substring(0,17)+'...' : soundNameToShow);
+  }
+  if (sessionStorage.getItem('sound3') != null) {
+    var url = sessionStorage.getItem('sound3');
+    var urlPieces = url.split('/');
+    var soundNameToShow = urlPieces[urlPieces.length-2] + '/' + urlPieces[urlPieces.length-1].split('?')[0];
+    $('#selectedSound3').html((soundNameToShow.length > 20) ? soundNameToShow.substring(0,17)+'...' : soundNameToShow);
+  }
+  if (sessionStorage.getItem('sound4') != null) {
+    var url = sessionStorage.getItem('sound4');
+    var urlPieces = url.split('/');
+    var soundNameToShow = urlPieces[urlPieces.length-2] + '/' + urlPieces[urlPieces.length-1].split('?')[0];
+    $('#selectedSound4').html((soundNameToShow.length > 20) ? soundNameToShow.substring(0,17)+'...' : soundNameToShow);
+  }
 
   $('#getStartedBtn').click(function () {
     location = '/addGIFs';
-    gifQueryType = "trending";
-    $('#addGifSection')[0].scrollIntoView(true);
-    
-    var url = tenorBaseUrl+"/anonid?key=" + key;
-
-    httpGetAsync(url,tenorCallback_anonid);
-
-    setTimeout(function () {
-      $('#header').css('z-index', '1');
-      $('#gifSearch, #gifSearchResults').css('z-index', '1');
-    }, 600);
-    $('#chosenGifsTitle').stop(true, false).animate({
-      'opacity': '1'
-    });
-    $('.selected-gif, .selected-sound').stop(true, false).animate({
-      'opacity': '1'
-    }, 600);
   });
 
   $('#header').click(function(){
-    if ($('#header').css('z-index') != '-1') $('#header').css('z-index', '-1');
-    $('#welcomeSection')[0].scrollIntoView(true);
-    setTimeout(function() {
-      $('#selectedGif1').removeAttr('src');
-      $('#selectedGif2').removeAttr('src');
-      $('#selectedGif3').removeAttr('src');
-      $('#selectedGif4').removeAttr('src');
-      $('#selectedGif1').css('width', "9vw");
-      $('#selectedGif2').css('width', "9vw");
-      $('#selectedGif3').css('width', "9vw");
-      $('#selectedGif4').css('width', "9vw");
-      $('#selectedSound1').html('');
-      $('#selectedSound2').html('');
-      $('#selectedSound3').html('');
-      $('#selectedSound4').html('');
-      $('#selectedSound1').css('width', "16vw");
-      $('#selectedSound2').css('width', "16vw");
-      $('#selectedSound3').css('width', "16vw");
-      $('#selectedSound4').css('width', "16vw");
-    }, 600);
-    $('#chosenGifsTitle').stop(true, false).animate({
-      'opacity': '0'
-    }, 600);
-    $('.selected-gif, .selected-sound').stop(true, false).animate({
-      'opacity': '0'
-    }, 600);
-  })
+    location = '/';
+  });
+
   $('#gifSearch').click(function(){
     for (i = 1; i <= 21; i++) {
       $('#gifSearchResult'+i).removeAttr('src');
@@ -74,143 +66,41 @@ $(document).ready(function () {
 
   });
 
-  $('#clearSelectedGifsBtn').click(function() {
-    console.log('clearing gifs');
-    $('#selectedGif1').removeAttr('src');
-    $('#selectedGif2').removeAttr('src');
-    $('#selectedGif3').removeAttr('src');
-    $('#selectedGif4').removeAttr('src');
-    $('#selectedGif1').css('width', "15vw");
-    $('#selectedGif2').css('width', "15vw");
-    $('#selectedGif3').css('width', "15vw");
-    $('#selectedGif4').css('width', "15vw");
-    console.log($('#selectedGif1').attr('src'));
+  $('#refreshGifsBtn').click(function() {
+    for (i = 1; i <= 21; i++) {
+      $('#gifSearchResult'+i).removeAttr('src');
+    }
+
+    var url = tenorBaseUrl+"/anonid?key=" + key;
+    httpGetAsync(url,tenorCallback_anonid);
   });
 
   $('#goToAddSoundBtn').click(function () {
+    console.log("clicked go to sound button");
+    sessionStorage.setItem('gif1', $('#selectedGif1').attr('src'));
+    sessionStorage.setItem('gif2', $('#selectedGif2').attr('src'));
+    sessionStorage.setItem('gif3', $('#selectedGif3').attr('src'));
+    sessionStorage.setItem('gif4', $('#selectedGif4').attr('src'));
     location = '/addSounds';
-    if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
-    $('#addSoundSection')[0].scrollIntoView(true);
-    $('#gifSearch, #gifSearchResults').css('z-index', '-1');
-    setTimeout(function () {
-      $('#soundSearch, #soundSearchResults').css('z-index', '1');
-      $('.selected-sound').css('border', 'solid grey 1px');
-    }, 600);
-    $('#chosenSoundsTitle').stop(true, false).animate({
-      'opacity': '1'
-    });
-
-
-    $('#progressBar').stop(true, false).animate({
-      'margin-bottom': '0'
-    }, 600);
-    //console.log('about to go to review section');
-    //if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
-    //$('#soundSearch, #soundSearchResults').css('z-index', '-1');
-    console.log($('#chosenGifsArea').html());
-    //$('#reviewGif').html($('#chosenGifs').html());
-    $('#finalGif1').css('display', 'block');
-    $('#finalGif2').css('display', 'block');
-    $('#finalGif3').css('display', 'block');
-    $('#finalGif4').css('display', 'block');
-    $('#finalGif1').attr('src', $('#selectedGif1').attr('src'));
-    $('#finalGif2').attr('src', $('#selectedGif2').attr('src'));
-    $('#finalGif3').attr('src', $('#selectedGif3').attr('src'));
-    $('#finalGif4').attr('src', $('#selectedGif4').attr('src'));
-    if (typeof $('#finalGif1').attr('src') === typeof undefined || $('#finalGif1').attr('src') === false) $('#finalGif1').css('display', 'none');
-    if (typeof $('#finalGif2').attr('src') === typeof undefined || $('#finalGif2').attr('src') === false) $('#finalGif2').css('display', 'none');
-    if (typeof $('#finalGif3').attr('src') === typeof undefined || $('#finalGif3').attr('src') === false) $('#finalGif3').css('display', 'none');
-    if (typeof $('#finalGif4').attr('src') === typeof undefined || $('#finalGif4').attr('src') === false) $('#finalGif4').css('display', 'none');
-    //$('#reviewSection')[0].scrollIntoView(true);
-    /*$('#progressBar').stop(true, false).animate({
-      'opacity': '0'
-    }, 200);
-    setTimeout(function () {
-      $('#progressBar').css('display', 'none');
-    }, 200);*/
   });
   $('#backToWelcomeBtn').click(function () {
-    if ($('#header').css('z-index') != '-1') $('#header').css('z-index', '-1');
-    $('#gifSearch, #gifSearchResults').css('z-index', '-1');
-    $('#welcomeSection')[0].scrollIntoView(true);
-    $('#chosenGifsTitle').stop(true, false).animate({
-      'opacity': '0'
-    }, 600);
-    $('.selected-gif, .selected-sound').stop(true, false).animate({
-      'opacity': '0'
-    }, 600);
-    setTimeout(function() {
-      $('#selectedGif1').removeAttr('src');
-      $('#selectedGif2').removeAttr('src');
-      $('#selectedGif3').removeAttr('src');
-      $('#selectedGif4').removeAttr('src');
-      $('#selectedGif1').css('width', "9vw");
-      $('#selectedGif2').css('width', "9vw");
-      $('#selectedGif3').css('width', "9vw");
-      $('#selectedGif4').css('width', "9vw");
-      $('#selectedSound1').html('');
-      $('#selectedSound2').html('');
-      $('#selectedSound3').html('');
-      $('#selectedSound4').html('');
-      $('#selectedSound1').css('width', "16vw");
-      $('#selectedSound2').css('width', "16vw");
-      $('#selectedSound3').css('width', "16vw");
-      $('#selectedSound4').css('width', "16vw");
-    }, 600);
+    sessionStorage.clear();
+    location = '/';
   });
 
-  // $('#soundSearchBtn').click(function() {
-  //   for (i = 1; i <= 9; i++) {
-  //     $('#soundResult'+i).removeAttr('src');
-  //   }
-  //   $('.sound-name').html('');
-  //   searchForSounds($('#soundSearchInput').val());
-  // });
-
-  $('#clearSelectedSoundsBtn').click(function() {
-    console.log('clearing sounds');
-    $('#selectedSound1').html('');
-    $('#selectedSound2').html('');
-    $('#selectedSound3').html('');
-    $('#selectedSound4').html('');
-    $('#selectedSound1').css('width', "16vw");
-    $('#selectedSound2').css('width', "16vw");
-    $('#selectedSound3').css('width', "16vw");
-    $('#selectedSound4').css('width', "16vw");
+  $('#refreshSoundsBtn').click(function() {
+    location = '/addSounds';
   });
+
   $('#goToReviewBtn').click(function () {
-    $('#finalSound1').css('display', 'block');
-    $('#finalSound2').css('display', 'block');
-    $('#finalSound3').css('display', 'block');
-    $('#finalSound4').css('display', 'block');
-    $('#finalSound1').html($('#selectedSound1').html());
-    $('#finalSound2').html($('#selectedSound2').html());
-    $('#finalSound3').html($('#selectedSound3').html());
-    $('#finalSound4').html($('#selectedSound4').html());
-    if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
-    $('#soundSearch, #soundSearchResults').css('z-index', '-1');
-    $('#reviewSection')[0].scrollIntoView(true);
-    $('#progressBar').stop(true, false).animate({
-      'opacity': '0'
-    }, 200);
-    sendSelectedItemUrls();
-    setTimeout(function () {
-      $('#progressBar').css('display', 'none');
-    }, 200);
+    /*sessionStorage.setItem('sound1', $('#selectedSound1'.html()));
+    sessionStorage.setItem('sound2', $('#selectedSound2'.html()));
+    sessionStorage.setItem('sound3', $('#selectedSound3'.html()));
+    sessionStorage.setItem('sound4', $('#selectedSound4'.html()));*/
+    location = '/reviewGIFovie';
   });
   $('#backToAddGifBtn').click(function () {
-    if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
-    $('#soundSearch, #soundSearchResults').css('z-index', '-1');
-    $('#addGifSection')[0].scrollIntoView(true);
-    if ($('#selectedSound1').html() == '' && $('#selectedSound2').html() == '' && $('#selectedSound3').html() == '' && $('#selectedSound4').html() == '') {
-      $('.selected-sound').css('border', 'none');
-      $('#progressBar').stop(true, false).animate({
-        'margin-bottom': '-2vw'
-      }, 600);
-      $('#chosenSoundsTitle').stop(true, false).animate({
-        'opacity': '0'
-      });
-    }
+    location = '/addGIFs';
   });
 
   $('#downloadBtn').click(function () {
@@ -221,22 +111,19 @@ $(document).ready(function () {
     $('#downloadBtn').attr('disabled', 'disabled');
   });
   $('#backToAddSoundBtn').click(function () {
-    if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
-    $('#soundSearch, #soundSearchResults').css('z-index', '-1');
-    $('#addSoundSection')[0].scrollIntoView(true);
-    $('#progressBar').css('display', 'block');
+    location = '/addSounds';
+  });
 
-    $('#progressBar').stop(true, false).animate({
-      'opacity': '1'
-    }, 200);
-    /*if ($('#header').css('z-index') != '1') $('#header').css('z-index', '1');
-    $('#soundSearch, #soundSearchResults').css('z-index', '-1');
-    $('#addGifSection')[0].scrollIntoView(true);
-    $('#progressBar').css('display', 'block');
-
-    $('#progressBar').stop(true, false).animate({
-      'opacity': '1'
-    }, 200);*/
+  $('.close').click(function() {
+    var data_id = $(this).data('id');
+    console.log(data_id);
+    if (data_id.includes('Sound')) {
+      $('#selected' + data_id).html('');
+      sessionStorage.removeItem('sound'+data_id[data_id.length-1]);
+    }
+    else if (data_id.includes('Gif')) {
+      $('#selected' + data_id).removeAttr('src');
+    }
   });
 
 });
@@ -265,7 +152,7 @@ function httpGetAsync(theUrl, callback) {
     if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
       callback(xmlHttp.responseText);
     }
-  }
+  };
 
   // open as a GET call, pass in the url and set async = True
   xmlHttp.open("GET", theUrl, true);
@@ -312,7 +199,7 @@ function tenorCallback_search(responseText, callback){
 }
 
 function setSearchDivText(){
-  console.log('In setSearchDivText!')
+  console.log('In setSearchDivText!');
   $('#search-term').html(['Search term: '+searchTerm]);
 }
 
@@ -360,21 +247,30 @@ function allowDrop(ev) {
 
 function drag(ev) {
   ev.dataTransfer.setData("text", ev.target.id);
+  console.log(ev.target.id);
 }
 
 function drop(ev) {
+  console.log("dropped!");
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
+  console.log(data);
   console.log(document.getElementById(data).src);
-  console.log(ev.target);
+  //console.log(ev.target.id);
   if (document.getElementById(data).src.includes('.gif') && ev.target.id.includes('Gif')) {
     ev.target.src = document.getElementById(data).src;
     ev.target.style.width = 'auto';
+    sessionStorage.setItem('gif'+ev.target.id[ev.target.id.length-1], document.getElementById(data).src);
   }
   else if (document.getElementById(data).src.includes('.wav') && ev.target.id.includes('Sound')) {
-    urlPieces = document.getElementById(data).src.split('/download/');
+    urlPieces = document.getElementById(data).src.split('/');
+    console.log(ev.target.src);
+    console.log(ev.target.id);
     console.log(urlPieces);
-    ev.target.innerHTML = document.getElementById(data).nextElementSibling.innerHTML;
+    var soundNameToShow = urlPieces[urlPieces.length-2] + '/' + urlPieces[urlPieces.length-1].split('?')[0];
+    ev.target.firstElementChild.innerHTML = (soundNameToShow.length > 20) ? soundNameToShow.substring(0,17)+'...' : soundNameToShow;
+    sessionStorage.setItem('sound'+ev.target.id[ev.target.id.length-1], document.getElementById(data).src);
+    //console.log("here");
   }
   /*if (('#chosenGif1').html() != '') {
 
@@ -425,7 +321,7 @@ function sendSelectedItemUrls(){
 //   // console.log("sound name: "+soundObject.name);
 //   // console.log("sound url: "+soundObject.url);
 //   soundNames.push(soundObject.url+"download/"+soundObject.name+".wav");
-  
+
 //   var loginURL = freesound.getLoginURL();
 //   console.log('loginURL: '+loginURL);
 

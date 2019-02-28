@@ -56,7 +56,6 @@ body {
   vertical-align: middle;
   font-size: 3vw;
   display: table;
-  z-index: -1;
   font-family: 'Bangers', cursive;
 }
 
@@ -110,7 +109,6 @@ body {
   background-image: linear-gradient(to right, purple, blue);
   display: flex;
   flex-direction: column;
-  margin-bottom: -2vw;
 }
 
 .chosen-gifs {
@@ -133,12 +131,11 @@ body {
 }
 
 .page-content {
-  max-height: 55vw;
+  max-height: 20vw;
   vertical-align: middle;
   bottom: 0;
   right: 0;
   border: solid transparent 1px;
-  z-index: -1;
 }
 
 .page-content.sounds {
@@ -152,7 +149,6 @@ body {
   vertical-align: middle;
   bottom: 0;
   right: 0;
-  z-index: -1;
 }
 
 .search-result-section {
@@ -163,9 +159,9 @@ body {
 .page-action {
   float: right;
   padding: 1vw;
-  bottom: 0;
+  bottom: 12vw;
   right: 0;
-  z-index: -1;
+  position: fixed;
   border: solid transparent 1px;
 }
 
@@ -173,14 +169,14 @@ body {
   display: none;
 }
 
-#gifSearch {
+/*#gifSearch {
   z-index: -1;
 }
 
 #soundSearch {
   z-index: -1;
   display: inline-block;
-}
+}*/
 
 .btn.btn-info.category {
   padding: 1vw;
@@ -208,12 +204,11 @@ body {
   padding: 0.5vw;
   margin: 0 auto;
   position: relative;
-  opacity: 0;
   border: solid grey 1px;
 }
 
 .selected-sound {
-  height: 2vw;
+  height: 3vw;
   width: 16vw;
   text-overflow: ellipsis;
   color: white;
@@ -222,6 +217,7 @@ body {
   padding: 0.5vw;
   margin: 0 auto;
   position: relative;
+  border: solid grey 1px;
 }
 
 .final-gif {
@@ -251,11 +247,9 @@ body {
 }
 #chosenGifsTitle {
   color: white;
-  opacity: 0;
 }
 #chosenSoundsTitle {
   color: white;
-  opacity: 0;
 }
 
 #chosenGif1, #chosenGif2, #chosenGif3, #chosenGif4 {

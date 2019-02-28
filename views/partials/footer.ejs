@@ -4,16 +4,36 @@
     <div class="chosen-gifs" id="chosenGifs">
       <small id="chosenGifsTitle">Drag and drop GIFs here.</small><br />
       <div id="chosenGifsArea">
-        <img class="selected-gif" id="selectedGif1" ondrop="drop(event)" ondragover="allowDrop(event)"></img>
-        <img class="selected-gif" id="selectedGif2" ondrop="drop(event)" ondragover="allowDrop(event)"></img>
-        <img class="selected-gif" id="selectedGif3" ondrop="drop(event)" ondragover="allowDrop(event)"></img>
-        <img class="selected-gif" id="selectedGif4" ondrop="drop(event)" ondragover="allowDrop(event)"></img>
+        <img class="selected-gif" id="selectedGif1" ondrop="drop(event)" ondragover="allowDrop(event)" src="#" alt=""></img>
+        <img class="selected-gif" id="selectedGif2" ondrop="drop(event)" ondragover="allowDrop(event)" src="#" alt=""></img>
+        <img class="selected-gif" id="selectedGif3" ondrop="drop(event)" ondragover="allowDrop(event)" src="#" alt=""></img>
+        <img class="selected-gif" id="selectedGif4" ondrop="drop(event)" ondragover="allowDrop(event)" src="#" alt=""></img>
       </div>
       <div id="chosenSoundsArea">
-        <small class="selected-sound" id="selectedSound1" ondrop="drop(event)" ondragover="allowDrop(event)"></small>
-        <small class="selected-sound" id="selectedSound2" ondrop="drop(event)" ondragover="allowDrop(event)"></small>
-        <small class="selected-sound" id="selectedSound3" ondrop="drop(event)" ondragover="allowDrop(event)"></small>
-        <small class="selected-sound" id="selectedSound4" ondrop="drop(event)" ondragover="allowDrop(event)"></small>
+        <div class="selected-sound" id="selectedSoundArea1" ondrop="drop(event)" ondragover="allowDrop(event)">
+          <small id="selectedSound1"></small>
+          <button type="button" class="close" aria-label="Close" data-id="Sound1" style="filter: invert(1)">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="selected-sound" id="selectedSoundArea2" ondrop="drop(event)" ondragover="allowDrop(event)">
+          <small id="selectedSound2"></small>
+          <button type="button" class="close" aria-label="Close" data-id="Sound2" style="filter: invert(1)">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="selected-sound" id="selectedSoundArea3" ondrop="drop(event)" ondragover="allowDrop(event)">
+          <small id="selectedSound3"></small>
+          <button type="button" class="close" aria-label="Close" data-id="Sound3" style="filter: invert(1)">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="selected-sound" id="selectedSoundArea4" ondrop="drop(event)" ondragover="allowDrop(event)">
+          <small id="selectedSound4"></small>
+          <button type="button" class="close" aria-label="Close" data-id="Sound4" style="filter: invert(1)">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
       </div>
       <small id="chosenSoundsTitle">Drag and drop sounds here.</small>
     </div>

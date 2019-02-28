@@ -31,6 +31,7 @@ module.exports = function (app) {
             } else {
                 // var objects = data.Contents;
                 // console.log('in s3.listObjects! category is '+category);
+                console.log(data);
                 for (var i = 0; i < data.KeyCount; i++) {
                     var element = data.Contents[i];
                     var name = element.Key
@@ -43,6 +44,15 @@ module.exports = function (app) {
                         soundsArray.push({ 'name': name.replace('sounds/' + category + '/', '').replace('.wav', ''), 'url': url });
                     }
                 }
+
+                var j, x, i;
+                for (i = soundsArray.length - 1; i > 0; i--) {
+                  j = Math.floor(Math.random() * (i + 1));
+                  x = soundsArray[i];
+                  soundsArray[i] = soundsArray[j];
+                  soundsArray[j] = x;
+                }
+                
             }
             console.log('\n sounds are ' + JSON.stringify(soundsArray));
             res.render('pages/addSounds', { sounds: soundsArray, category: category });

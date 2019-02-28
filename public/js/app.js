@@ -20,6 +20,22 @@ $(document).ready(function () {
   else if (location.pathname == '/addSounds') {
 
   }
+  if (sessionStorage.getItem('gif1') != null) {
+    $('#selectedGif1').attr('src', sessionStorage.getItem('gif1'));
+    $('#selectedGif1').css('width', 'auto');
+  }
+  if (sessionStorage.getItem('gif2') != null) {
+    $('#selectedGif2').attr('src', sessionStorage.getItem('gif2'));
+    $('#selectedGif2').css('width', 'auto');
+  }
+  if (sessionStorage.getItem('gif3') != null) {
+    $('#selectedGif3').attr('src', sessionStorage.getItem('gif3'));
+    $('#selectedGif3').css('width', 'auto');
+  }
+  if (sessionStorage.getItem('gif4') != null) {
+    $('#selectedGif4').attr('src', sessionStorage.getItem('gif4'));
+    $('#selectedGif4').css('width', 'auto');
+  }
   if (sessionStorage.getItem('sound1') != null) {
     var url = sessionStorage.getItem('sound1');
     var urlPieces = url.split('/');
@@ -169,12 +185,12 @@ function tenorCallback_trending(responsetext)
     // parse the json response
     var response_objects = JSON.parse(responsetext);
 
-    var top_20_gifs = response_objects["results"];
+    var top_21_gifs = response_objects["results"];
 
     // load the GIFs -- for our example we will load the first GIFs preview size (nanogif) and share size (tinygif)
-    for(i=1; i<=20; i++){
+    for(i=1; i<=21; i++){
         //document.getElementById("gifSearchResult"+i).src = top_20_gifs[i-1]["media"][0]["nanogif"]["url"];
-        document.getElementById("gifSearchResult"+i).src = top_20_gifs[i-1]["media"][0]["gif"]["url"];
+        document.getElementById("gifSearchResult"+i).src = top_21_gifs[i-1]["media"][0]["gif"]["url"];
     }
 
     return;
@@ -185,12 +201,12 @@ function tenorCallback_search(responseText, callback){
   // parse the json response
   var response_objects = JSON.parse(responseText);
 
-  var top_20_gifs = response_objects["results"];
+  var top_21_gifs = response_objects["results"];
 
   // load the GIFs -- for our example we will load the first GIFs preview size (nanogif) and share size (tinygif)
-  for(i=1;i<=20;i++){
+  for(i=1;i<=21;i++){
     //document.getElementById("gifSearchResult"+i).src = top_20_gifs[i-1]["media"][0]["nanogif"]["url"];
-    document.getElementById("gifSearchResult"+i).src = top_20_gifs[i-1]["media"][0]["gif"]["url"];
+    document.getElementById("gifSearchResult"+i).src = top_21_gifs[i-1]["media"][0]["gif"]["url"];
   }
   $('#searchTerm').html('Search Results for "'+searchTerm+'"');
 
@@ -213,7 +229,7 @@ function grab_data(anon_id)
     var autocompleteUrl = tenorBaseUrl + "/autocomplete?key=" + key;
 
     // set the apikey and limit
-    var lmt = 20;
+    var lmt = 21;
 
     // get the top 10 trending GIFs (updated through out the day) - using the default locale of en_US
     var url = "";

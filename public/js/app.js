@@ -53,7 +53,7 @@ $(document).ready(function () {
     location = '/';
   });
 
-  $('#gifSearch').click(function(){
+  $('#gifSearchBtn').click(function(){
     for (i = 1; i <= 21; i++) {
       $('#gifSearchResult'+i).removeAttr('src');
     }
@@ -192,6 +192,7 @@ function tenorCallback_search(responseText, callback){
     //document.getElementById("gifSearchResult"+i).src = top_20_gifs[i-1]["media"][0]["nanogif"]["url"];
     document.getElementById("gifSearchResult"+i).src = top_20_gifs[i-1]["media"][0]["gif"]["url"];
   }
+  $('#searchTerm').html('Search Results for "'+searchTerm+'"');
 
   callback(searchTerm);
 
@@ -212,7 +213,7 @@ function grab_data(anon_id)
     var autocompleteUrl = tenorBaseUrl + "/autocomplete?key=" + key;
 
     // set the apikey and limit
-    var lmt = 21;
+    var lmt = 20;
 
     // get the top 10 trending GIFs (updated through out the day) - using the default locale of en_US
     var url = "";

@@ -5,46 +5,17 @@
   <div class="review-section" id="reviewSection">
     <!-- REVIEW AND SHARE YOUR GIFOVIE -->
     <h3 class="section-title">Review Your GIFovie</h3>
-    <div class="page-content review">
-      <center>
-        <div id="chosenGifsArea">
-          <img class="final-gif" id="finalGif1"></img>
-          <img class="final-gif" id="finalGif2"></img>
-          <img class="final-gif" id="finalGif3"></img>
-          <img class="final-gif" id="finalGif4"></img>
+    <center>
+      <div class="page-content review">
+        <video width="720" height="480" controls>
+          <source id="finalGIFovie" type="video/mp4">
+        </video>
+        <div class="review-action">
+          <button class="btn btn-lg btn-secondary" id="backToAddSoundBtn">Back</button>
+          <button class="btn btn-lg btn-primary" id="downloadBtn">Download Your GIFovie</button>
         </div>
-        <div id="chosenSoundsArea">
-          Sounds:<br />
-          <span>For GIF 1: <p class="final-sound" id="finalSound1"></p></span>
-          <span>For GIF 2: <p class="final-sound" id="finalSound2"></p></span>
-          <span>For GIF 3: <p class="final-sound" id="finalSound3"></p></span>
-          <span>For GIF 4: <p class="final-sound" id="finalSound4"></p></span>
-        </div>
-      </center>
-    </div>
-    <div class="page-action">
-      <button class="btn btn-lg btn-secondary" id="backToAddSoundBtn">Back</button>
-      <button class="btn btn-lg btn-primary" id="downloadBtn">Download Your GIFovie</button>
-    </div>
-  </div>
-  <div class="progress" id="progressBar">
-    <!-- FIXED PROGRESS BAR GOES HERE -->
-    <div class="chosen-gifs" id="chosenGifs">
-      <small id="chosenGifsTitle">Drag and drop GIFs here.</small><br />
-      <div id="chosenGifsArea">
-        <img class="selected-gif" id="selectedGif1" ondrop="drop(event)" ondragover="allowDrop(event)"></img>
-        <img class="selected-gif" id="selectedGif2" ondrop="drop(event)" ondragover="allowDrop(event)"></img>
-        <img class="selected-gif" id="selectedGif3" ondrop="drop(event)" ondragover="allowDrop(event)"></img>
-        <img class="selected-gif" id="selectedGif4" ondrop="drop(event)" ondragover="allowDrop(event)"></img>
       </div>
-      <div id="chosenSoundsArea">
-        <small class="selected-sound" id="selectedSound1" ondrop="drop(event)" ondragover="allowDrop(event)"></small>
-        <small class="selected-sound" id="selectedSound2" ondrop="drop(event)" ondragover="allowDrop(event)"></small>
-        <small class="selected-sound" id="selectedSound3" ondrop="drop(event)" ondragover="allowDrop(event)"></small>
-        <small class="selected-sound" id="selectedSound4" ondrop="drop(event)" ondragover="allowDrop(event)"></small>
-      </div>
-      <small id="chosenSoundsTitle">Drag and drop sounds here.</small>
-    </div>
+    </center>
   </div>
 
   <div class="modal fade" id="downloadSuccessModal" tabindex="-1" role="dialog" aria-labelledby="downloadSuccessLabel"

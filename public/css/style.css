@@ -165,6 +165,12 @@ body {
   border: solid transparent 1px;
 }
 
+.review-action {
+  padding-top: 1vw;
+  border: solid transparent 1px;
+  align-items: center;
+}
+
 #downloadSuccessAlert {
   display: none;
 }

@@ -291,3 +291,25 @@ body {
   width: 25vw;
   text-overflow: ellipsis;
 }
+
+.cover {
+  top: 5vw;
+  bottom: 12vw;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+  background-color: #c0c0c0;
+  color: black;
+  position: fixed;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.loading-text {
+  left: 0;
+  height: inherit;
+  margin: 0 auto;
+  font-size: 2vw;
+  text-align: center;
+}

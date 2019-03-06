@@ -13,6 +13,7 @@ $(document).ready(function () {
   //document.documentElement.scrollTop = 0;
   console.log(location.pathname);
   if (location.pathname == '/addGIFs') {
+    $('.cover').css('display', 'flex');
     gifQueryType = "trending";
     var url = tenorBaseUrl+"/anonid?key=" + key;
     httpGetAsync(url,tenorCallback_anonid);
@@ -84,6 +85,7 @@ $(document).ready(function () {
   });
 
   $('#gifSearchBtn').click(function(){
+    $('.cover').css('display', 'flex');
     for (i = 1; i <= 21; i++) {
       $('#gifSearchResult'+i).removeAttr('src');
     }
@@ -209,6 +211,7 @@ function tenorCallback_trending(responsetext)
         //document.getElementById("gifSearchResult"+i).src = top_20_gifs[i-1]["media"][0]["nanogif"]["url"];
         document.getElementById("gifSearchResult"+i).src = top_21_gifs[i-1]["media"][0]["gif"]["url"];
     }
+    $('.cover').css('display', 'none');
 
     return;
 
@@ -225,6 +228,8 @@ function tenorCallback_search(responseText, callback){
     //document.getElementById("gifSearchResult"+i).src = top_20_gifs[i-1]["media"][0]["nanogif"]["url"];
     document.getElementById("gifSearchResult"+i).src = top_21_gifs[i-1]["media"][0]["gif"]["url"];
   }
+  $('.cover').css('display', 'none');
+
   $('#searchTerm').html('Search Results for "'+searchTerm+'"');
 
   callback(searchTerm);

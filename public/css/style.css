@@ -100,7 +100,7 @@ body {
 }
 
 .progress {
-  min-height: 12vw;
+  min-height: 12.5vw;
   width: 100%;
   position: fixed;
   bottom: 0;
@@ -197,6 +197,14 @@ body {
   position: relative;
 }
 
+.chosen-gif-area {
+  height: 5vw;
+  width: 16vw;
+  margin: 0 auto;
+  position: relative;
+  border: solid grey 1px;
+}
+
 .selected-gif {
   height: 5vw;
   width: 9vw;
@@ -204,7 +212,6 @@ body {
   padding: 0.5vw;
   margin: 0 auto;
   position: relative;
-  border: solid grey 1px;
 }
 
 .selected-sound {
@@ -213,7 +220,6 @@ body {
   text-overflow: ellipsis;
   color: white;
   overflow: hidden;
-  text-overflow: ellipsis;
   padding: 0.5vw;
   margin: 0 auto;
   position: relative;

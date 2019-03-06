@@ -17,48 +17,62 @@ $(document).ready(function () {
     var url = tenorBaseUrl+"/anonid?key=" + key;
     httpGetAsync(url,tenorCallback_anonid);
   }
-  else if (location.pathname == '/addSounds') {
-
-  }
-  if (sessionStorage.getItem('gif1') != null) {
+  $('.close').css('display', 'none');
+  $('#selectedGif1').css('opacity', '0');
+  $('#selectedGif2').css('opacity', '0');
+  $('#selectedGif3').css('opacity', '0');
+  $('#selectedGif4').css('opacity', '0');
+  if (sessionStorage.getItem('gif1') != null && sessionStorage.getItem('gif1') != '#') {
     $('#selectedGif1').attr('src', sessionStorage.getItem('gif1'));
     $('#selectedGif1').css('width', 'auto');
+    $('#selectedGif1').css('opacity', '1');
+    $('button[data-id="Gif1"]').css('display', 'block');
   }
-  if (sessionStorage.getItem('gif2') != null) {
+  if (sessionStorage.getItem('gif2') != null && sessionStorage.getItem('gif2') != '#') {
     $('#selectedGif2').attr('src', sessionStorage.getItem('gif2'));
     $('#selectedGif2').css('width', 'auto');
+    $('#selectedGif2').css('opacity', '1');
+    $('button[data-id="Gif2"]').css('display', 'block');
   }
-  if (sessionStorage.getItem('gif3') != null) {
+  if (sessionStorage.getItem('gif3') != null && sessionStorage.getItem('gif3') != '#') {
     $('#selectedGif3').attr('src', sessionStorage.getItem('gif3'));
     $('#selectedGif3').css('width', 'auto');
+    $('#selectedGif3').css('opacity', '1');
+    $('button[data-id="Gif3"]').css('display', 'block');
   }
-  if (sessionStorage.getItem('gif4') != null) {
+  if (sessionStorage.getItem('gif4') != null && sessionStorage.getItem('gif4') != '#') {
     $('#selectedGif4').attr('src', sessionStorage.getItem('gif4'));
     $('#selectedGif4').css('width', 'auto');
+    $('#selectedGif4').css('opacity', '1');
+    $('button[data-id="Gif4"]').css('display', 'block');
   }
   if (sessionStorage.getItem('sound1') != null) {
     var url = sessionStorage.getItem('sound1');
     var urlPieces = url.split('/');
     var soundNameToShow = urlPieces[urlPieces.length-2] + '/' + urlPieces[urlPieces.length-1].split('?')[0];
     $('#selectedSound1').html((soundNameToShow.length > 20) ? soundNameToShow.substring(0,17)+'...' : soundNameToShow);
+    $('button[data-id="Sound1"]').css('display', 'block');
   }
   if (sessionStorage.getItem('sound2') != null) {
     var url = sessionStorage.getItem('sound2');
     var urlPieces = url.split('/');
     var soundNameToShow = urlPieces[urlPieces.length-2] + '/' + urlPieces[urlPieces.length-1].split('?')[0];
     $('#selectedSound2').html((soundNameToShow.length > 20) ? soundNameToShow.substring(0,17)+'...' : soundNameToShow);
+    $('button[data-id="Sound2"]').css('display', 'block');
   }
   if (sessionStorage.getItem('sound3') != null) {
     var url = sessionStorage.getItem('sound3');
     var urlPieces = url.split('/');
     var soundNameToShow = urlPieces[urlPieces.length-2] + '/' + urlPieces[urlPieces.length-1].split('?')[0];
     $('#selectedSound3').html((soundNameToShow.length > 20) ? soundNameToShow.substring(0,17)+'...' : soundNameToShow);
+    $('button[data-id="Sound3"]').css('display', 'block');
   }
   if (sessionStorage.getItem('sound4') != null) {
     var url = sessionStorage.getItem('sound4');
     var urlPieces = url.split('/');
     var soundNameToShow = urlPieces[urlPieces.length-2] + '/' + urlPieces[urlPieces.length-1].split('?')[0];
     $('#selectedSound4').html((soundNameToShow.length > 20) ? soundNameToShow.substring(0,17)+'...' : soundNameToShow);
+    $('button[data-id="Sound4"]').css('display', 'block');
   }
 
   $('#getStartedBtn').click(function () {
@@ -139,7 +153,10 @@ $(document).ready(function () {
     }
     else if (data_id.includes('Gif')) {
       $('#selected' + data_id).removeAttr('src');
+      $('#selected' + data_id).css('opacity', '0');
+      sessionStorage.removeItem('gif'+data_id[data_id.length-1]);
     }
+    $(this).css('display', 'none');
   });
 
 });
@@ -274,10 +291,16 @@ function drop(ev) {
   console.log(data);
   console.log(document.getElementById(data).src);
   //console.log(ev.target.id);
+
   if (document.getElementById(data).src.includes('.gif') && ev.target.id.includes('Gif')) {
-    ev.target.src = document.getElementById(data).src;
-    ev.target.style.width = 'auto';
+    //ev.target.src = document.getElementById(data).src;
+    console.log(ev.target.src);
+    console.log(ev.target.id);
     sessionStorage.setItem('gif'+ev.target.id[ev.target.id.length-1], document.getElementById(data).src);
+    $('#selectedGif'+ev.target.id[ev.target.id.length-1]).attr('src', document.getElementById(data).src);
+    $('#selectedGif'+ev.target.id[ev.target.id.length-1]).css('opacity', '1');
+    $('#selectedGif'+ev.target.id[ev.target.id.length-1]).css('width', 'auto');
+    $('button[data-id="Gif'+ev.target.id[ev.target.id.length-1]+'"]').css('display', 'block');
   }
   else if (document.getElementById(data).src.includes('.wav') && ev.target.id.includes('Sound')) {
     urlPieces = document.getElementById(data).src.split('/');
@@ -287,6 +310,7 @@ function drop(ev) {
     var soundNameToShow = urlPieces[urlPieces.length-2] + '/' + urlPieces[urlPieces.length-1].split('?')[0];
     ev.target.firstElementChild.innerHTML = (soundNameToShow.length > 20) ? soundNameToShow.substring(0,17)+'...' : soundNameToShow;
     sessionStorage.setItem('sound'+ev.target.id[ev.target.id.length-1], document.getElementById(data).src);
+    $('button[data-id="Sound'+ev.target.id[ev.target.id.length-1]+'"]').css('display', 'block');
     //console.log("here");
   }
   /*if (('#chosenGif1').html() != '') {

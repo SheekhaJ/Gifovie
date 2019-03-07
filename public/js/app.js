@@ -330,8 +330,8 @@ function drop(ev) {
     $('button[data-id="Sound'+ev.target.id[ev.target.id.length-1]+'"]').css('display', 'block');
 
     sessionStorage.setItem('sound'+ev.target.id[ev.target.id.length-1], soundNameToShow);
-    ev.target.parentNode.children[1].href = url;
-    console.log('new element: '+ev.target.parentNode.children[1].href);
+    $('a[id="selectedSoundA'+ev.target.id[ev.target.id.length-1]+'"]').attr('href', url);
+    console.log('new element: '+ev.target.parentNode.lastChild.href);
   }
   console.log('sessionStorage: '+typeof(sessionStorage));
 }

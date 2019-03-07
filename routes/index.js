@@ -36,7 +36,6 @@ module.exports = function (app) {
                     var element = data.Contents[i];
                     var name = element.Key
                     if (name.includes('wav')) {
-                        // console.log('key is ' + name);
                         var url = s3.getSignedUrl('getObject', {
                             Bucket: data.Name,
                             Key: name
@@ -61,6 +60,13 @@ module.exports = function (app) {
     });
 
     app.get('/reviewGIFovie', function (req, res) {
+        var gifurls = req.cookies['gifURLs'].split("_");
+        // console.log("gif1: "+gifurls[0]);
+        // console.log("gif2: "+gifurls[1]);
+        // console.log("gif3: "+gifurls[2]);
+        // console.log("gif4: "+gifurls[3]);
+        console.log("gifURLs: "+req.cookies['gifURLs']);
+        console.log("soundURLs: "+req.cookies['soundURLs']);
         res.render('pages/reviewGIFovie');
     });
 };

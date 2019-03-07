@@ -112,18 +112,23 @@ $(document).ready(function () {
     sessionStorage.setItem('sound2', $('#selectedSound2'.html()));
     sessionStorage.setItem('sound3', $('#selectedSound3'.html()));
     sessionStorage.setItem('sound4', $('#selectedSound4'.html()));*/
+      
+      var gif1 = document.getElementById('selectedGif1').src == "http://localhost:3000/addSounds#" ? null : document.getElementById('selectedGif1').src;
+      var gif2 = document.getElementById('selectedGif2').src == "http://localhost:3000/addSounds#" ? null : document.getElementById('selectedGif2').src;
+      var gif3 = document.getElementById('selectedGif3').src == "http://localhost:3000/addSounds#" ? null : document.getElementById('selectedGif3').src;
+      var gif4 = document.getElementById('selectedGif4').src == "http://localhost:3000/addSounds#" ? null : document.getElementById('selectedGif4').src;
 
-    var selectedGIFURLs = document.getElementById('selectedGif1').src+";"
-      +document.getElementById('selectedGif2').src+";"
-      +document.getElementById('selectedGif3').src+";"
-      +document.getElementById('selectedGif4').src+";";
-    console.log('selectedGIFs: '+selectedGIFURLs);
-    // var gif1 = document.getElementById('selectedGif1').src
-    document.cookie = selectedGIFURLs;
+      var selectedGIFURLs = gif1+"_"+gif2+"_"+gif3+"_"+gif4;
+      console.log('selectedGIFs: '+"gifURLs="+selectedGIFURLs);
 
-    var selectedSoundURLs = document.getElementById('selectedGif1').src+";"
+      var sound1 = document.getElementById('selectedSoundA1').href ? null : document.getElementById('selectedSoundA1').href;
+      console.log('first selected sound: '+sound1);
+      var selectedSoundURLs = sound1;
+      
+      document.cookie = "gifURLs="+selectedGIFURLs;
+      document.cookie = "soundURLs="+sound1;
 
-    location = '/reviewGIFovie';
+      location = '/reviewGIFovie';
   });
   $('#backToAddGifBtn').click(function () {
     location = '/addGIFs';
@@ -270,7 +275,7 @@ function drag(ev) {
 }
 
 function drop(ev) {
-  // console.log("dropped!");
+  console.log("in drop!");
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
   console.log('Selected element identifier is '+data);
@@ -284,23 +289,21 @@ function drop(ev) {
     sessionStorage.setItem('gif'+ev.target.id[ev.target.id.length-1], document.getElementById(data).src);
   }
   else if (document.getElementById(data).src.includes('.wav') && ev.target.id.includes('Sound')) {
+    console.log('inside second block!');
     var url = document.getElementById(data).src;
-    document.getElementById(ev.target.id).value = url;
     urlPieces = url.split('/');
     
     var category = urlPieces[4];
     var soundNameToShow = url.substring(url.indexOf(category)+category.length+1,url.indexOf("?"));
     soundNameToShow = soundNameToShow.includes(".wav") ? soundNameToShow.replace(".wav","") : soundNameToShow;
     
-    ev.target.firstElementChild.innerHTML = (soundNameToShow.length > 20) ? soundNameToShow.substring(0,17)+'...' : soundNameToShow;
-    sessionStorage.setItem('sound'+ev.target.id[ev.target.id.length-1], document.getElementById(data).src);
-    
-    document.getElementById(ev.target.id).children[2].src = url;
-    console.log('new element: '+document.getElementById(ev.target.id).children[2].src);
+    ev.target.innerHTML = (soundNameToShow.length > 20) ? soundNameToShow.substring(0,17)+'...' : soundNameToShow;
+    sessionStorage.setItem('sound'+ev.target.id[ev.target.id.length-1], soundNameToShow);
+  
+    ev.target.parentNode. children[2].href = url;
+    console.log('new element: '+ev.target.parentNode. children[2].href);
   }
-  /*if (('#chosenGif1').html() != '') {
-
-  }*/
+  console.log('sessionStorage: '+typeof(sessionStorage));
 }
 
 function submitGifovieForm(){

@@ -74,6 +74,10 @@ $(document).ready(function () {
     $('#selectedSound4').html((soundNameToShow.length > 20) ? soundNameToShow.substring(0,17)+'...' : soundNameToShow);
     $('button[data-id="Sound4"]').css('display', 'block');
   }
+  if (sessionStorage.getItem('fullURLSound1') != null) $('#selectedSoundA1').attr('href', sessionStorage.getItem('fullURLSound1'));
+  if (sessionStorage.getItem('fullURLSound2') != null) $('#selectedSoundA2').attr('href', sessionStorage.getItem('fullURLSound2'));
+  if (sessionStorage.getItem('fullURLSound3') != null) $('#selectedSoundA3').attr('href', sessionStorage.getItem('fullURLSound3'));
+  if (sessionStorage.getItem('fullURLSound4') != null) $('#selectedSoundA4').attr('href', sessionStorage.getItem('fullURLSound4'));
 
   $('#getStartedBtn').click(function () {
     location = '/addGIFs';
@@ -332,6 +336,7 @@ function drop(ev) {
     sessionStorage.setItem('sound'+ev.target.id[ev.target.id.length-1], soundNameToShow);
     $('a[id="selectedSoundA'+ev.target.id[ev.target.id.length-1]+'"]').attr('href', url);
     console.log('new element: '+$('a[id="selectedSoundA'+ev.target.id[ev.target.id.length-1]+'"]').attr('href'));
+    sessionStorage.setItem('fullURLSound'+ev.target.id[ev.target.id.length-1], url);
   }
   console.log('sessionStorage: '+typeof(sessionStorage));
 }

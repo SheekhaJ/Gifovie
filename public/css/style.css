@@ -226,9 +226,10 @@ body {
   text-overflow: ellipsis;
   color: white;
   overflow: hidden;
-  padding: 0.5vw;
   margin: 0 auto;
   position: relative;
+  display: flex;
+  flex-direction: row;
   border: solid grey 1px;
 }
 
@@ -283,6 +284,14 @@ body {
   padding: 0.5vw;
   margin: 0 auto;
   position: relative;
+  vertical-align: middle;
+}
+
+#selectedSound1, #selectedSound2, #selectedSound3, #selectedSound4 {
+  height: 3vw;
+  width: 14vw;
+  font-size: 1vw;
+  padding: 0.7vw;
   vertical-align: middle;
 }
 

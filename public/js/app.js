@@ -49,28 +49,28 @@ $(document).ready(function () {
   if (sessionStorage.getItem('sound1') != null) {
     var url = sessionStorage.getItem('sound1');
     var urlPieces = url.split('/');
-    var soundNameToShow = urlPieces[urlPieces.length-2] + '/' + urlPieces[urlPieces.length-1].split('?')[0];
+    var soundNameToShow = urlPieces[urlPieces.length-1].split('?')[0];
     $('#selectedSound1').html((soundNameToShow.length > 20) ? soundNameToShow.substring(0,17)+'...' : soundNameToShow);
     $('button[data-id="Sound1"]').css('display', 'block');
   }
   if (sessionStorage.getItem('sound2') != null) {
     var url = sessionStorage.getItem('sound2');
     var urlPieces = url.split('/');
-    var soundNameToShow = urlPieces[urlPieces.length-2] + '/' + urlPieces[urlPieces.length-1].split('?')[0];
+    var soundNameToShow = urlPieces[urlPieces.length-1].split('?')[0];
     $('#selectedSound2').html((soundNameToShow.length > 20) ? soundNameToShow.substring(0,17)+'...' : soundNameToShow);
     $('button[data-id="Sound2"]').css('display', 'block');
   }
   if (sessionStorage.getItem('sound3') != null) {
     var url = sessionStorage.getItem('sound3');
     var urlPieces = url.split('/');
-    var soundNameToShow = urlPieces[urlPieces.length-2] + '/' + urlPieces[urlPieces.length-1].split('?')[0];
+    var soundNameToShow = urlPieces[urlPieces.length-1].split('?')[0];
     $('#selectedSound3').html((soundNameToShow.length > 20) ? soundNameToShow.substring(0,17)+'...' : soundNameToShow);
     $('button[data-id="Sound3"]').css('display', 'block');
   }
   if (sessionStorage.getItem('sound4') != null) {
     var url = sessionStorage.getItem('sound4');
     var urlPieces = url.split('/');
-    var soundNameToShow = urlPieces[urlPieces.length-2] + '/' + urlPieces[urlPieces.length-1].split('?')[0];
+    var soundNameToShow = urlPieces[urlPieces.length-1].split('?')[0];
     $('#selectedSound4').html((soundNameToShow.length > 20) ? soundNameToShow.substring(0,17)+'...' : soundNameToShow);
     $('button[data-id="Sound4"]').css('display', 'block');
   }
@@ -128,7 +128,7 @@ $(document).ready(function () {
     sessionStorage.setItem('sound2', $('#selectedSound2'.html()));
     sessionStorage.setItem('sound3', $('#selectedSound3'.html()));
     sessionStorage.setItem('sound4', $('#selectedSound4'.html()));*/
-      
+
       var gif1 = document.getElementById('selectedGif1').src == "http://localhost:3000/addSounds#" ? null : document.getElementById('selectedGif1').src;
       var gif2 = document.getElementById('selectedGif2').src == "http://localhost:3000/addSounds#" ? null : document.getElementById('selectedGif2').src;
       var gif3 = document.getElementById('selectedGif3').src == "http://localhost:3000/addSounds#" ? null : document.getElementById('selectedGif3').src;
@@ -140,7 +140,7 @@ $(document).ready(function () {
       var sound1 = document.getElementById('selectedSoundA1').href ? null : document.getElementById('selectedSoundA1').href;
       console.log('first selected sound: '+sound1);
       var selectedSoundURLs = sound1;
-      
+
       document.cookie = "gifURLs="+selectedGIFURLs;
       document.cookie = "soundURLs="+sound1;
 
@@ -319,16 +319,19 @@ function drop(ev) {
     console.log('inside second block!');
     var url = document.getElementById(data).src;
     urlPieces = url.split('/');
-    
+
     var category = urlPieces[4];
     var soundNameToShow = url.substring(url.indexOf(category)+category.length+1,url.indexOf("?"));
     soundNameToShow = soundNameToShow.includes(".wav") ? soundNameToShow.replace(".wav","") : soundNameToShow;
-    
+
     ev.target.innerHTML = (soundNameToShow.length > 20) ? soundNameToShow.substring(0,17)+'...' : soundNameToShow;
+    console.log(ev.target.id[ev.target.id.length-1]);
+    console.log($('button[data-id="Sound'+ev.target.id[ev.target.id.length-1]+'"]').css('display'));
+    $('button[data-id="Sound'+ev.target.id[ev.target.id.length-1]+'"]').css('display', 'block');
+
     sessionStorage.setItem('sound'+ev.target.id[ev.target.id.length-1], soundNameToShow);
-  
-    ev.target.parentNode. children[2].href = url;
-    console.log('new element: '+ev.target.parentNode. children[2].href);
+    ev.target.parentNode.children[1].href = url;
+    console.log('new element: '+ev.target.parentNode.children[1].href);
   }
   console.log('sessionStorage: '+typeof(sessionStorage));
 }

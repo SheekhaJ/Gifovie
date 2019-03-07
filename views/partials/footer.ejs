@@ -2,12 +2,32 @@
   <div class="progress" id="progressBar">
     <!-- FIXED PROGRESS BAR GOES HERE -->
     <div class="chosen-gifs" id="chosenGifs">
-      <small id="chosenGifsTitle">Drag and drop GIFs here.</small><br />
+      <small id="chosenGifsTitle">Drag and drop GIFs into the top row.</small><br />
       <div id="chosenGifsArea">
-        <img class="selected-gif" id="selectedGif1" ondrop="drop(event)" ondragover="allowDrop(event)" src="#" alt=""></img>
-        <img class="selected-gif" id="selectedGif2" ondrop="drop(event)" ondragover="allowDrop(event)" src="#" alt=""></img>
-        <img class="selected-gif" id="selectedGif3" ondrop="drop(event)" ondragover="allowDrop(event)" src="#" alt=""></img>
-        <img class="selected-gif" id="selectedGif4" ondrop="drop(event)" ondragover="allowDrop(event)" src="#" alt=""></img>
+        <div class="chosen-gif-area" id="selectedGifArea1" ondrop="drop(event)" ondragover="allowDrop(event)">
+          <img class="selected-gif" id="selectedGif1" src="#" alt=""></img>
+          <button type="button" class="close" aria-label="Close" data-id="Gif1" style="filter: invert(1); top: 0.5vw; right: 0.5vw; position: absolute">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="chosen-gif-area" ondrop="drop(event)" ondragover="allowDrop(event)">
+          <img class="selected-gif" id="selectedGif2" src="#" alt=""></img>
+          <button type="button" class="close" aria-label="Close" data-id="Gif2" style="filter: invert(1); top: 0.5vw; right: 0.5vw; position: absolute">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="chosen-gif-area" ondrop="drop(event)" ondragover="allowDrop(event)">
+          <img class="selected-gif" id="selectedGif3" src="#" alt=""></img>
+          <button type="button" class="close" aria-label="Close" data-id="Gif3" style="filter: invert(1); top: 0.5vw; right: 0.5vw; position: absolute">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="chosen-gif-area" ondrop="drop(event)" ondragover="allowDrop(event)">
+          <img class="selected-gif" id="selectedGif4" src="#" alt=""></img>
+          <button type="button" class="close" aria-label="Close" data-id="Gif4" style="filter: invert(1); top: 0.5vw; right: 0.5vw; position: absolute">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
       </div>
       <div id="chosenSoundsArea">
         <div class="selected-sound" id="selectedSoundArea1" ondrop="drop(event)" ondragover="allowDrop(event)">
@@ -39,6 +59,6 @@
           <a id='selectedSoundA4' hidden></a>
         </div>
       </div>
-      <small id="chosenSoundsTitle">Drag and drop sounds here.</small>
+      <small id="chosenSoundsTitle">Drag and drop sounds into the bottom row.</small>
     </div>
   </div>

@@ -331,7 +331,7 @@ function drop(ev) {
 
     sessionStorage.setItem('sound'+ev.target.id[ev.target.id.length-1], soundNameToShow);
     $('a[id="selectedSoundA'+ev.target.id[ev.target.id.length-1]+'"]').attr('href', url);
-    console.log('new element: '+ev.target.parentNode.lastChild.href);
+    console.log('new element: '+$('a[id="selectedSoundA'+ev.target.id[ev.target.id.length-1]+'"]').attr('href'));
   }
   console.log('sessionStorage: '+typeof(sessionStorage));
 }

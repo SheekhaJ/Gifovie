@@ -139,14 +139,23 @@ $(document).ready(function () {
       var gif4 = document.getElementById('selectedGif4').src == "http://localhost:3000/addSounds#" ? null : document.getElementById('selectedGif4').src;
 
       var selectedGIFURLs = gif1+"_"+gif2+"_"+gif3+"_"+gif4;
-      console.log('selectedGIFs: '+"gifURLs="+selectedGIFURLs);
+      console.log("selectedGIFs:= "+selectedGIFURLs);
 
-      var sound1 = document.getElementById('selectedSoundA1').href ? null : document.getElementById('selectedSoundA1').href;
-      console.log('first selected sound: '+sound1);
-      var selectedSoundURLs = sound1;
-
+      // var sound1 = document.getElementById('selectedSoundA1').href != null ? null : document.getElementById('selectedSoundA1').href;
+      var sound1 = document.getElementById('selectedSoundA1').href != "" ? document.getElementById('selectedSoundA1').href : null;
+      var sound2 = document.getElementById('selectedSoundA2').href != "" ? document.getElementById('selectedSoundA2').href : null;
+      var sound3 = document.getElementById('selectedSoundA3').href != "" ? document.getElementById('selectedSoundA3').href : null;
+      var sound4 = document.getElementById('selectedSoundA4').href != "" ? document.getElementById('selectedSoundA4').href : null;
+      
+      var selectedSoundURLs = sound1+"_"+sound2+"_"+sound3+"_"+sound4;
+      console.log('Sound1: '+sound1);
+      console.log('Sound2: '+sound2);
+      console.log('Sound3: '+sound3);
+      console.log('Sound4: '+sound4);
+      console.log("selectedSounds:= "+selectedSoundURLs);
+      
       document.cookie = "gifURLs="+selectedGIFURLs;
-      document.cookie = "soundURLs="+sound1;
+      document.cookie = "soundURLs="+selectedSoundURLs;
 
       location = '/reviewGIFovie';
   });

@@ -4,6 +4,8 @@ const ffmpeg = require('fluent-ffmpeg');
 const fs = require('fs');
 const https = require('https');
 const path = require('path');
+const url = require('url');
+const exec = require('child_process').exec;
 
 module.exports = function (app) {
 
@@ -84,13 +86,14 @@ module.exports = function (app) {
         var file = fs.createWriteStream(dest);
         var request = https.get(url, function(response){
             response.pipe(file);
-            file.on('finish', function(){
+            file.on('close', function(){
                 file.close(callback);
             });
         }).on('error', function(err){
             fs.unlink(dest);
-            if(callback)
-                callback(err.message);
+            console.log('error while downloading sound is '+err);
+            // if(callback)
+            //     callback(err.message);
         });
     }
 
@@ -158,13 +161,15 @@ module.exports = function (app) {
 
         function mergeGIFAndSoundFiles(gifovieMap){
             return new Promise(function(resolve, reject){
-                var mp4Exists = [];
                 gifovieMap.forEach(function(value, key){
-                        console.log('gif url is '+(value[0].includes("tenor") && value[0].includes(".gif") ? value[0] : null));
-                        console.log('sound url is '+(value[1].includes("s3") && value[1].includes(".wav") ? value[1] : null));
+                    var gifURL = (value[0].includes("tenor") && value[0].includes(".gif") ? value[0] : null);
+                    var soundURL = (value[1].includes("s3") && value[1].includes(".wav") ? value[1] : null);
+                        console.log('gif url is '+gifURL);
+                        console.log('sound url is '+soundURL);
                         
-                        var s = sound(value[1], key+'.wav', soundDownloaded);
-            
+                        var s = sound(soundURL, key+'.wav', soundDownloaded);
+                        var soundFileName = key + '.wav';
+
                         ffmpeg()
                         .on('start', function(){
                             console.log("ffmpeg spawned!");
@@ -172,62 +177,35 @@ module.exports = function (app) {
                         .addInput(value[0].includes("tenor") && value[0].includes(".gif") ? value[0] : null)
                         // .addInput(value[1].includes("s3") && value[1].includes(".wav") ? value[1] : null)
                         // .addInput('car-horn.wav')
-                        .addInput(key+'.wav')
+                        .addInput(soundFileName)
                         .on('progress', function(progress){
                             console.log("processing!");
                         })
                         .on('end', function(){
                             console.log("merge process with ffmpeg ended!")
+                            fs.unlink(soundFileName);
                         })
                         .duration(3)
                         .saveToFile(key+'.mp4', function(stdout, stderr){
                             console.log("File combined and saved successfully!");
-                            mp4Exists.push(key+'.mp4');
                         });
                     });
-
-                mp4Exists.forEach(function(value, key){
-                    if(fs.exists(value))
-                        resolve(value+' has been created!');
-                    else
-                        reject('merging gif with sound failed for '+key);
-                });
             });
         }
 
         mergeGIFAndSoundFiles(gifovieMap)
-        .then(function(){
+        .then(function(value){
+            console.log("inside then after promise ended! value is "+value);
+            gifovieMap.forEach(function(value, key){
+                if(fs.exists(key+'.mp4'))
+                    console.log(key+'.mp4 has been created!');
+                else
+                    console.log('merging gif with sound failed for '+key);
+            });
             console.log("Called after promise!");
         }).catch(function(err){
             console.log("Catching error! Error: "+err);
-        })
-
-        // gifovieMap.forEach(function(value, key){
-        //     // console.log('key is '+key+' value is '+value);
-        //     console.log('gif url is '+(value[0].includes("tenor") && value[0].includes(".gif") ? value[0] : null));
-        //     console.log('sound url is '+(value[1].includes("s3") && value[1].includes(".wav") ? value[1] : null));
-            
-        //     var s = sound(value[1], key+'.wav', soundDownloaded);
-
-        //     ffmpeg()
-        //     .on('start', function(){
-        //         console.log("ffmpeg spawned!");
-        //     })
-        //     .addInput(value[0].includes("tenor") && value[0].includes(".gif") ? value[0] : null)
-        //     // .addInput(value[1].includes("s3") && value[1].includes(".wav") ? value[1] : null)
-        //     // .addInput('car-horn.wav')
-        //     .addInput(key+'.wav')
-        //     .on('progress', function(progress){
-        //         console.log("processing!");
-        //     })
-        //     .on('end', function(){
-        //         console.log("merge process with ffmpeg ended!")
-        //     })
-        //     .duration(3)
-        //     .saveToFile(key+'.mp4', function(stdout, stderr){
-        //         console.log("File combined and saved successfully!");
-        //     });
-        // });
+        }).finally();
 
         console.log("Entering gifovie combine phase!");
 

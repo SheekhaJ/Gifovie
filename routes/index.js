@@ -7,6 +7,8 @@ const path = require('path');
 const url = require('url');
 const exec = require('child_process').exec;
 
+var gifovieList = [];
+
 module.exports = function (app) {
 
     aws.config.credentials = credentials;
@@ -84,7 +86,7 @@ module.exports = function (app) {
 
     var getRandomSound = function(){
         const randomSoundDirectory = path.resolve(__dirname+"\\..\\sounds\\random\\");
-    
+
         var numberOfFiles = fs.readdirSync(randomSoundDirectory).length;
         console.log("Random sound file: "+randomSoundDirectory+fs.readdirSync(randomSoundDirectory)[Math.floor(Math.random() * Math.floor(numberOfFiles))]);
         return randomSoundDirectory+fs.readdirSync(randomSoundDirectory)[Math.floor(Math.random() * Math.floor(numberOfFiles))];

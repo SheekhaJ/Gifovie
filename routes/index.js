@@ -82,32 +82,32 @@ module.exports = function (app) {
         });
     });
 
+    var getRandomSound = function(){
+        const path = "./sounds/random/";
+    
+        var numberOfFiles = fs.readdirSync(path).length;
+        console.log("Random sound file: "+path+fs.readdirSync(path)[Math.floor(Math.random() * Math.floor(numberOfFiles))]);
+        return path+fs.readdirSync(path)[Math.floor(Math.random() * Math.floor(numberOfFiles))];
+    }
+
     var sound = function (url, dest, callback) {
         var file = fs.createWriteStream(dest);
         var request = https.get(url, function (response) {
             response.pipe(file);
-            file.on('end', function () {
-                file.close(callback);
-            });
-            setTimeout(() => { console.log('sleep callback') }, 2000);
+            // file.on('end', function () {
+            //     file.close(callback);
+            // });
+            setTimeout(() => {
+                file.on('end', function () {
+                    file.close(callback);
+                });
+                console.log('sleep callback while downloading sound!')
+            }, 2000);
         }).on('error', function (err) {
             file.unlink(dest);
             console.log('error while downloading sound is ' + err);
         });
     }
-
-    // var sound = function(key){
-    //     var params = {
-    //         Bucket: 'gifovie-bucket',
-    //         Key : 'sounds/birds/Canary.wav'
-    //     }
-
-    //     s3.getObject(params, function (err, data){
-    //         if(err) console.log('error while downloading sound from S3. err: '+err);
-    //         fs.writeFileSync(__dirname+'..\\..\\.wav', data.Body.toString());
-    //         console.log('file has been created');
-    //     });
-    // };
 
     var soundDownloaded = function () {
         console.log('sound has been downloaded and callback function has been called.');
@@ -126,7 +126,6 @@ module.exports = function (app) {
             if (value != 'null' && soundurls[index] != 'null')
                 gifovieMap.set('gifovie' + index, [gifurls[index], soundurls[index]]);
             else if (value != 'null' && soundurls[index] == 'null') {
-                // console.log("gifurl!=null but no sound has been selected! ")
                 var category = "random";
                 var soundsArray = [];
                 s3.listObjectsV2({
@@ -191,17 +190,16 @@ module.exports = function (app) {
                         .on('error', function (err) {
                             console.error('error while combining gif with sound! ' + err);
 
-                            s = sound(soundURL, key + '.wav', soundDownloaded);
-
+                            var randomSound = getRandomSound();
                             ffmpeg()
                                 .on('start', function () {
                                     console.log('trying to merge after downloading the sound again!');
                                 })
                                 .addInput(gifURL)
-                                .addInput(soundURL)
+                                .addInput(randomSound)
                                 .on('end', function () {
                                     console.log("merge process with ffmpeg ended!");
-                                    fs.unlink(soundFileName, function (err) {
+                                    fs.unlinkSync(soundFileName, function (err) {
                                         if (err) console.log('In deleting file err ' + err);
                                         else console.log('file deleted successfully!');
                                     });
@@ -213,7 +211,7 @@ module.exports = function (app) {
                         })
                         .on('end', function () {
                             console.log("merge process with ffmpeg ended!");
-                            fs.unlink(soundFileName, function (err) {
+                            fs.unlinkSync(soundFileName, function (err) {
                                 if (err) console.log('In deleting file err ' + err);
                                 else console.log('file deleted successfully!');
                             });
@@ -226,28 +224,32 @@ module.exports = function (app) {
         }
 
         mergeGIFAndSoundFiles(gifovieMap)
-        .then(function (value) {
-            console.log("inside then after promise ended! value is " + value);
-            gifovieMap.forEach(function (value, key) {
-                if (fs.exists(key + '.mp4'))
-                    console.log(key + '.mp4 has been created!');
-                else
-                    console.log('merging gif with sound failed for ' + key);
+            .then(function (value) {
+                console.log("inside then after promise ended! value is " + value);
+                gifovieMap.forEach(function (value, key) {
+                    fs.accessSync(key + '.mp4', fs.R_OK, function (err) {
+                        console.log(key + '.mp4 has been created!');
+                    });
+                });
+                console.log("Called after promise!");
+            })
+            .then(mergeMP4Files)
+            .catch(function (err) {
+                console.log("Catching error! Error: " + err);
+            }).finally(function () {
+                console.log("In finally at end of promise!");
+                // gifovieMap.forEach(function (value, key) {
+                //     // setTimeout(() => { console.log('sleep callback') }, 2000);
+                //     fs.access(key + '.mp4', fs.R_OK, function (err) {
+                //         console.log("Deleting " + key + ".mp4 file!");
+                //         fs.unlink(key + '.mp4', function (err) {
+                //             console.log('error while deleting ' + key + '.mp4. Err: ' + err);
+                //         });
+                //     });
+                // });
             });
-            console.log("Called after promise!");
-        })
-        .then(mergeMP4Files)
-        .catch(function (err) {
-            console.log("Catching error! Error: " + err);
-        }).finally(function () {
-            console.log("In finally at end of promise!");
-            gifovieMap.forEach(function(value, key){
-                if(fs.exists(key+'.mp4'))
-                    fs.unlink(key+'.mp4');
-            });
-        });
 
-        var mergeMP4Files = function(){
+        var mergeMP4Files = function () {
             console.log("Entering gifovie combine phase!");
 
             var fileList = [];
@@ -268,17 +270,17 @@ module.exports = function (app) {
             fs.writeFileSync(listFileNames, fileNames);
 
             ffmpeg()
-                .on('start', function(){
-                    console.log('in ffmpeg combine phase! listFileNames: '+listFileNames);
-                    fs.readFile(listFileNames, function(err, data){
-                        console.log("content from list.txt is "+data);
+                .on('start', function () {
+                    console.log('in ffmpeg combine phase! listFileNames: ' + listFileNames);
+                    fs.readFileSync(listFileNames, function (err, data) {
+                        console.log("content from list.txt is " + data);
                     });
                 })
                 .input('list.txt')
                 .inputOptions(['-f concat', '-safe 0'])
                 .outputOptions('-c copy')
                 .save('gifovie.mp4');
-        }        
+        }
 
         res.render('pages/reviewGIFovie');
     });

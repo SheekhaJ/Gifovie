@@ -203,6 +203,7 @@ module.exports = function (app) {
                                         if (err) console.log('In deleting file err ' + err);
                                         else console.log('file deleted successfully!');
                                     });
+                                    resolve(key + '.mp4');
                                 }).on('error', function () {
                                     reject("Could not download sound the second time!");
                                 })
@@ -226,11 +227,16 @@ module.exports = function (app) {
         mergeGIFAndSoundFiles(gifovieMap)
             .then(function (value) {
                 console.log("inside then after promise ended! value is " + value);
-                gifovieMap.forEach(function (value, key) {
-                    fs.accessSync(key + '.mp4', fs.R_OK, function (err) {
-                        console.log(key + '.mp4 has been created!');
-                    });
-                });
+                
+                setTimeout(() => {
+                    gifovieMap.forEach(function (value, key) {
+                        console.log("in foreach after resolve!");
+                        if (fs.existsSync(key + '.mp4')){
+                            console.log(key+".mp4 has been created!")
+                        }
+                    });        
+                }, 2000);
+
                 console.log("Called after promise!");
             })
             .then(mergeMP4Files)
@@ -238,15 +244,18 @@ module.exports = function (app) {
                 console.log("Catching error! Error: " + err);
             }).finally(function () {
                 console.log("In finally at end of promise!");
-                // gifovieMap.forEach(function (value, key) {
-                //     // setTimeout(() => { console.log('sleep callback') }, 2000);
-                //     fs.access(key + '.mp4', fs.R_OK, function (err) {
-                //         console.log("Deleting " + key + ".mp4 file!");
-                //         fs.unlink(key + '.mp4', function (err) {
-                //             console.log('error while deleting ' + key + '.mp4. Err: ' + err);
-                //         });
-                //     });
-                // });
+
+                var newPath = path.resolve(__dirname+"\\..\\public\\media\\");
+
+                setTimeout(() => {
+                    gifovieMap.forEach(function(value, key){
+                        fs.rename(key+".mp4", newPath+key+".mp4", function(err){
+                            // console.log("inside callback after rename!");
+                            console.log("files from new dir: "+newPath + " "+ fs.readdirSync(newPath, (err) => {console.log("error while checking if files are present in new location. err: "+err);}));
+                        })
+                    });
+                    
+                }, 1000);
             });
 
         var mergeMP4Files = function () {

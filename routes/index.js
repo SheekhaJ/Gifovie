@@ -83,11 +83,11 @@ module.exports = function (app) {
     });
 
     var getRandomSound = function(){
-        const path = "./sounds/random/";
+        const randomSoundDirectory = path.resolve(__dirname+"\\..\\sounds\\random\\");
     
-        var numberOfFiles = fs.readdirSync(path).length;
-        console.log("Random sound file: "+path+fs.readdirSync(path)[Math.floor(Math.random() * Math.floor(numberOfFiles))]);
-        return path+fs.readdirSync(path)[Math.floor(Math.random() * Math.floor(numberOfFiles))];
+        var numberOfFiles = fs.readdirSync(randomSoundDirectory).length;
+        console.log("Random sound file: "+randomSoundDirectory+fs.readdirSync(randomSoundDirectory)[Math.floor(Math.random() * Math.floor(numberOfFiles))]);
+        return randomSoundDirectory+fs.readdirSync(randomSoundDirectory)[Math.floor(Math.random() * Math.floor(numberOfFiles))];
     }
 
     var sound = function (url, dest, callback) {

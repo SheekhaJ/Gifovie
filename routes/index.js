@@ -251,7 +251,8 @@ module.exports = function (app) {
 
                 setTimeout(() => {
                     gifovieMap.forEach(function(value, key){
-                        fs.rename(key+".mp4", newPath+key+".mp4", function(err){
+                        console.log("new path: "+newPath+"\\"+key+".mp4");
+                        fs.rename(key+".mp4", newPath+"\\"+key+".mp4", function(err){
                             // console.log("inside callback after rename!");
                             console.log("files from new dir: "+newPath + " "+ fs.readdirSync(newPath, (err) => {console.log("error while checking if files are present in new location. err: "+err);}));
                         })

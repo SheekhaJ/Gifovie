@@ -11,6 +11,11 @@ body {
   /*background-image: linear-gradient(to right, #ffad89, white);*/
 }
 
+a {
+  cursor: pointer;
+  color: white;
+}
+
 .backImg {
   background-image: linear-gradient(to right, #d73f09, yellow);
   opacity: 0.2;

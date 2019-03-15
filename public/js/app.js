@@ -17,6 +17,47 @@ $(document).ready(function () {
     var url = tenorBaseUrl+"/anonid?key=" + key;
     httpGetAsync(url,tenorCallback_anonid);
   }
+  if (location.pathname == '/reviewGIFovie') {
+    $('#download1Btn, #download2Btn, #download3Btn, #download4Btn').css('display', 'none');
+    setTimeout(function() {
+      $('#gifovieVideo1').attr('src', '/public/media/gifovie0.mp4');
+      $('#gifovieVideo2').attr('src', '/public/media/gifovie1.mp4');
+      $('#gifovieVideo3').attr('src', '/public/media/gifovie2.mp4');
+      $('#gifovieVideo4').attr('src', '/public/media/gifovie3.mp4');
+      console.log($('#gifovieVideo1').attr('src'));
+      console.log($('#gifovieVideo2').attr('src'));
+      console.log($('#gifovieVideo3').attr('src'));
+      console.log($('#gifovieVideo4').attr('src'));
+      $.get('/public/media/gifovie0.mp4', function(data, textStatus) {
+        if (textStatus == "success") {
+            // execute a success code
+            $('#loadingIndicator').css('display', 'none');
+            $('#download1Btn').css('display', 'inline-block');
+        }
+      });
+      $.get('/public/media/gifovie1.mp4', function(data, textStatus) {
+        if (textStatus == "success") {
+            // execute a success code
+            $('#loadingIndicator').css('display', 'none');
+            $('#download2Btn').css('display', 'inline-block');
+        }
+      });
+      $.get('/public/media/gifovie2.mp4', function(data, textStatus) {
+        if (textStatus == "success") {
+            // execute a success code
+            $('#loadingIndicator').css('display', 'none');
+            $('#download3Btn').css('display', 'inline-block');
+        }
+      });
+      $.get('/public/media/gifovie3.mp4', function(data, textStatus) {
+        if (textStatus == "success") {
+            // execute a success code
+            $('#loadingIndicator').css('display', 'none');
+            $('#download4Btn').css('display', 'inline-block');
+        }
+      });
+    }, 5000);
+  }
   $('.close').css('display', 'none');
   $('#selectedGif1').css('opacity', '0');
   $('#selectedGif2').css('opacity', '0');
@@ -146,14 +187,14 @@ $(document).ready(function () {
       var sound2 = document.getElementById('selectedSoundA2').href != "" ? document.getElementById('selectedSoundA2').href : null;
       var sound3 = document.getElementById('selectedSoundA3').href != "" ? document.getElementById('selectedSoundA3').href : null;
       var sound4 = document.getElementById('selectedSoundA4').href != "" ? document.getElementById('selectedSoundA4').href : null;
-      
+
       var selectedSoundURLs = sound1+"_"+sound2+"_"+sound3+"_"+sound4;
       console.log('Sound1: '+sound1);
       console.log('Sound2: '+sound2);
       console.log('Sound3: '+sound3);
       console.log('Sound4: '+sound4);
       console.log("selectedSounds:= "+selectedSoundURLs);
-      
+
       document.cookie = "gifURLs="+selectedGIFURLs;
       document.cookie = "soundURLs="+selectedSoundURLs;
 
@@ -163,12 +204,29 @@ $(document).ready(function () {
     location = '/addGIFs';
   });
 
-  $('#downloadBtn').click(function () {
-    /* Code to download GIFovie */
-    $('#downloadBtn').removeClass('btn-primary');
-    $('#downloadBtn').addClass('btn-success');
-    $('#downloadBtn').html('Downloaded!');
-    $('#downloadBtn').attr('disabled', 'disabled');
+  $('#download1Btn').click(function () {
+    $('#download1Btn').removeClass('btn-primary');
+    $('#download1Btn').addClass('btn-success');
+    $('#download1Btn').html('Downloaded!');
+    $('#download1Btn').attr('disabled', 'disabled');
+  });
+  $('#download2Btn').click(function () {
+    $('#download2Btn').removeClass('btn-primary');
+    $('#download2Btn').addClass('btn-success');
+    $('#download2Btn').html('Downloaded!');
+    $('#download2Btn').attr('disabled', 'disabled');
+  });
+  $('#download3Btn').click(function () {
+    $('#download3Btn').removeClass('btn-primary');
+    $('#download3Btn').addClass('btn-success');
+    $('#download3Btn').html('Downloaded!');
+    $('#download3Btn').attr('disabled', 'disabled');
+  });
+  $('#download4Btn').click(function () {
+    $('#download4Btn').removeClass('btn-primary');
+    $('#download4Btn').addClass('btn-success');
+    $('#download4Btn').html('Downloaded!');
+    $('#download4Btn').attr('disabled', 'disabled');
   });
   $('#backToAddSoundBtn').click(function () {
     location = '/addSounds';

@@ -4,24 +4,33 @@
 <body>
   <div class="review-section" id="reviewSection">
     <!-- REVIEW AND SHARE YOUR GIFOVIE -->
-    <h3 class="section-title">Review Your GIFovie</h3>
+    <h3 class="section-title">Review Your GIFovies</h3>
     <center>
       <div class="page-content review">
-        <video width="360" height="240" controls>
-          <source id="finalGIFovie1" type="video/mp4" src="localhost:3000/gifovie0.mp4">
+        1:
+        <video width="360" height="240" id="gifovieVideo1" controls>
+          <source id="finalGIFovie1" type="video/mp4">
         </video>
-        <video width="360" height="240" controls>
+        2:
+        <video width="360" height="240" id="gifovieVideo2" controls>
           <source id="finalGIFovie2" type="video/mp4">
         </video>
-        <video width="360" height="240" controls>
+        <br/>
+        3:
+        <video width="360" height="240" id="gifovieVideo3" controls>
           <source id="finalGIFovie3" type="video/mp4">
         </video>
-        <video width="360" height="240" controls>
+        4:
+        <video width="360" height="240" id="gifovieVideo4" controls>
           <source id="finalGIFovie4" type="video/mp4">
         </video>
         <div class="review-action">
-          <button class="btn btn-lg btn-secondary" id="backToAddSoundBtn">Back</button>
-          <button class="btn btn-lg btn-primary" id="downloadBtn">Download Your GIFovie</button>
+          <button class="btn btn-secondary" id="backToAddSoundBtn">Back</button>
+          <button class="btn btn-primary" id="loadingIndicator" disabled>Loading GIFovies...</button>
+          <button class="btn btn-primary" id="download1Btn"><a href="/public/media/gifovie0.mp4" download>Download GIFovie #1</a></button>
+          <button class="btn btn-primary" id="download2Btn"><a href="/public/media/gifovie1.mp4" download>Download GIFovie #2</a></button>
+          <button class="btn btn-primary" id="download3Btn"><a href="/public/media/gifovie2.mp4" download>Download GIFovie #3</a></button>
+          <button class="btn btn-primary" id="download4Btn"><a href="/public/media/gifovie3.mp4" download>Download GIFovie #4</a></button>
         </div>
       </div>
     </center>

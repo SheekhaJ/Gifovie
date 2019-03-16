@@ -56,7 +56,7 @@ $(document).ready(function () {
             $('#download4Btn').css('display', 'inline-block');
         }
       });
-    }, 5000);
+    }, 15000);
   }
   $('.close').css('display', 'none');
   $('#selectedGif1').css('opacity', '0');
